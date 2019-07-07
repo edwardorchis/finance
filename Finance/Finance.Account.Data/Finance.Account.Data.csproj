@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC2FD0CB-4D0E-43B3-A942-0727C2EC417D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Finance.Account.Data</RootNamespace>
+    <AssemblyName>Finance.Account.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\client\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\release\client\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheHashkey.cs" />
+    <Compile Include="CacheHashtable.cs" />
+    <Compile Include="DataExecuter.cs" />
+    <Compile Include="DataFactory.cs" />
+    <Compile Include="Executer\AccountBalanceExecuter.cs" />
+    <Compile Include="Executer\AccoutCtlExecuter.cs" />
+    <Compile Include="Executer\CashflowExecuter.cs" />
+    <Compile Include="Executer\TemplateExecuter.cs" />
+    <Compile Include="Executer\ProfitSheetExecuter.cs" />
+    <Compile Include="Executer\BalanceSheetExecuter.cs" />
+    <Compile Include="Executer\BeginBalanceExecuter.cs" />
+    <Compile Include="Executer\SerialNoExecuter.cs" />
+    <Compile Include="Executer\InterfaceExecuter.cs" />
+    <Compile Include="Executer\UdefReportExecuter.cs" />
+    <Compile Include="Executer\UserExecuter.cs" />
+    <Compile Include="FinanceAccountDataException.cs" />
+    <Compile Include="IAccountBalanceExecuter.cs" />
+    <Compile Include="IAccountSubjectExecuter.cs" />
+    <Compile Include="IAuxiliaryExecuter.cs" />
+    <Compile Include="IInterfaceExecuter.cs" />
+    <Compile Include="IAccoutCtlExecuter.cs" />
+    <Compile Include="IUdefReportExecuter.cs" />
+    <Compile Include="ICashflowExecuter.cs" />
+    <Compile Include="ITemplateExecuter.cs" />
+    <Compile Include="IProfitSheetExecuter.cs" />
+    <Compile Include="IBalanceSheetExecuter.cs" />
+    <Compile Include="IBeginBalanceExecuter.cs" />
+    <Compile Include="ISerialNoExecuter.cs" />
+    <Compile Include="ISystemProfileExecuter.cs" />
+    <Compile Include="IUserExecuter.cs" />
+    <Compile Include="IVoucherExecuter.cs" />
+    <Compile Include="Model\AccountBalanceDataPackage.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Executer\AccountSubjectExecuter.cs" />
+    <Compile Include="Executer\AuxiliaryExecuter.cs" />
+    <Compile Include="Executer\SystemProfileExecuter.cs" />
+    <Compile Include="Executer\VoucherExecuter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Finance.Account.SDK\Finance.Account.SDK.csproj">
+      <Project>{198228ef-8952-4d60-8a79-4714377ee1f6}</Project>
+      <Name>Finance.Account.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Utils\Finance.Utils.csproj">
+      <Project>{927C43EC-E776-4337-951B-803AD5867499}</Project>
+      <Name>Finance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

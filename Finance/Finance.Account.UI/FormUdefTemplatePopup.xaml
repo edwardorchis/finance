@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Finance.Account.UI.FormUdefTemplatePopup"
+        mc:Ignorable="d"  x:Name="thisForm" Height="358.079" Width="672.603" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"  Topmost="True">
+    <Border BorderThickness="1,1,1,1" BorderBrush="Black">
+        <StackPanel>
+            <Canvas Height="30" Background="AliceBlue" MouseDown="Canvas_MouseDown">
+                <Button x:Name="close"  Height="19" Width="21" Canvas.Left="647" BorderThickness="0,0,0,0" Background="AliceBlue" Click="btn_Click" Canvas.Top="3">
+                    <Path Data="M50,25 L25,50 M25,25 50,50"  Stroke="Red" StrokeThickness="2" HorizontalAlignment="Right" Height="14" Stretch="Fill" Width="14.2"/>
+
+                </Button>
+
+            </Canvas>
+            <WrapPanel Height="50">
+                <Button x:Name="savenew"  Content="保存并新增" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60" Click="btn_Click"/>
+                <Button x:Name="save"  Content="保存" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60" Click="btn_Click"/>
+                <Button x:Name="exit"  Content="退出" Height="50" Canvas.Left="1026" Canvas.Top="170" Width="60" Click="btn_Click"/>
+            </WrapPanel>
+            <Canvas Height="277">
+                <Label Content="功能键值" Height="23" Canvas.Left="51" Canvas.Top="31" Width="69"/>
+                <TextBox x:Name="txtTableName" Height="23" Canvas.Left="152"  Text="{Binding tableName, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="31" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="字段键值" Height="23" Canvas.Left="340" Canvas.Top="31" Width="69"/>
+                <TextBox Height="23" Canvas.Left="441"  Text="{Binding name, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="31" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="显示名称" Height="23" Canvas.Left="51" Canvas.Top="70" Width="69"/>
+                <TextBox Height="23" Canvas.Left="152"  Text="{Binding label, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="70" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="数据类型" Height="23" Canvas.Left="340" Canvas.Top="70" Width="69"/>
+                <TextBox Height="23" Canvas.Left="441"  Text="{Binding dataType, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="70" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="序号" Height="23" Canvas.Left="51" Canvas.Top="109" Width="69"/>
+                <xctk:IntegerUpDown Height="23" Canvas.Left="152" Canvas.Top="109" Width="150" Value="{Binding tabIndex, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="默认值" Height="23" Canvas.Left="340" Canvas.Top="109" Width="69"/>
+                <TextBox x:Name="txtName_Copy1" Height="23" Canvas.Left="441"  Text="{Binding defaultVal, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="109" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="保留字段" Height="23" Canvas.Left="51" Canvas.Top="150" Width="69"/>
+                <TextBox Height="23" Canvas.Left="152"  Text="{Binding reserved, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="150" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="标签" Height="23" Canvas.Left="340" Canvas.Top="150" Width="69"/>
+                <TextBox Height="23" Canvas.Left="441"  Text="{Binding tagLabel, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="150" Width="150" VerticalContentAlignment="Center"/>
+                <Label Content="宽度" Height="23" Canvas.Left="51" Canvas.Top="188" Width="69"/>
+                <xctk:IntegerUpDown Height="23" Canvas.Left="152" Canvas.Top="188" Width="150" Value="{Binding xwidth, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}"/>
+            </Canvas>
+        </StackPanel>
+    </Border>
+</Window>

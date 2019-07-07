@@ -1,0 +1,57 @@
+﻿<f:FinanceForm
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:f="clr-namespace:Finance.UI;assembly=Finance.UI"
+             xmlns:local="clr-namespace:Finance.Account.UI"
+            x:Class="Finance.Account.UI.FormUdefReport"
+             x:Name="thisForm"
+             mc:Ignorable="d" Loaded="FinanceForm_Loaded">
+    <f:FinanceForm.Resources>
+        <local:HideZeroConverter x:Key="HideZeroConverter"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <!--拖动改变单元格大小-->
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <!--网格线颜色-->
+            <Setter Property="HorizontalGridLinesBrush" Value="LightBlue"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightBlue"/>
+        </Style>
+        <!--标题栏样式-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" >
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="lightBlue" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <!--行样式触发-->
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="Width" Value="0" />
+        </Style>
+        <DataTemplate  x:Key="NumberCellTemplate">
+            <TextBlock Text="{Binding StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right"/>
+        </DataTemplate>
+    </f:FinanceForm.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <!--<RowDefinition Height="30"/>-->
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Height="50">
+            <Button x:Name="query" Content="查询" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="export" Content="导出" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+        </WrapPanel>
+        <Canvas Grid.Row="1" Background="AliceBlue">
+            <TextBlock Text="{Binding xTitle, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Canvas.Left="0" Canvas.Top="7"/>
+        </Canvas>
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" x:Name="datagrid" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</f:FinanceForm>

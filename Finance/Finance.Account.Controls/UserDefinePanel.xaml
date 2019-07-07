@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="Finance.Account.Controls.UserDefinePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Finance.Account.Controls"
+             mc:Ignorable="d" Focusable="True" GotFocus="UserControl_GotFocus">
+    <WrapPanel Margin="0,0,0,0" x:Name="xPanel" Orientation="Horizontal">
+    </WrapPanel>
+</UserControl>

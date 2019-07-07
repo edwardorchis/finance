@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D457586-E017-454B-AF03-C90AC10139C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Finance.Account.UI</RootNamespace>
+    <AssemblyName>Finance.Account.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\client\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\release\client\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Arthas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fee4b65875c25912, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Arthas\Arthas.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FinanceAccountForm.cs" />
+    <Compile Include="FormCarriedForwardTemplate.xaml.cs">
+      <DependentUpon>FormCarriedForwardTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormAuxiliary.xaml.cs">
+      <DependentUpon>FormAuxiliary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormAuxiliaryPopup.xaml.cs">
+      <DependentUpon>FormAuxiliaryPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormCarriedForward.xaml.cs">
+      <DependentUpon>FormCarriedForward.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUdefTemplate.xaml.cs">
+      <DependentUpon>FormUdefTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUdefTemplatePopup.xaml.cs">
+      <DependentUpon>FormUdefTemplatePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUdefReportFilterPopup.xaml.cs">
+      <DependentUpon>FormUdefReportFilterPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUdefReport.xaml.cs">
+      <DependentUpon>FormUdefReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormMenuEdit.xaml.cs">
+      <DependentUpon>FormMenuEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormMenuEditPopup.xaml.cs">
+      <DependentUpon>FormMenuEditPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormInterface.xaml.cs">
+      <DependentUpon>FormInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormAccesRight.xaml.cs">
+      <DependentUpon>FormAccesRight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUserPopup.xaml.cs">
+      <DependentUpon>FormUserPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormUser.xaml.cs">
+      <DependentUpon>FormUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormAccountSubject.xaml.cs">
+      <DependentUpon>FormAccountSubject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridValueConverter.cs" />
+    <Page Include="FormCarriedForwardTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAuxiliary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAuxiliaryPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormCarriedForward.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUdefTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUdefTemplatePopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUdefReportFilterPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUdefReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormMenuEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormMenuEditPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAccesRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUserPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAccountSubject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAccountSubjectPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FormCashflowSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormProfitSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormBalanceSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormAccountBalance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormBeginBalance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormListFilterPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormVoucherUserDefinePopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormVoucherListFilterPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormVoucher.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="FormAccountSubjectPopup.xaml.cs">
+      <DependentUpon>FormAccountSubjectPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormCashflowSheet.xaml.cs">
+      <DependentUpon>FormCashflowSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormProfitSheet.xaml.cs">
+      <DependentUpon>FormProfitSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormBalanceSheet.xaml.cs">
+      <DependentUpon>FormBalanceSheet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormAccountBalance.xaml.cs">
+      <DependentUpon>FormAccountBalance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormBeginBalance.xaml.cs">
+      <DependentUpon>FormBeginBalance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormListFilterPopup.xaml.cs">
+      <DependentUpon>FormListFilterPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormVoucherUserDefinePopup.xaml.cs">
+      <DependentUpon>FormVoucherUserDefinePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormVoucherListFilterPopup.xaml.cs">
+      <DependentUpon>FormVoucherListFilterPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormVoucher.xaml.cs">
+      <DependentUpon>FormVoucher.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="FormVoucherList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormVoucherList.xaml.cs">
+      <DependentUpon>FormVoucherList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AccountBalanceItem.cs" />
+    <Compile Include="Model\BeginBalanceItem.cs" />
+    <Compile Include="Model\Constant.cs" />
+    <Compile Include="Model\FilterPopupEventArgs.cs" />
+    <Compile Include="Model\VoucherListItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Finance.Account.Controls\Finance.Account.Controls.csproj">
+      <Project>{690d465b-7c67-4fb2-812d-6ba0b4f45a9e}</Project>
+      <Name>Finance.Account.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Account.Data\Finance.Account.Data.csproj">
+      <Project>{cc2fd0cb-4d0e-43b3-a942-0727c2ec417d}</Project>
+      <Name>Finance.Account.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Account.SDK\Finance.Account.SDK.csproj">
+      <Project>{198228ef-8952-4d60-8a79-4714377ee1f6}</Project>
+      <Name>Finance.Account.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.UI\Finance.UI.csproj">
+      <Project>{9d39d70e-a188-496c-8d98-fd0320950ba0}</Project>
+      <Name>Finance.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Utils\Finance.Utils.csproj">
+      <Project>{927C43EC-E776-4337-951B-803AD5867499}</Project>
+      <Name>Finance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

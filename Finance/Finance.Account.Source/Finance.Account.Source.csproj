@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E908027D-8D41-4B61-B30A-CFD064A640B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Finance.Account.Source</RootNamespace>
+    <AssemblyName>Finance.Account.Source</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\server\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\release\server\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountCtlMain.cs" />
+    <Compile Include="DTL\CashflowSheetDTL.cs" />
+    <Compile Include="DTL\ProfitSheetDTL.cs" />
+    <Compile Include="DTL\BalanceSheetDTL.cs" />
+    <Compile Include="DTL\SystemProfileDTL.cs" />
+    <Compile Include="DTL\AuxiliaryDTL.Const.cs" />
+    <Compile Include="Generator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceMain.cs" />
+    <Compile Include="DTL\AccountSubjectDTL.cs" />
+    <Compile Include="DTL\AuxiliaryDTL.cs" />
+    <Compile Include="Struct\AccountBalance.cs" />
+    <Compile Include="Struct\AccountCtlData.cs" />
+    <Compile Include="Struct\AccountData.cs" />
+    <Compile Include="Struct\BaseData.cs" />
+    <Compile Include="Struct\ExcelTemplate.cs" />
+    <Compile Include="Struct\SerialNo.cs" />
+    <Compile Include="Struct\SystemData.cs" />
+    <Compile Include="Struct\UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBFiles\DBFiles.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2000_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2003_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2006_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2005_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2004_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\empty.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Script\2001_upgrade_01.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Finance.Account.SDK\Finance.Account.SDK.csproj">
+      <Project>{198228ef-8952-4d60-8a79-4714377ee1f6}</Project>
+      <Name>Finance.Account.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Account.Service\Finance.Account.Service.csproj">
+      <Project>{3cc7773f-8b31-4ead-b5d6-e525e9f60cea}</Project>
+      <Name>Finance.Account.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Finance.Utils\Finance.Utils.csproj">
+      <Project>{927c43ec-e776-4337-951b-803ad5867499}</Project>
+      <Name>Finance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BaseData\利润表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BaseData\现金流量表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BaseData\科目.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BaseData\系统参数.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BaseData\资产负债表.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BaseData\辅助资料.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

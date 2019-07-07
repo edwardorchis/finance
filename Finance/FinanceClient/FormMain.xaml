@@ -1,0 +1,64 @@
+﻿<Metro:MetroWindow x:Class="FinanceClient.FormMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinanceClient"
+        xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas"
+        mc:Ignorable="d" Width="1263.947" Height="700"
+        Title="{Binding Title}" MinWidth="1" MinHeight="1" BorderThickness="1" WindowStyle="None" WindowState="Maximized">
+
+    <Metro:MetroWindow.DataContext>
+        <local:FormMainVM/>
+    </Metro:MetroWindow.DataContext>
+    <Metro:MetroWindow.Menu>
+        <Metro:MetroTitleMenu>
+            <Metro:MetroTitleMenuItem Header="帮助" Click="help_Click"></Metro:MetroTitleMenuItem>
+            <Metro:MetroTitleMenuItem Header="主题颜色"  >
+                <WrapPanel Orientation="Horizontal">
+                    <Metro:MetroColorPicker x:Name="color1" Width="50" Height="50" Padding="5" Background="#0063B1" DefaultColor="#0063B1"/>
+                </WrapPanel>
+            </Metro:MetroTitleMenuItem>
+        </Metro:MetroTitleMenu>
+    </Metro:MetroWindow.Menu>
+    <Grid>
+        <Metro:MetroMenuTabControl x:Name="MainMenuTab" IconMode="True">
+            <Metro:MetroMenuTabItem Header="财务管理" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="160" Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Metro:MetroScrollViewer>
+                        <Border BorderBrush="#19000000" BorderThickness="0,0,1,0">
+                            <StackPanel x:Name="list_account">
+
+                            </StackPanel>
+                        </Border>
+                    </Metro:MetroScrollViewer>
+                    <Metro:MetroTabControl x:Name="tab_account" Grid.Column="1"  >
+
+                    </Metro:MetroTabControl>
+                </Grid>
+            </Metro:MetroMenuTabItem>
+            <Metro:MetroMenuTabItem Header="基础设置" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="160" Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Metro:MetroScrollViewer>
+                        <Border BorderBrush="#19000000" BorderThickness="0,0,1,0">
+                            <StackPanel x:Name="list_base_setting">
+                                
+                            </StackPanel>
+                        </Border>
+                    </Metro:MetroScrollViewer>
+                    <Metro:MetroTabControl x:Name="tab_base_setting" Grid.Column="1" >
+                        
+                    </Metro:MetroTabControl>
+                </Grid>
+            </Metro:MetroMenuTabItem>
+        </Metro:MetroMenuTabControl>
+    </Grid>
+</Metro:MetroWindow>

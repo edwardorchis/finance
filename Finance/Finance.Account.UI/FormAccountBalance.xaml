@@ -1,0 +1,202 @@
+﻿<f:FinanceForm
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:f="clr-namespace:Finance.UI;assembly=Finance.UI"
+             xmlns:local="clr-namespace:Finance.Account.UI"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas"
+    x:Class="Finance.Account.UI.FormAccountBalance"
+             mc:Ignorable="d" Loaded="FinanceForm_Loaded">
+    <f:FinanceForm.Resources>
+        <local:HideZeroConverter x:Key="HideZeroConverter"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <!--拖动改变单元格大小-->
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <!--网格线颜色-->
+            <Setter Property="HorizontalGridLinesBrush" Value="LightBlue"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightBlue"/>
+        </Style>
+        <!--标题栏样式-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" >
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="lightBlue" />
+            <Setter Property="Height" Value="60"/>
+        </Style>
+        <Style x:Key="AccountAmountItemStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="lightBlue" />
+            <Setter Property="SeparatorBrush" Value="#CCC" />
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid x:Name="Root">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="1" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <!--设置标题名称-->
+                                <ContentPresenter Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" />
+                                <!--设置间隔线-->
+                                <Rectangle Fill="#ccc" VerticalAlignment="Stretch" Height="1" Visibility="Visible" Grid.Row="1" Grid.ColumnSpan="3" />
+                                <ContentPresenter Content="借方" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Rectangle Fill="#ccc" VerticalAlignment="Stretch" Width="1" Visibility="Visible" Grid.Row="2" Grid.Column="1" />
+                                <ContentPresenter Content="贷方" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Grid>
+                            <Rectangle x:Name="VerticalSeparator" Fill="#ccc" VerticalAlignment="Stretch" Width="1" Visibility="Visible" Grid.Row="1" Grid.Column="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--行样式触发-->
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="Width" Value="0" />
+        </Style>
+        <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
+        <Style x:Key="totalRowStyle" TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+        <!--单元格样式触发-->
+        <!--
+        <Style TargetType="{x:Type DataGridCell}">
+            <Style.Triggers>
+                -->
+        <!--是否选中是触发-->
+        <!--
+                <Trigger Property="IsSelected"  Value="0.00">
+                   
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+
+    </f:FinanceForm.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Height="50">
+            <Button x:Name="query" Content="查询" Height="50" Width="60" Click="btn_Click"/>
+            <Button x:Name="refresh" Content="刷新" Height="50"  Width="64" Click="btn_Click"/>
+            <!--<Button x:Name="export" Content="导出" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>-->
+        </WrapPanel>
+        <Canvas Grid.Row="1" Background="AliceBlue">
+            <TextBlock Text="科目余额表" FontSize="18" Canvas.Left="0" Canvas.Top="7"/>
+            <TextBlock x:Name="comment" Canvas.Right="50" Canvas.Top="24" Width="Auto"/>
+        </Canvas>
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" x:Name="datagrid" CanUserAddRows="False" CanUserSortColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Visibility="Hidden" Header="id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Width="200" Header="科目代码" Binding="{Binding No}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="200" Header="科目名称" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTemplateColumn  Width="200" Header="期初余额" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding begin.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding begin.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn  Width="200" Header="本期发生" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding current.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98" />
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding current.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn  Width="200" Header="期末余额" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding end.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding end.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="3" AutoGenerateColumns="False" x:Name="datagridTotal" CanUserAddRows="False" 
+                  CanUserSortColumns="False" IsReadOnly="True" HeadersVisibility="None" RowHeight="30" 
+                  RowStyle="{StaticResource totalRowStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Visibility="Hidden" Header="id" />
+                <DataGridTextColumn Width="200" Header="科目代码" Binding="{Binding No}"/>
+                <DataGridTextColumn Width="200" Header="科目名称" />
+                <DataGridTemplateColumn  Width="200" Header="期初余额" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding begin.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding begin.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn  Width="200" Header="本期发生" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding current.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98" />
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding current.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn  Width="200" Header="期末余额" HeaderStyle="{StaticResource AccountAmountItemStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding end.debitsAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                                <Rectangle Fill="LightBlue" VerticalAlignment="Stretch" Margin="0" Width="1" />
+                                <TextBlock Text="{Binding end.creditAmount , StringFormat={}{0:N},Converter={StaticResource HideZeroConverter}}" TextAlignment="Right" Width="98"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</f:FinanceForm>

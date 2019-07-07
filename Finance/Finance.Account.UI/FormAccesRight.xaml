@@ -1,0 +1,89 @@
+﻿<f:FinanceForm
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:f="clr-namespace:Finance.UI;assembly=Finance.UI"
+             xmlns:local="clr-namespace:Finance.Account.UI"
+    x:Class="Finance.Account.UI.FormAccesRight" mc:Ignorable="d" Loaded="FinanceForm_Loaded">
+    <f:FinanceForm.Resources>       
+        <Style TargetType="{x:Type DataGrid}">
+            <!--拖动改变单元格大小-->
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <!--网格线颜色-->
+            <Setter Property="HorizontalGridLinesBrush" Value="LightBlue"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightBlue"/>
+        </Style>
+        <!--标题栏样式-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" >
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="lightBlue" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <!--行样式触发-->
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="Width" Value="0" />
+        </Style>
+        <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
+        <Style x:Key="totalRowStyle" TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+        <!--单元格样式触发-->
+        <!--<Style x:Key="DataGridCellAlignRight" TargetType="{x:Type DataGridCell}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>-->
+        
+    </f:FinanceForm.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Height="50">
+            <Button x:Name="save" Content="保存" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="allow" Content="授予全部" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="unallow" Content="剥夺全部" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+        </WrapPanel>
+        <Canvas Grid.Row="1" Background="AliceBlue">
+            <TextBlock Text="权限列表" FontSize="18" Canvas.Left="0" Canvas.Top="7"/>
+        </Canvas>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+            <DataGrid Grid.Column="0"  AutoGenerateColumns="False" x:Name="listView" CanUserAddRows="False" CanUserSortColumns="False" SelectionMode="Single"
+                  HorizontalScrollBarVisibility="Hidden" SelectionChanged="ListView_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Visibility="Hidden" Header="ID" Binding="{Binding Id}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="200" Header="用户" Binding="{Binding Name}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Column="2"  AutoGenerateColumns="False" x:Name="datagrid" CanUserAddRows="False" CanUserSortColumns="False" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Visibility="Hidden" Header="group" Binding="{Binding first}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="150" Header="一级菜单" Binding="{Binding firstName}" IsReadOnly="True"/>
+                    <DataGridTextColumn Visibility="Hidden" Header="name" Binding="{Binding second}" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="150" Header="二级菜单" Binding="{Binding secondName}" IsReadOnly="True"/>                   
+                    <DataGridCheckBoxColumn Width="50" Header="允许" Binding="{Binding isAllow, BindsDirectlyToSource=True}" IsReadOnly="False"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</f:FinanceForm>

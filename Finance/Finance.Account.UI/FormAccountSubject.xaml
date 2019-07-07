@@ -1,0 +1,95 @@
+﻿<f:FinanceForm
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:f="clr-namespace:Finance.UI;assembly=Finance.UI"
+             xmlns:local="clr-namespace:Finance.Account.UI"
+    x:Class="Finance.Account.UI.FormAccountSubject"
+             mc:Ignorable="d" Loaded="FinanceForm_Loaded">
+    <f:FinanceForm.Resources>
+        <local:DirectionConverter x:Key="directionConverter"/>
+        <local:AccountSubjectGroupConverter x:Key="accountSubjectGroupConverter"/>
+        <Style TargetType="{x:Type DataGrid}">
+            <!--拖动改变单元格大小-->
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <!--网格线颜色-->
+            <Setter Property="HorizontalGridLinesBrush" Value="LightBlue"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightBlue"/>
+        </Style>
+        <!--标题栏样式-->
+        <Style TargetType="{x:Type DataGridColumnHeader}" >
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="lightBlue" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <!--行样式触发-->
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="Width" Value="0" />
+        </Style>
+        <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
+        <Style x:Key="totalRowStyle" TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+        <!--单元格样式触发-->
+        <!--<Style x:Key="DataGridCellAlignRight" TargetType="{x:Type DataGridCell}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>-->
+        
+    </f:FinanceForm.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" Height="50">
+            <Button x:Name="new" Content="新增" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="modify" Content="修改" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="delete" Content="删除" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <!--<Button x:Name="delete" Content="删除" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>-->
+            <Button x:Name="refresh" Content="刷新" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="disable" Content="禁用" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="enable" Content="启用" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>            
+        </WrapPanel>
+        <Canvas Grid.Row="1" Background="AliceBlue">
+            <TextBlock Text="会计科目" FontSize="18" Canvas.Left="0" Canvas.Top="7"/>
+        </Canvas>
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" x:Name="datagrid" CanUserAddRows="False" CanUserSortColumns="False" 
+                  LoadingRow="datagrid_LoadingRow" MouseDoubleClick="datagrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Visibility="Hidden" Header="ID" Binding="{Binding id}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="100" Header="代码" Binding="{Binding no}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="200" Header="名称" Binding="{Binding name}" IsReadOnly="True"/>
+                <DataGridTemplateColumn  Width="100" Header="类别">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding groupId,Converter={StaticResource accountSubjectGroupConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  Width="100" Header="余额方向">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding direction,Converter={StaticResource directionConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="300" Header="全称" Binding="{Binding fullName}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="100" Header="标签" Binding="{Binding flag}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</f:FinanceForm>
