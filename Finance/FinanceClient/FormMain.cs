@@ -17,7 +17,7 @@ namespace FinanceClient
         string MENU_LIST_PREFIX = "list_";
         string SUB_TAB_PREFIX = "tab_";
 
-        string FINANCE_TITLE = "中威智能财务软件";
+        string FINANCE_TITLE = "Finance";
 
         //List<MenuTableMapItem> menuTableMap = new List<MenuTableMapItem> {
         //    new MenuTableMapItem("base_setting","user_list","用户列表","FormUser"),
