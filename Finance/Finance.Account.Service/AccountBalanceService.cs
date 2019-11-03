@@ -44,10 +44,14 @@ namespace Finance.Account.Service
         {
             VoucherService voucherService = new VoucherService(mContext);
             Dictionary<string, object> filter = new Dictionary<string, object>();
-            filter.Add("beginYear", beginYear);
-            filter.Add("beginPerid", beginPerid);
-            filter.Add("endYear", endYear);
-            filter.Add("endPerid", endPerid);
+            //filter.Add("beginYear", beginYear);
+            //filter.Add("beginPerid", beginPerid);
+            //filter.Add("endYear", endYear);
+            //filter.Add("endPerid", endPerid);
+            filter.Add("yearBegin", beginYear);
+            filter.Add("periodBegin", beginPerid);
+            filter.Add("yearEnd", endYear);
+            filter.Add("periodEnd", endPerid);
             var lst = voucherService.List(filter);
             Dictionary<long, AccountAmountItem> dict = new Dictionary<long, AccountAmountItem>();
             foreach (Voucher v in lst)
