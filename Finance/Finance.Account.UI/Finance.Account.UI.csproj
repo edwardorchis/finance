@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FinanceAccountForm.cs" />
+    <Compile Include="FormAccountItem.xaml.cs">
+      <DependentUpon>FormAccountItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FormCarriedForwardTemplate.xaml.cs">
       <DependentUpon>FormCarriedForwardTemplate.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
     <Compile Include="FormAccesRight.xaml.cs">
       <DependentUpon>FormAccesRight.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormUserChangePasswordPopup.xaml.cs">
+      <DependentUpon>FormUserChangePasswordPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FormUserPopup.xaml.cs">
       <DependentUpon>FormUserPopup.xaml</DependentUpon>
     </Compile>
@@ -117,6 +123,14 @@
       <DependentUpon>FormAccountSubject.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataGridValueConverter.cs" />
+    <Page Include="Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FormAccountItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FormCarriedForwardTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -162,6 +176,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="FormAccesRight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormUserChangePasswordPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

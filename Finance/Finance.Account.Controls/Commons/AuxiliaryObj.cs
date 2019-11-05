@@ -36,9 +36,9 @@ namespace Finance.Account.Controls.Commons
         /// </summary>
         public long parentId { set; get; }
         /// <summary>
-        /// 是否明细
+        /// 分组
         /// </summary>
-        public bool isDetail { set; get; }
+        public int groupId { set; get; }
         /// <summary>
         /// 是否禁用
         /// </summary>

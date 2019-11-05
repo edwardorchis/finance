@@ -130,8 +130,12 @@ namespace Finance.Account.Service
             {
                 logger.Error(ex.ToString());
                 DBHelper.GetInstance(mContext).RollbackTransaction(tran);
-            }
-            
+            }            
+        }
+
+        public void DeleteMenu(MenuTableMap menu)
+        {
+            DBHelper.GetInstance(mContext).ExecuteSql(string.Format("delete from _MenuTableMap where _group = '{0}' and _name ='{1}'", menu.group, menu.name));
         }
 
         public DBHelper GetBDBHelper()

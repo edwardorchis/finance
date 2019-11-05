@@ -6,46 +6,15 @@
              xmlns:f="clr-namespace:Finance.UI;assembly=Finance.UI"
              xmlns:local="clr-namespace:Finance.Account.UI"
              mc:Ignorable="d" Loaded="FinanceForm_Loaded">
-    <f:FinanceForm.Resources>       
-        <Style TargetType="DataGrid">
-            <!--拖动改变单元格大小-->
-            <Setter Property="CanUserResizeColumns" Value="True"/>
-            <!--网格线颜色-->
-            <Setter Property="HorizontalGridLinesBrush">
-                <Setter.Value>
-                    <SolidColorBrush Color="LightBlue"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="VerticalGridLinesBrush">
-                <Setter.Value>
-                    <SolidColorBrush Color="LightBlue"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--标题栏样式-->
-        <Style TargetType="DataGridColumnHeader" >
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Background" Value="lightBlue" />
-            <Setter Property="Height" Value="30"/>
-        </Style>
-        <!--行样式触发-->
-        <Style TargetType="DataGridRowHeader">
-            <Setter Property="Width" Value="0" />
-        </Style>
-        <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
-        <Style TargetType="DataGridRow">
-            <EventSetter  Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
-            <!--<Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="BorderBrush" Value="Red" />
-                    <Setter Property="BorderThickness" Value="1" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightGray"/>
-                </Trigger>
-            </Style.Triggers>-->
-        </Style>
-        <!--单元格样式触发-->       
+    <f:FinanceForm.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="DataGridRow">
+                <EventSetter  Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>          
+            </Style>
+        </ResourceDictionary>
     </f:FinanceForm.Resources>
     <Grid>
         <Grid.RowDefinitions>

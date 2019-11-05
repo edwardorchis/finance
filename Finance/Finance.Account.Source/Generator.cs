@@ -52,11 +52,6 @@ namespace Finance.Account.Source
             return sb.ToString();
         }
 
-        public static void GenerateSql(Type info, int orderNo = 0)
-        {            
-            FileHelper.Write(GenerateSql(info), getSourcePath() + "Script\\" + orderNo.ToString("000") + "_" + info.Name+".sql");
-        }
-
         public static string getSourcePath()
         {
             string relativePath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;

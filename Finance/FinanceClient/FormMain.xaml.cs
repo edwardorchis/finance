@@ -8,6 +8,7 @@ using Finance.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -38,7 +39,9 @@ namespace FinanceClient
                 BrushConverter brushConverter = new BrushConverter();
                 Brush brush = (Brush)brushConverter.ConvertFromString(themeColor);
                 if (null != brush)
+                {
                     BorderBrush = brush;
+                }                    
             }
             this.Loaded += FormMain_Loaded;
             this.SizeChanged += FormMain_SizeChanged;
@@ -78,7 +81,7 @@ namespace FinanceClient
         Dictionary<string, StackPanel> stackPanelMap = new Dictionary<string, StackPanel>();
         private void FormMain_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Title = this.Title.Replace("Finance", FINANCE_TITLE);
+            this.Title = this.Title.Replace("Finance", ConfigurationManager.AppSettings["copyright"]);
 
             menuTableMap.ForEach(menu=> {
                 StackPanel stackPanel = null;
@@ -315,11 +318,24 @@ namespace FinanceClient
             return null;
         }
 
-        private void help_Click(object sender, RoutedEventArgs e)
+        private void menu_Click(object sender, RoutedEventArgs e)
         {
-            Process proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = "https://www.cnblogs.com/edwardorchis/p/10506391.html";
-            proc.Start();
+            var menu = sender as MetroMenuItem;
+            if (menu == null)
+                return;
+            switch (menu.Name)
+            {
+                case "help":
+                    Process proc = new System.Diagnostics.Process();
+                    proc.StartInfo.FileName = "https://www.cnblogs.com/edwardorchis/p/10506391.html";
+                    proc.Start();
+                    break;
+                case "changePassword":
+                    FormUserChangePasswordPopup frm = new FormUserChangePasswordPopup();
+                    frm.ShowDialog();
+                    break;
+            }
+           
         }
     }
 }

@@ -37,11 +37,16 @@ namespace Finance.Account.Service
         }
 
 
-        public Dictionary<string, string> Calc(Dictionary<string, string> template)
+        public Dictionary<string, string> Calc(IDictionary<string, object> filter, Dictionary<string, string> template)
         {
             SystemProfileService systemProfile = SystemProfileService.GetInstance(mContext);
-            var curYear = systemProfile.GetInt(SystemProfileCategory.Account, SystemProfileKey.CurrentYear);
-            var curPeriod = systemProfile.GetInt(SystemProfileCategory.Account, SystemProfileKey.CurrentPeriod);
+            int curYear = systemProfile.GetInt(SystemProfileCategory.Account, SystemProfileKey.CurrentYear);
+            int curPeriod = systemProfile.GetInt(SystemProfileCategory.Account, SystemProfileKey.CurrentPeriod);
+            if (filter != null && filter.ContainsKey("year") && filter.ContainsKey("period"))
+            {
+                int.TryParse(filter["year"].ToString(), out curYear);
+                int.TryParse(filter["period"].ToString(), out curPeriod);
+            }
 
             AccountBalanceService abService = AccountBalanceService.GetInstance(mContext);            
             m_lstYear = abService.QueryOccurs(curYear, 1, curYear, 12);

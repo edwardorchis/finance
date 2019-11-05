@@ -26,20 +26,35 @@ namespace Finance.Account.Controls.Commons
         /// 凭证掩码
         /// </summary>
         AccountFlag,
+        /// <summary>
+        /// 结转方式
+        /// </summary>
+        CarriedForwardTemplate,
+        /// <summary>
+        /// 供应商
+        /// </summary>
+        Supplier,
+        /// <summary>
+        /// 客户
+        /// </summary>
+        Customer,
+        /// <summary>
+        /// 产品
+        /// </summary>
+        Product,
+        /// <summary>
+        /// 其他附加项
+        /// </summary>
+        OtherItems,
+
         Max
     }
 
-    public class AuxiliaryUtil
+    public enum AuxiliaryGroup
     {
-        public static Dictionary<int, string> Types()
-        {
-            return new Dictionary<int, string>(){
-                { (int)AuxiliaryType.AccountGroup,   "科目组"},
-                { (int)AuxiliaryType.ProofOfWords,   "凭证字"},
-                { (int)AuxiliaryType.AccountContent, "凭证摘要"},
-                { (int)AuxiliaryType.AccountFlag, "科目掩码"}
-            };
-        }
+        Auxiliary,
+        Reserve,
+        AccountItems
     }
 
 
@@ -48,22 +63,25 @@ namespace Finance.Account.Controls.Commons
     /// </summary>
     public class AuxiliaryList
     {
-        static AuxiliaryList cache = null;
-        public static AuxiliaryList Instance
-        {
-            get
-            {
-                if (cache == null)
-                {
-                    cache = new AuxiliaryList();
-                }
-                return cache;
-            }
-        }
-
         public static List<AuxiliaryObj> Get(AuxiliaryType type)
         {
-            var list = Instance.AuxiliaryObjects(type);
+            var list = FinanceControlEventsManager.Instance.OnGetAuxiliaryObjListEvent();
+            if (list == null)
+                return new List<AuxiliaryObj>();
+            list = list.FindAll(a => a.type == (int)type);
+            if (list == null)
+                return new List<AuxiliaryObj>();
+            return list;
+        }
+
+        public static List<AuxiliaryObj> Get(int type)
+        {
+            var list = FinanceControlEventsManager.Instance.OnGetAuxiliaryObjListEvent();
+            if (list == null)
+                return new List<AuxiliaryObj>();
+            list = list.FindAll(a => a.type == type);
+            if (list == null)
+                return new List<AuxiliaryObj>();
             return list;
         }
 
@@ -85,15 +103,20 @@ namespace Finance.Account.Controls.Commons
                 accountSubjectObj = new AuxiliaryObj();
             }
             return accountSubjectObj;
-
         }
 
-        List<AuxiliaryObj> AuxiliaryObjects(AuxiliaryType type)
+
+
+        public static Dictionary<int, string> GetGroupTypes(AuxiliaryGroup auxGrp)
         {
-            var list = FinanceControlEventsManager.Instance.OnGetAuxiliaryObjListEvent(type);
-            if (list == null)
-                list = new List<AuxiliaryObj>();
-            return list;
+            var dict = new Dictionary<int, string>();            
+            var listGroup = Get(AuxiliaryType.Invalid).FindAll(a=>a.groupId == (int)auxGrp);
+            if (listGroup == null)
+                return dict;
+            listGroup.ForEach(t=> {                
+                    dict[int.Parse(t.no)] = t.name;
+            });
+            return dict;
         }
 
     }

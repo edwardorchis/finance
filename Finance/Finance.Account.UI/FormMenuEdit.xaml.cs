@@ -37,7 +37,12 @@ namespace Finance.Account.UI
                         break;
                     case "modify":
                         Popup();
-                        break;                   
+                        break;
+                    case "delete":
+                        var item = datagrid.SelectedItem as MenuTableMap;
+                        if(item != null)
+                            DataFactory.Instance.GetSystemProfileExecuter().DeleteMenuItem(item);
+                        break;
                 }
                
             }
@@ -55,18 +60,7 @@ namespace Finance.Account.UI
             var lst = DataFactory.Instance.GetSystemProfileExecuter().GetMenuTables();
             datagrid.ItemsSource = lst;
         }
-
-        private void datagrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            var drv = e.Row.Item as User;
-            if (drv == null)
-                return;
-            if (drv.IsDeleted)
-                e.Row.Foreground = new SolidColorBrush(Colors.Red);
-            else
-                e.Row.Foreground = new SolidColorBrush(Colors.Black);
-        }
-
+    
         private void datagrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Popup();

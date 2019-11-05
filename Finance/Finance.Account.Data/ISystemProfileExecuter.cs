@@ -17,9 +17,11 @@ namespace Finance.Account.Data
 
         List<MenuTableMap> GetMenuTables();
 
-        List<MenuTableMap> GetAllMenuTables();
+        List<MenuTableMap> GetAllMenuTables();        
 
         void SaveMenuTable(MenuTableMap menu);
+
+        void DeleteMenuItem(MenuTableMap menu);
 
         List<AccessRight> GetAccessRight(long id);
 

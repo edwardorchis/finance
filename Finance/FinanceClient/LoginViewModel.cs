@@ -87,14 +87,12 @@ namespace FinanceClient
                     return JsonConvert.DeserializeObject<List<AccountSubjectObj>>(json);
 
                 };
-                FinanceControlEventsManager.Instance.GetAuxiliaryObjListEvent += (type) => {
-                    List<Auxiliary> auxiliaries = DataFactory.Instance.GetAuxiliaryExecuter().List()
-                                                  .FindAll(aux => aux.type == (int)type)
-                                                  .ToList();
+                FinanceControlEventsManager.Instance.GetAuxiliaryObjListEvent += () => {
+                    List<Auxiliary> auxiliaries = DataFactory.Instance.GetAuxiliaryExecuter().List();
                     var json = JsonConvert.SerializeObject(auxiliaries);
                     return JsonConvert.DeserializeObject<List<AuxiliaryObj>>(json);
                 };
-                
+
                 FinanceControlEventsManager.Instance.MessageEventHandlerEvent += (level, msg) =>
                 {                    
                     switch (level)

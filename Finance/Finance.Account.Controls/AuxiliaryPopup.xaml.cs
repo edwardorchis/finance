@@ -39,12 +39,12 @@ namespace Finance.Account.Controls
         {
             this.DragMove();
         }
-
+        public AuxiliaryGroup AuxGrp { set; get; }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-            var dict = AuxiliaryUtil.Types();
+            var dict = AuxiliaryList.GetGroupTypes(AuxGrp);
             foreach (var kv in dict)
             {
                 if (mType > AuxiliaryType.Invalid && mType < AuxiliaryType.Max)

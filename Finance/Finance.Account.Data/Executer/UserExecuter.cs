@@ -99,5 +99,14 @@ namespace Finance.Account.Data.Executer
             var rsp = Execute(new UserSaveRequest { Id = id, UserName = userName,PassWord = CryptInfoHelper.GetEncrypt(password) });
             return rsp.id;
         }
+
+        public void ChangePassword(string oldpwd, string newpwd)
+        {
+            Execute(new UserChangePasswordRequest {
+                Id = DataFactory.Instance.GetCacheHashtable().Get(CacheHashkey.UserId),
+                OldPwd = CryptInfoHelper.GetEncrypt(oldpwd),
+                NewPwd = CryptInfoHelper.GetEncrypt(newpwd)
+            });
+        }
     }
 }

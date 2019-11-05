@@ -156,5 +156,14 @@ namespace Finance.Account.Service
                 throw ex;
             }
         }
+
+        public void ChagePassword(long userId, string oldpwd, string newpwd)
+        {
+            var bExist = DBHelper.GetInstance(mContext).Exist(string.Format("select 1 from _userInfo where _userId = {0} and  _passWord = '{1}'", userId, oldpwd));
+            if (!bExist)
+                throw new FinanceException(FinanceResult.AUTHENTICATION_ERROR);
+            DBHelper.GetInstance(mContext).ExecuteSql(
+                string.Format("update _userInfo set _passWord='{1}' where _userId ={0}", userId, newpwd));
+        }
     }
 }

@@ -87,6 +87,11 @@ namespace Finance.Account.Controls.Commons
         /// 科目类型
         /// </summary>
         internal AccountClass accountClass { set; get; }
+
+
+        public string actItemGrp { set; get; }
+
+        public string actUint { set; get; }
     }
 
 

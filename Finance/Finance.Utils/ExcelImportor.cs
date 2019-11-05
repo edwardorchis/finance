@@ -63,7 +63,7 @@ namespace Finance.Utils
             {
                 m_logger.Error(ex);
                 db.RollbackTransaction(tran);
-                throw new Finance.Utils.FinanceException(FinanceResult.SYSTEM_ERROR);
+                throw new Finance.Utils.FinanceException(FinanceResult.SYSTEM_ERROR, ex.Message);
             }
          
         }

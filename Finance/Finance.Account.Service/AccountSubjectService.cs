@@ -67,10 +67,10 @@ namespace Finance.Account.Service
             dynamic tran = DBHelper.GetInstance(mContext).BeginTransaction();
             try
             {
-                bRet = DBHelper.GetInstance(mContext).Exist(tran,string.Format("select 1 from _accountsubject where _no ='{0}' and _id <> {1}", aso.no, aso.id));
+                bRet = DBHelper.GetInstance(mContext).Exist(tran, string.Format("select 1 from _accountsubject where _no ='{0}' and _id <> {1}", aso.no, aso.id));
                 if (bRet)
                 {
-                    throw new FinanceException(FinanceResult.IMPERFECT_DATA, "代码已存在");
+                    throw new FinanceException(FinanceResult.RECORD_EXIST, "代码已存在");
                 }
 
                 if (aso.id == 0)
@@ -83,7 +83,7 @@ namespace Finance.Account.Service
                         {
                             no = pre
                         };
-                        List<AccountSubject> lst = DataManager.GetInstance(mContext).Query(tran,filter);
+                        List<AccountSubject> lst = DataManager.GetInstance(mContext).Query(tran, filter);
                         if (lst.Count == 0)
                         {
                             throw new FinanceException(FinanceResult.IMPERFECT_DATA, "父级科目不存在：" + pre);
@@ -92,23 +92,29 @@ namespace Finance.Account.Service
                         aso.parentId = parentItem.id;
                         aso.rootId = parentItem.rootId;
                         aso.level = parentItem.level + 1;
-                        
+
                         parentItem.isHasChild = true;
-                        DataManager.GetInstance(mContext).Update(tran,parentItem);
+                        DataManager.GetInstance(mContext).Update(tran, parentItem);
                     }
                     SerialNoService serial = new SerialNoService(mContext, tran) { SerialKey = SerialNoKey.System };
                     aso.id = serial.GetIncrease();
                     aso.level = aso.level == 0 ? 1 : aso.level;
-                    DataManager.GetInstance(mContext).Insert(tran,aso);                  
+                    DataManager.GetInstance(mContext).Insert(tran, aso);
                 }
                 else
                 {
-                    DataManager.GetInstance(mContext).Update(tran,aso);
+                    DataManager.GetInstance(mContext).Update(tran, aso);
                 }
-                UpdateFullName(aso,tran);
+                UpdateFullName(aso, tran);
 
                 UserService.GetInstance(mContext).UpdateTimeStampArticle(TimeStampArticleEnum.AccountSubject, tran);
                 DBHelper.GetInstance(mContext).CommitTransaction(tran);
+            }
+            catch (FinanceException fex)
+            {
+                DBHelper.GetInstance(mContext).RollbackTransaction(tran);
+                if (fex.HResult != (int)FinanceResult.RECORD_EXIST)
+                    throw fex;
             }
             catch (Exception ex)
             {

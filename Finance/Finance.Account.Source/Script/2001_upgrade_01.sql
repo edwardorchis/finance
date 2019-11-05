@@ -49,11 +49,21 @@ create table _VoucherEntryUdef
 if not exists(select 1 from syscolumns where id=(select max(id) from sysobjects where xtype='u' and name='_AccountSubject') and name = '_flag')
 	alter table _AccountSubject add _flag int not null default 0;
 
+go
 
+begin transaction tran_Auxiliary
+declare @id int
+select @id = _number from _SerialNo where _key = 0
+select @id = isnull(@id, 1)
 delete from _Auxiliary where _type = 4;
-insert into _Auxiliary (_id,_type,_no,_name, _description)values (22,4,'gold','32768','黄金');
-insert into _Auxiliary (_id,_type,_no,_name, _description)values (23,4,'stone','16384','石头');
-insert into _Auxiliary (_id,_type,_no,_name, _description)values (24,4,'remark','8192','备注');
+insert into _Auxiliary (_id,_type,_no,_name, _description)values (@id,4,'gold','32768','黄金');
+insert into _Auxiliary (_id,_type,_no,_name, _description)values (@id +1,4,'stone','16384','石头');
+insert into _Auxiliary (_id,_type,_no,_name, _description)values (@id +2,4,'remark','8192','备注');
+update _SerialNo set _number = @id + 3 where _key = 0
+if @@ERROR!=0
+    rollback transaction
+else
+	commit transaction tran_Auxiliary
 
--- 防止与预置的重复
-update _SerialNo set _number = 1000 where _key = 0;
+go
+

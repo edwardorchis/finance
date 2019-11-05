@@ -33,6 +33,12 @@ namespace Finance.Account.UI
             cmbDirection.ItemsSource = new List<Auxiliary>() {
                 new Auxiliary{id = 1,name ="借方"},new Auxiliary{id =-1,name ="贷方"}
             };
+                        
+            var lst = DataFactory.Instance.GetAuxiliaryExecuter().List(SDK.AuxiliaryType.Invalid);
+            if (lst == null)
+                lst = new List<Auxiliary>();
+            lst.Insert(0, new Auxiliary() { no = "0", groupId = (int)SDK.AuxiliaryGroup.AccountItems });
+            cmbActItemGrp.ItemsSource = lst.FindAll(a => a.groupId == (int)SDK.AuxiliaryGroup.AccountItems);
         }
 
         private void btn_Click(object sender, RoutedEventArgs e)
@@ -104,7 +110,9 @@ namespace Finance.Account.UI
                 || ItemSource.name != _originItemSource.name
                 || ItemSource.direction != _originItemSource.direction
                 || ItemSource.groupId != _originItemSource.groupId
-                || ItemSource.flag != _originItemSource.flag;
+                || ItemSource.flag != _originItemSource.flag
+                || ItemSource.actItemGrp != _originItemSource.actItemGrp
+                || ItemSource.actUint != _originItemSource.actUint;
             return result;
         }
 
@@ -151,7 +159,25 @@ namespace Finance.Account.UI
         static readonly DependencyProperty xGroupIdProperty =
             DependencyProperty.Register("xGroupId", typeof(long), typeof(FormAccountSubjectPopup), new PropertyMetadata((long)0));
 
-        
+        string xActItemGrp
+        {
+            get { return (string)GetValue(xActItemGrpProperty); }
+            set { SetValue(xActItemGrpProperty, value); }
+        }
+
+        static readonly DependencyProperty xActItemGrpProperty =
+            DependencyProperty.Register("xActItemGrp", typeof(string), typeof(FormAccountSubjectPopup), new PropertyMetadata(""));
+
+        string xActUint
+        {
+            get { return (string)GetValue(xActUintProperty); }
+            set { SetValue(xActUintProperty, value); }
+        }
+
+        static readonly DependencyProperty xActUintProperty =
+            DependencyProperty.Register("xActUint", typeof(string), typeof(FormAccountSubjectPopup), new PropertyMetadata(""));
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _originItemSource = JsonConvert.DeserializeObject<AccountSubject>(JsonConvert.SerializeObject(_itemSource));
@@ -169,6 +195,8 @@ namespace Finance.Account.UI
                 xName = _itemSource.name;
                 xDirection = _itemSource.direction;
                 xGroupId = _itemSource.groupId;
+                xActItemGrp = _itemSource.actItemGrp;
+                xActUint = _itemSource.actUint;
             }
             private get {
                 _itemSource.no = xNo;
@@ -176,6 +204,8 @@ namespace Finance.Account.UI
                 _itemSource.direction =(int)xDirection;
                 _itemSource.groupId = xGroupId;
                 _itemSource.flag = ReadUdefPanel();
+                _itemSource.actItemGrp = xActItemGrp;
+                _itemSource.actUint = xActUint;
                 return _itemSource;
             }
         }
@@ -200,6 +230,13 @@ namespace Finance.Account.UI
                     continue;
                 iRet = iRet | item.value;
             }
+
+            int actItemGrp = 0;
+            int.TryParse(xActItemGrp, out actItemGrp);
+            if (actItemGrp > 0)
+                iRet = iRet | 1;
+            if (!string.IsNullOrWhiteSpace(xActUint))
+                iRet = iRet | 2;
             return iRet;
         }
        

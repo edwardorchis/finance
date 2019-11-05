@@ -28,5 +28,4 @@ namespace Finance.Account.SDK.Request
 
         public Auxiliary Content { set; get; }
     }
-
 }

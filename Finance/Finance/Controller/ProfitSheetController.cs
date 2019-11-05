@@ -22,7 +22,7 @@ namespace Finance.Controller
         {
             if (request == null)
                 throw new FinanceException(FinanceResult.NULL);
-            var dict = service.Calc(request.template);
+            var dict = service.Calc(request.filter, request.template);
             return new ProfitSheetCalcResponse { Content = dict };
         }
 

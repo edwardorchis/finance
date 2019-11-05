@@ -28,7 +28,32 @@ namespace Finance.Account.SDK
         /// <summary>
         /// 结转方式
         /// </summary>
-        CarriedForward
+        CarriedForward = 5,
+        /// <summary>
+        /// 供应商
+        /// </summary>
+        Supplier,
+        /// <summary>
+        /// 客户
+        /// </summary>
+        Customer,
+        /// <summary>
+        /// 产品
+        /// </summary>
+        Product,
+        /// <summary>
+        /// 其他附加项
+        /// </summary>
+        OtherItems,
+
+        Max
+    }
+
+    public enum AuxiliaryGroup
+    {
+        Auxiliary,
+        Reserve,
+        AccountItems
     }
 
     public enum SerialNoKey

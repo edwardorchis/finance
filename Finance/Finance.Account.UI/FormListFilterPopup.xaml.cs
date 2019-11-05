@@ -51,6 +51,15 @@ namespace Finance.Account.UI
             Close();
         }
 
+        public void Hide2()
+        {
+            lblTo.Visibility = Visibility.Hidden;
+            lblYear2.Visibility = Visibility.Hidden;
+            lblPeriod2.Visibility = Visibility.Hidden;
+            cmbYearEnd.Visibility = Visibility.Hidden;
+            cmbPeriodEnd.Visibility = Visibility.Hidden;
+        }
+
         Dictionary<string, object> ReadFilter()
         {
             Dictionary<string, object> dictFilter = new Dictionary<string, object>();

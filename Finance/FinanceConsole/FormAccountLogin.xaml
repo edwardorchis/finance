@@ -1,0 +1,41 @@
+﻿<Window x:Class="FinanceConsole.FormAccountLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas"
+        mc:Ignorable="d"  x:Name="LoginForm" Height="246.079" Width="415.772" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"  Topmost="True"
+        FocusManager.FocusedElement="{Binding ElementName=txtBoxLoginNo}">
+    <Window.Resources>
+        <Style TargetType="{x:Type Metro:MetroButton}">
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="Height" Value="31"/>
+            <Setter Property="Width" Value="89"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderThickness="1,1,1,1" BorderBrush="Black">
+        <StackPanel>
+            <Canvas Height="30" Background="AliceBlue" MouseDown="Canvas_MouseDown">
+                <Button x:Name="closeLogin"  Height="19" Width="21" Canvas.Left="387" BorderThickness="0,0,0,0" Background="AliceBlue" Click="btn_Click" Canvas.Top="4">
+                    <Path Data="M50,25 L25,50 M25,25 50,50"  Stroke="Red" StrokeThickness="2" HorizontalAlignment="Right" Height="14" Stretch="Fill" Width="14.2"/>
+
+                </Button>
+
+            </Canvas>
+            <Canvas Height="157">
+                <Label Content="登录账号" Height="23" Canvas.Left="55" Canvas.Top="49" Width="69"/>
+                <TextBox Name="txtBoxLoginNo"  Height="23" Canvas.Left="156" TextWrapping="Wrap" Canvas.Top="49" Width="209" VerticalContentAlignment="Center"
+                         Text="{Binding ElementName=LoginForm, Path=xLoginNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="密码" Height="23" Canvas.Left="55" Canvas.Top="95" Width="69"/>
+                <PasswordBox Name="txtBoxLoginPwd1"  Height="24" Canvas.Left="156" Canvas.Top="95" Width="209" VerticalContentAlignment="Center"/>
+            </Canvas>
+            <Canvas Height="50">
+                <Metro:MetroButton x:Name="okLogin"  Content="确定" Click="btn_Click" Canvas.Left="160" Margin="0" Canvas.Top="9" IsDefault ="True"/>
+                <Metro:MetroButton x:Name="cancelLogin"  Content="取消" Click="btn_Click" Canvas.Left="254" Margin="0" Canvas.Top="9"/>
+            </Canvas>
+        </StackPanel>
+    </Border>
+</Window>

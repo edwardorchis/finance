@@ -87,6 +87,14 @@ namespace Finance.Controller
 
             return new UserListResponse { Content = lst};
         }
-        
+
+        public FinanceResponse ChangePassword(UserChangePasswordRequest request)
+        {
+            service.ChagePassword(request.Id, 
+                CryptInfoHelper.MD5Encode(CryptInfoHelper.GetDecrypte(request.OldPwd)), 
+                CryptInfoHelper.MD5Encode(CryptInfoHelper.GetDecrypte(request.NewPwd)));
+            return CreateResponse(FinanceResult.SUCCESS);
+        }
+
     }
 }

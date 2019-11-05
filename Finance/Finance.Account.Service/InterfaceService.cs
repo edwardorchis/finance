@@ -71,7 +71,7 @@ namespace Finance.Account.Service
             var lstHeader = EntityConvertor<VoucherHeader>.ToList(ds.Tables[0]);
             var lstEntries = EntityConvertor<VoucherEntry>.ToList(ds.Tables[1]);
 
-            var dtUdefenties = ds.Tables[2];
+            var dtUdefenties = ds.Tables[1];
             var lstUdefenties = new Dictionary<string, Dictionary<string, Dictionary<string, object>>>();
             foreach (DataRow dr in dtUdefenties.Rows)
             {

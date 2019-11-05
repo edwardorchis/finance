@@ -10,9 +10,13 @@ namespace FinanceConsole
 {
     public class CommondHandler
     {
-        static ILogger logger = Logger.GetLogger(typeof(CommondHandler));
+        static Finance.Utils.ILogger logger()
+        {
+            return Logger.GetLogger(typeof(CommondHandler));
+        }
         public static int Process(string commondString)
         {
+            int iRet = 0;
             try
             {
                 string[] tmp = commondString.Split(new char[] { ' ', '\t' }, options: StringSplitOptions.RemoveEmptyEntries);
@@ -29,15 +33,18 @@ namespace FinanceConsole
                         return Exec(commondName, tmp);
                 }
             }
-            catch (FinanceException)
+            catch (FinanceException fex)
             {
+                logger().Error(fex.Message);
                 PrintHelp();
+                iRet = 2;
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                logger().Error(ex.Message);
+                iRet = 3;
             }
-            return 0;
+            return iRet;
         }
       
         static int Exec(string cmd, string[] args)
@@ -45,9 +52,9 @@ namespace FinanceConsole
             switch (cmd)
             {
                 case "init":
-                    logger.Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
+                    logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
                     var sure = Console.ReadLine();
-                    if (sure == "yes")
+                    if (sure == "yes" || ContainsOpt(args, "-f"))
                         AccountCtlMain.Init();
                     break;
                 case "act.print":
@@ -61,97 +68,147 @@ namespace FinanceConsole
                     break;
                 case "act.unload":
                     var parm1 = GetParm(args, 1);
-                    logger.Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
+                    logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
                     var yes = Console.ReadLine();
-                    if (yes == "yes")
+                    if (yes == "yes" || ContainsOpt(args, "-f"))
                         AccountCtlMain.UnloadAccount(parm1);
                     break;
                 case "act.init":
                     var parm2 = GetParm(args, 1);
-                    logger.Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
+                    logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
                     var yes1 = Console.ReadLine();
-                    if (yes1 == "yes")
+                    if (yes1 == "yes" || ContainsOpt(args, "-f"))
                     {
-                        if (args.Count() > 2)
+                        if (ContainsOpt(args, "-k"))
                         {                            
-                            AccountCtlMain.InitAccount(parm2, GetParm(args, 2));
+                            AccountCtlMain.InitAccount(parm2, "-k");
                         }
                         else
                             AccountCtlMain.InitAccount(parm2);
                     }                        
                     break;
                 case "usr.pwd":
-                    var userName = GetParm(args, 1);
-                    Console.Write("Please input user's old password : ");
-                    var pwd = ReadPwd();
-                    var bSuc = AccountCtlMain.Verification(userName, pwd);
-                    if (bSuc)
-                    {
-                        Console.Write("Please input user's new password : ");
-                        var pwd1 = ReadPwd();
-                        Console.Write("Confirm new password : ");
-                        var pwd2 = ReadPwd();
-                        if (pwd1 != pwd2)
-                        {
-                            logger.Error("Two times input password mismatch.");
-                            return 0;
-                        }
-                        AccountCtlMain.ChagePwd(userName, pwd1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Incorrect user name or password.");
-                    }
+                    usrPwd(args);
                     break;
                 case "usr.add":
-                    var no = GetParm(args, 1);
-                    var name = GetParm(args, 2);
-                    Console.Write("Please input user's password : ");
-                    var apwd1 = ReadPwd();
-                    Console.Write("Confirm password : ");
-                    var apwd2 = ReadPwd();
-                    if (apwd1 != apwd2)
-                    {
-                        logger.Error("Two times input password mismatch.");
-                        return 0;
-                    }
-                    AccountCtlMain.AddUser(no, name, apwd1);
+                    usrAdd(args);
                     break;
                 case "usr.delete":
                     var duserName = GetParm(args, 1);
-                    Console.Write("Please input user's password : ");
-                    var dpwd = ReadPwd();
-                    var dbSuc = AccountCtlMain.Verification(duserName, dpwd);
-                    if (dbSuc)
+                    logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
+                    var yes2 = Console.ReadLine();
+                    if (yes2 == "yes" || ContainsOpt(args, "-f"))
                     {
                         AccountCtlMain.DeleteUser(duserName);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Incorrect user name or password.");
-                    }
+                    }                    
                     break;
                 case "usr.print":
                     AccountCtlMain.UserPrint();
                     break;
                 default:
-                    logger.Debug(string.Format("Don't has this command [{0}].", cmd));
+                    logger().Debug(string.Format("Don't has this command [{0}].", cmd));
                     throw new FinanceException(FinanceResult.IMPERFECT_DATA);                  
             }
-            logger.Info("execute success.");
+            logger().Warn("执行成功.");
             return 0;
+        }
+        static int usrAdd( string[] args)
+        {
+            if (ContainsOpt(args, "-f"))
+            {
+                var no = GetParm(args, 1);
+                var name = GetParm(args, 2);
+                var apwd1 = GetParm(args, 3);
+                var apwd2 = GetParm(args, 4);
+                if (apwd1 != apwd2)
+                {
+                    logger().Error("Two times input password mismatch.");
+                    return 0;
+                }
+                AccountCtlMain.AddUser(no, name, apwd1);
+            }
+            else
+            {
+                var no = GetParm(args, 1);
+                var name = GetParm(args, 2);
+                Console.Write("Please input user's password : ");
+                var apwd1 = ReadPwd();
+                Console.Write("Confirm password : ");
+                var apwd2 = ReadPwd();
+                if (apwd1 != apwd2)
+                {
+                    logger().Error("Two times input password mismatch.");
+                    return 0;
+                }
+                AccountCtlMain.AddUser(no, name, apwd1);
+            }
+            return 0;
+         }
+
+        static int usrPwd(string[] args)
+        {
+            if (ContainsOpt(args, "-f"))
+            {
+                var userName = GetParm(args, 1);
+                var pwd1 = GetParm(args, 2);
+                var pwd2 = GetParm(args, 3);
+                if (pwd1 != pwd2)
+                {
+                    logger().Error("Two times input password mismatch.");
+                    return 0;
+                }                
+                AccountCtlMain.ChagePwd(userName, pwd1);
+            }
+            else
+            {
+                var userName = GetParm(args, 1);
+                Console.Write("Please input user's old password : ");
+                var pwd = ReadPwd();
+                var bSuc = AccountCtlMain.Verification(userName, pwd);
+                if (bSuc)
+                {
+                    Console.Write("Please input user's new password : ");
+                    var pwd1 = ReadPwd();
+                    Console.Write("Confirm new password : ");
+                    var pwd2 = ReadPwd();
+                    if (pwd1 != pwd2)
+                    {
+                        logger().Error("Two times input password mismatch.");
+                        return 0;
+                    }
+                    AccountCtlMain.ChagePwd(userName, pwd1);
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect user name or password.");
+                }
+            }          
+
+            return 0;
+        }
+
+        static bool ContainsOpt(string[] args, string opt)
+        {
+            for (int i = 1; i < args.Count(); ++i)
+            {
+                if (opt == args[i])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         static string GetParm(string[] args, int index)
         {
             if (args.Count() < index + 1)
-                throw new FinanceException(FinanceResult.IMPERFECT_DATA);
+                return "";
             return args[index];
         }
 
         static void PrintHelp()
         {
-            logger.Debug(@"please check your command and parms like this:
+            logger().Debug(@"please check your command and parms like this:
     init            - Initialize the entire system;
     act.print       - Print all of accounts information;
     act.create      - Create account like as ""act.create demo 演示账套"";

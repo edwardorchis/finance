@@ -21,6 +21,7 @@ namespace Finance.Account.UI
         public FormAuxiliary()
         {
             InitializeComponent();
+            this.auxiliaryView.AuxGrp = Controls.Commons.AuxiliaryGroup.Auxiliary;
             auxiliaryView.SelectedEvent += AuxiliaryView_Selected;
         }
 
@@ -73,6 +74,7 @@ namespace Finance.Account.UI
             var frm = new FormAuxiliaryPopup();
             if (item == null)
                 item = new AuxiliaryObj { type = (long)auxiliaryView.SelectedType  };
+            frm.AuxGrp = Controls.Commons.AuxiliaryGroup.Auxiliary;
             frm.ItemSource = JsonConvert.DeserializeObject<Auxiliary>(JsonConvert.SerializeObject(item));
             frm.AfterSaveEvent = new AfterSaveEventHandler(() =>
             {

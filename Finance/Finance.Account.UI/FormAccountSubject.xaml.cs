@@ -140,7 +140,6 @@ namespace Finance.Account.UI
                     FinanceForm_Loaded(datagrid, null);
                 });
                 frm.ShowDialog();
-                FinanceForm_Loaded(datagrid, null);
             }
             else {
                 FinanceMessageBox.Info("请选中一个科目");

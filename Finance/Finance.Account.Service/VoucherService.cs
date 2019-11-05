@@ -81,7 +81,7 @@ namespace Finance.Account.Service
                             throw new FinanceException(FinanceResult.RECORD_NOT_EXIST, string.Format("科目[{0}]不存在",v.accountSubjectNo));
                         v.accountSubjectId = aso.id;
 
-                        if (aso.flag != 0 && !item.udefenties.ContainsKey(v.uniqueKey))
+                        if (aso.flag != 0 && item.udefenties != null && !item.udefenties.ContainsKey(v.uniqueKey))
                         {
                             throw new FinanceException(FinanceResult.IMPERFECT_DATA, string.Format("科目[{0}]必须要有自定义扩展信息", v.accountSubjectNo));
                         }
@@ -121,6 +121,11 @@ namespace Finance.Account.Service
             DataTable dtUdef = new DataTable();
             dtUdef.Columns.Add(new DataColumn("_id", typeof(long)));
             dtUdef.Columns.Add(new DataColumn("_uniqueKey", typeof(string)));
+      
+            udefTemplate.Add(new UdefTemplateItem {name = "act_qty", dataType= "decimal" });
+            udefTemplate.Add(new UdefTemplateItem { name = "act_price", dataType = "decimal" });
+            udefTemplate.Add(new UdefTemplateItem { name = "actItemGrp", dataType = "int" });
+
             udefTemplate.ForEach(udef => {
                 var dc = new DataColumn("_" + udef.name, CommonUtils.ConvertDataTypeFromStr(udef.dataType));
                 dtUdef.Columns.Add(dc);
@@ -133,15 +138,6 @@ namespace Finance.Account.Service
                 dr["_uniqueKey"] = udef.Key;
 
                 Dictionary<string, object> udefValues = udef.Value;
-
-                foreach (var field in udef.Value)
-                {
-                    var temp = udefTemplate.FirstOrDefault(t => t.name == field.Key);
-                    if (temp != null)
-                    {
-                        
-                    }
-                }
                 foreach (var temp in udefTemplate)
                 {
                     Type t = CommonUtils.ConvertDataTypeFromStr(temp.dataType);

@@ -23,6 +23,7 @@ namespace Finance.Controller
 
         public FinanceResponse List()
         {
+            System.Threading.Thread.Sleep(20);
             var dt = DBHelper.DefaultInstance.ExecuteDt("select _id, _no, _name from _AccountCtl order by _id");
             var lst = EntityConvertor<SampleItem>.ToList(dt);
             return new SampleItemListResponse { Content = lst};

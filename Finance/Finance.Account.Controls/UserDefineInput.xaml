@@ -3,15 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Finance.Account.Controls"
-             mc:Ignorable="d" FontSize="12" x:Name="thisInput" Focusable="True" GotFocus="ThisInput_GotFocus">
-    <Grid>
+             mc:Ignorable="d" FontSize="12" x:Name="thisInput" Focusable="True" GotFocus="ThisInput_GotFocus" Height="28">
+    <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center"
                    Text="{Binding ElementName=thisInput,Path=Label,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-        <TextBox Name="xString" Grid.Column="1" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="24" Margin="0,0,50,0" ></TextBox>
+        <TextBox Name="xString" Grid.Column="1" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="25" />
+        <ComboBox Name="xCombBox" Grid.Column="1" VerticalAlignment="Top" VerticalContentAlignment="Center" TextSearch.TextPath = "Value"
+                  IsEditable="True" SelectedValuePath="Key" DisplayMemberPath="Value" Height="25"/>
+        <TextBlock Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="{Binding ElementName=thisInput,Path=Unit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
     </Grid>
 </UserControl>

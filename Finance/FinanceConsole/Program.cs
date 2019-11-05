@@ -10,7 +10,7 @@ namespace FinanceConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void ConsoleMain(string[] args)
         {
             try
             {
@@ -24,7 +24,6 @@ namespace FinanceConsole
                 var bSuc = AccountCtlMain.Verification(userName, pwd);
                 if (!bSuc)
                 {
-                   
                     Console.WriteLine("Incorrect user name or password.");
                     goto LOGIN_FLAG;
                 }

@@ -64,13 +64,14 @@ namespace Finance.Account.Controls
             {
                 UserDefineInput input = new UserDefineInput();
                 input.IsEnabled = this.IsEnabled;
-                input.Width = item.Width == 0 ? 220 : (90 + item.Width);
+                input.Width = item.Width == 0 ? 220 : item.Width;
                 input.TagLabel = item.TagLabel;
                 input.Label = item.Label;
                 input.DataType = item.DataType;
                 input.DataValue = item.DataValue;
                 input.Margin = new Thickness(0,5,0,0);
                 input.Name = this.Name + "_" + item.Name;
+                input.Unit = item.Unit;
                 input.DataChangedEvent += new DataChangedEventHandler((sender,e)=> {
                     DataChangedEvent?.Invoke(sender, e);
                     if (e.Cancel)                   

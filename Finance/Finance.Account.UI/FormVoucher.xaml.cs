@@ -457,16 +457,96 @@ namespace Finance.Account.UI
                 userDefinePanel.DataSource = new List<UserDefineInputItem>();
                 return;
             }
+
+            var voucherGridDataSource = voucherGrid.DataSource;
+            var accountSubjectId = voucherGridDataSource.FirstOrDefault(d=>d.UniqueKey == UniqueKey).AccountSubjectId;
+            var accountSubjectObj = AccountSubjectList.Find(accountSubjectId); 
+            
+            List<UserDefineInputItem> userDefineInputItems = new List<UserDefineInputItem>();
+            LoadUdefFlag(UniqueKey, accountSubjectObj.flag, ref userDefineInputItems);
+            LoadActItem(UniqueKey, ref accountSubjectObj, ref userDefineInputItems);
+
+            userDefinePanel.DataSource = userDefineInputItems;
+        }
+
+        private void LoadActItem(string UniqueKey, ref AccountSubjectObj accountSubjectObj, ref List<UserDefineInputItem> userDefineInputItems)
+        {
+            var udefDataDictionary = mUserDefineDataSource[UniqueKey];
+
+            // 辅助核算
+            if ((accountSubjectObj.flag & 1) != 0)
+            {
+                int val = 0;
+                if (udefDataDictionary != null)
+                {
+                    if (udefDataDictionary.ContainsKey("actItemGrp"))
+                    {
+                        var objval = udefDataDictionary["actItemGrp"];
+                        if (objval != null)
+                            int.TryParse(objval.ToString(), out val);
+                    }
+                        
+                }
+                int actItemGrp = 0;
+                int.TryParse(accountSubjectObj.actItemGrp, out actItemGrp);
+                var lst = AuxiliaryList.Get(actItemGrp);
+                var obj = lst.FirstOrDefault(aux=>aux.id == val);
+                var str = "";
+                if (obj != null)
+                    str = obj.name.ToString();
+                userDefineInputItems.Insert(0 ,new UserDefineInputItem
+                {
+                    Label = AuxiliaryList.FindByNo(Controls.Commons.AuxiliaryType.Invalid, accountSubjectObj.actItemGrp).name,
+                    DataType = typeof(string),
+                    Name = "actItemGrp",
+                    DataValue = str,
+                    TabIndex = 0
+                });
+            }
+
+            // 辅助数量
+            if ((accountSubjectObj.flag & 2) != 0)
+            {
+                object val = 0M;
+                if (udefDataDictionary != null)
+                {
+                    if (udefDataDictionary.ContainsKey("act_price"))
+                        val = udefDataDictionary["act_price"];
+                }
+                userDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = "单价",
+                    DataType = typeof(decimal),
+                    Name = "act_price",
+                    DataValue = val,
+                    TabIndex = 0,
+                    TagLabel = "price|act",
+                });
+                if (udefDataDictionary != null)
+                {
+                    if (udefDataDictionary.ContainsKey("act_qty"))
+                        val = udefDataDictionary["act_qty"];
+                }
+                userDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = "数量",
+                    DataType = typeof(decimal),
+                    Name = "act_qty",
+                    DataValue = val,
+                    TabIndex = 0,
+                    TagLabel = "qty|act",
+                    Unit = accountSubjectObj.actUint
+                });
+            }
+        }
+
+        private void LoadUdefFlag(string UniqueKey, long flag, ref List<UserDefineInputItem> userDefineInputItems)
+        {
+            var accountFlagList = AuxiliaryList.Get(Controls.Commons.AuxiliaryType.AccountFlag);
             var udefDataDictionary = mUserDefineDataSource[UniqueKey];
             var lst = DataFactory.Instance.GetTemplateExecuter().GetUdefTemplate("_VoucherEntryUdef");
             if (lst == null)
                 return;
-
-            var voucherGridDataSource = voucherGrid.DataSource;
-            var accountSubjectId = voucherGridDataSource.FirstOrDefault(d=>d.UniqueKey == UniqueKey).AccountSubjectId;
-            var accountSubjectObj = AccountSubjectList.Find(accountSubjectId);           
-            var accountFlagList = AuxiliaryList.Get(Controls.Commons.AuxiliaryType.AccountFlag);
-            List<UserDefineInputItem> mUserDefineInputItems = new List<UserDefineInputItem>();
             foreach (var item in lst)
             {
                 var flagLabel = item.tagLabel;
@@ -482,7 +562,7 @@ namespace Finance.Account.UI
                             var mask = 0;
                             if (!int.TryParse(F.name, out mask))
                                 continue;
-                            if (f == F.no && (accountSubjectObj.flag & mask) == 0)
+                            if (f == F.no && (flag & mask) == 0)
                             {
                                 bF = true;
                                 break;
@@ -499,7 +579,7 @@ namespace Finance.Account.UI
                     if (udefDataDictionary.ContainsKey(item.name))
                         val = udefDataDictionary[item.name];
                 }
-                mUserDefineInputItems.Add(new UserDefineInputItem
+                userDefineInputItems.Add(new UserDefineInputItem
                 {
                     Label = item.label,
                     DataType = CommonUtils.ConvertDataTypeFromStr(item.dataType),
@@ -510,9 +590,7 @@ namespace Finance.Account.UI
                     Width = item.width
                 });
             }
-
-            mUserDefineInputItems = mUserDefineInputItems.OrderBy(item => item.TabIndex).ToList();
-            userDefinePanel.DataSource = mUserDefineInputItems;
+            userDefineInputItems = userDefineInputItems.OrderBy(item => item.TabIndex).ToList();
         }
 
 

@@ -9,6 +9,6 @@ namespace Finance.Account.Data
 {
     public interface IProfitSheetExecuter
     {
-        Dictionary<string, string> Calc(Dictionary<string, string> template);
+        Dictionary<string, string> Calc(IDictionary<string, object> filter, Dictionary<string, string> template);
     }
 }

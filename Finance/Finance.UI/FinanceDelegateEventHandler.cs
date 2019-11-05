@@ -11,5 +11,7 @@ namespace Finance.UI
         public delegate void FinanceNotifyEventHandler(FinanceNotifyEventArgs e);
 
         public delegate void AfterSaveEventHandler();
+
+        public delegate bool FinanceMsgEventHandler(int msgType, Dictionary<string, string> paras);
     }
 }

@@ -51,24 +51,12 @@ namespace Finance.Account.SDK
         /// 禁用
         /// </summary>
         public bool isDeleted { set; get; }
-        ///// <summary>
-        ///// 现金科目
-        ///// </summary>
-        //public bool isCashSubject { set; get; }
-        ///// <summary>
-        ///// 银行科目
-        ///// </summary>
-        //public bool isBankSubject { set; get; }
-        ///// <summary>
-        ///// 现金等价物
-        ///// </summary>
-        //public bool isCashEqulvalent { set; get; }       
-        ///// <summary>
-        ///// 主表项目
-        ///// </summary>
-        //public long mainProjectId { set; get; }
-
+   
         
         public int flag { set; get; }
+
+        public string actItemGrp { set; get; }
+
+        public string actUint { set; get; }
     }
 }

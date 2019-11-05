@@ -12,13 +12,16 @@
         <local:FormMainVM/>
     </Metro:MetroWindow.DataContext>
     <Metro:MetroWindow.Menu>
-        <Metro:MetroTitleMenu>
-            <Metro:MetroTitleMenuItem Header="帮助" Click="help_Click"></Metro:MetroTitleMenuItem>
-            <Metro:MetroTitleMenuItem Header="主题颜色"  >
-                <WrapPanel Orientation="Horizontal">
-                    <Metro:MetroColorPicker x:Name="color1" Width="50" Height="50" Padding="5" Background="#0063B1" DefaultColor="#0063B1"/>
-                </WrapPanel>
-            </Metro:MetroTitleMenuItem>
+        <Metro:MetroTitleMenu>            
+            <Metro:MetroTitleMenuItem Header="系统" Icon="Resources/titleMuenIcon.png">
+                <Metro:MetroMenuItem x:Name="help"  Header="帮助" Click="menu_Click"/>
+                <Metro:MetroMenuItem x:Name="changePassword"  Header="修改密码" Click="menu_Click"/>
+                <Metro:MetroMenuItem Header="主题颜色"  >
+                    <WrapPanel Orientation="Horizontal">
+                        <Metro:MetroColorPicker x:Name="color1" Width="50" Height="50" Padding="5" Background="#0063B1" DefaultColor="#0063B1"/>
+                    </WrapPanel>
+                </Metro:MetroMenuItem>
+            </Metro:MetroTitleMenuItem>           
         </Metro:MetroTitleMenu>
     </Metro:MetroWindow.Menu>
     <Grid>

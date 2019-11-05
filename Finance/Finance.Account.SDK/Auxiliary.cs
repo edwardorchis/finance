@@ -35,9 +35,9 @@ namespace Finance.Account.SDK
         /// </summary>
         public long parentId { set; get; }
         /// <summary>
-        /// 是否明细
+        /// 组
         /// </summary>
-        public bool isDetail { set; get; }
+        public int groupId { set; get; }
         /// <summary>
         /// 是否禁用
         /// </summary>

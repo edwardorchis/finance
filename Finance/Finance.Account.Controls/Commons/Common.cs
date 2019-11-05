@@ -28,7 +28,7 @@ namespace Finance.Account.Controls.Commons
         }
         //定义delegate
         public delegate List<AccountSubjectObj> GetAccountSubjectListEventHandler();
-        public delegate List<AuxiliaryObj> GetAuxiliaryObjListEventHandler(AuxiliaryType type);
+        public delegate List<AuxiliaryObj> GetAuxiliaryObjListEventHandler();
         public delegate void DataChangedEventHandler(object sender, DataChangedArgs e);
         public delegate void RowChangeEventHandler(object sender, RowChangeEventArgs e);
         public delegate void CellKeyDownEventHandler(object sender, KeyEventArgs e);
@@ -118,6 +118,8 @@ namespace Finance.Account.Controls.Commons
 
         public string TagLabel { set; get; }
 
+        public string Unit { set; get; }
+
         public int Width { set; get; }
     }
 
@@ -184,9 +186,9 @@ namespace Finance.Account.Controls.Commons
         FLAG_NULL = 0,
   
         /// <summary>
-        /// 前八位做UserDefine控制
+        /// 前八位做UserDefine控制, 最后一位做辅助核算，倒数第二位做数量核算
         /// </summary>
-        FLAG_USDEF_MASK = 65280, //1111 1111 0000 0000
+        FLAG_USDEF_MASK = 65283, //1111 1111 0000 0011
 
 
         FLAG_MAX = 65535, //1111 1111 1111 1111
@@ -205,9 +207,9 @@ namespace Finance.Account.Controls.Commons
             return GetAccountSubjectListEvent?.Invoke();
         }
 
-        public List<AuxiliaryObj> OnGetAuxiliaryObjListEvent(AuxiliaryType type)
+        public List<AuxiliaryObj> OnGetAuxiliaryObjListEvent()
         {
-            return GetAuxiliaryObjListEvent?.Invoke(type);
+            return GetAuxiliaryObjListEvent?.Invoke();
         }
 
         public void OnMessageEventHandlerEvent(MessageLevel level, string msg)

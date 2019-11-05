@@ -73,7 +73,7 @@ namespace Finance.Utils
         /// <summary>
         /// 无效的签名
         /// </summary>
-        [DescripVals("无效的签名")]
+        [DescripVals("错误的授权")]
         AUTHENTICATION_ERROR
     }
 

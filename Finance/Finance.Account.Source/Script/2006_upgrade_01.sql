@@ -19,6 +19,7 @@ begin transaction tran_Auxiliary
 
 declare @id int
 select @id = _number from _SerialNo where _key = 0
+select @id = isnull(@id, 1)
 insert into _Auxiliary (_id,_type,_no,_name,_description) values(@id, 5, 'income','结转收入', 'income')
 insert into _Auxiliary (_id,_type,_no,_name,_description) values(@id+1, 5, 'cost','结转成本、费用和税金', 'cost')
 insert into _Auxiliary (_id,_type,_no,_name,_description) values(@id+2, 5, 'investment','结转投资收益', 'investment')

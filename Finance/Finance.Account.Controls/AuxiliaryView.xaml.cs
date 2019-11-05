@@ -37,6 +37,7 @@ namespace Finance.Account.Controls
         }
 
         public AuxiliaryType SelectedType { get; private set; }
+        public AuxiliaryGroup AuxGrp { set; get; }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -51,7 +52,7 @@ namespace Finance.Account.Controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-            var dict = AuxiliaryUtil.Types();
+            var dict = AuxiliaryList.GetGroupTypes(AuxGrp);
             foreach (var kv in dict)
             {
                 if (Type > AuxiliaryType.Invalid && Type < AuxiliaryType.Max)

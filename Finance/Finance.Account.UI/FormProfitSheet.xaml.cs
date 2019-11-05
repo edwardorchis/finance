@@ -37,10 +37,12 @@ namespace Finance.Account.UI
                     case "query":
                         var frmFilter = new FormListFilterPopup();
                         frmFilter.Filter = m_filter;
+                        frmFilter.Hide2();
                         frmFilter.FilterPopupEvent += (args) =>
                         {
                             m_filter = args.Filter;
-                            //Refresh();
+                            m_lstTemplate = DataFactory.Instance.GetTemplateExecuter().GetExcelTemplate("利润表");
+                            SheetModel = SheetModel;
                         };
                         frmFilter.Show();
                         break;
@@ -87,11 +89,10 @@ namespace Finance.Account.UI
 
         void Calc()
         {
-        
+
             //2、组装计算公式为dictionary
             //3、发请求
             //4、刷新            
-          
             var origin = new Dictionary<string, string>();
             foreach (var item in m_lstTemplate)
             {
@@ -102,8 +103,14 @@ namespace Finance.Account.UI
                     origin.Add(lineNoJ + "c", item.d);
                 }
             }
-
-            var dest = executer.Calc(origin);
+            var filter = new Dictionary<string, object>();
+            if (m_filter != null)
+            {
+                filter["year"] = m_filter["beginYear"];
+                filter["period"] = m_filter["beginPeriod"];
+            }
+            
+            var dest = executer.Calc(filter, origin);
             if (dest == null)
                 throw new Exception("获取结果为空");
 

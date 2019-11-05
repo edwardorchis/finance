@@ -13,6 +13,7 @@ namespace Finance.Account.SDK.Request
         {
             get { return "/profitsheet/calc"; }
         }
+        public IDictionary<string, object> filter { set; get; }
         public Dictionary<string,string> template { set; get; }
     }
 }

@@ -19,11 +19,11 @@
                 <Label Content="期间" Height="25" Canvas.Left="152" Canvas.Top="24" Width="37"/>
                 <ComboBox x:Name="cmbPeriodBegin" Canvas.Left="192" Canvas.Top="26" Width="40" IsEditable="True" Text="10"/>
 
-                <Label Content="到" Height="24" Canvas.Left="246" Canvas.Top="26" Width="25"/>
+                <Label x:Name="lblTo" Content="到" Height="24" Canvas.Left="246" Canvas.Top="26" Width="25"/>
 
-                <Label Content="会计年度" Height="25" Canvas.Left="271" Canvas.Top="26" Width="64"/>
+                <Label x:Name="lblYear2" Content="会计年度" Height="25" Canvas.Left="271" Canvas.Top="26" Width="64"/>
                 <ComboBox x:Name="cmbYearEnd" Canvas.Left="328" Canvas.Top="28" Width="63" IsEditable="True" Text="2018"/>
-                <Label Content="期间" Height="25" Canvas.Left="394" Canvas.Top="26" Width="37"/>
+                <Label x:Name="lblPeriod2" Content="期间" Height="25" Canvas.Left="394" Canvas.Top="26" Width="37"/>
                 <ComboBox x:Name="cmbPeriodEnd" Canvas.Left="431" Canvas.Top="28" Width="43" IsEditable="True" Text="10"/>
 
                 <Button Content="确定" Height="36" Width="101" Canvas.Left="272" Canvas.Top="258" Click="Ok_Click"/>

@@ -87,7 +87,18 @@ namespace Finance.Account.UI
         {
             if (mAccountSubjectObj == null)
                 return;
-            
+
+            InitUdefFlag();
+            InitActItem();
+
+            userDefinePanel.DataSource = mUserDefineInputItems;
+            userDefinePanel.DataChangedEvent += UserDefinePanel_DataValueChangeEvent;
+        
+            SetFocus(userDefinePanel);
+        }
+
+        private void InitUdefFlag()
+        {
             var lst = DataFactory.Instance.GetTemplateExecuter().GetUdefTemplate("_VoucherEntryUdef");
             if (lst == null)
                 return;
@@ -102,7 +113,7 @@ namespace Finance.Account.UI
                     {
                         var f = s[1];
                         var bF = false;
-                        foreach(var F in accountFlagList)
+                        foreach (var F in accountFlagList)
                         {
                             var mask = 0;
                             if (!int.TryParse(F.name, out mask))
@@ -135,17 +146,69 @@ namespace Finance.Account.UI
                     Width = item.width
                 });
             }
-            
+
             mUserDefineInputItems = mUserDefineInputItems.OrderBy(item => item.TabIndex).ToList();
-            userDefinePanel.DataSource = mUserDefineInputItems;
-            userDefinePanel.DataChangedEvent += UserDefinePanel_DataValueChangeEvent;
-        
-            SetFocus(userDefinePanel);
+        }
+
+        private void InitActItem()
+        {
+
+            // 辅助核算
+            if ((mAccountSubjectObj.flag & 1) != 0)
+            {
+                object val = 0;
+                int actItemGrp = 0;
+                int.TryParse(mAccountSubjectObj.actItemGrp, out actItemGrp);
+                var lst = AuxiliaryList.Get(actItemGrp);
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                lst.ForEach(aux=> {
+                    if (!dict.ContainsKey(aux.id.ToString()))
+                        dict[aux.id.ToString()] = aux.no + "|" + aux.name;
+                });
+
+                var lbl = AuxiliaryList.FindByNo(Controls.Commons.AuxiliaryType.Invalid, actItemGrp.ToString()).name;
+                mUserDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = lbl,
+                    DataType = typeof(int),
+                    Name = "actItemGrp",
+                    DataValue = val,
+                    TabIndex = 0,
+                    TagLabel = "comb|" + JsonConverter.JsonSerialize(dict),
+                    Width = 440
+                });
+            }
+
+            // 辅助数量
+            if ((mAccountSubjectObj.flag & 2) != 0)
+            {
+                object val = 0;
+                mUserDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = "单价",
+                    DataType = typeof(decimal),
+                    Name = "act_price",
+                    DataValue = val,
+                    TabIndex = 0,
+                    TagLabel = "price|act",
+                });
+                mUserDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = "数量",
+                    DataType = typeof(decimal),
+                    Name = "act_qty",
+                    DataValue = val,
+                    TabIndex = 0,
+                    TagLabel = "qty|act",
+                    Unit = mAccountSubjectObj.actUint
+                });
+            }
         }
 
         Dictionary<string, object> RecordUserDefineInputDataValue()
         {
-            Dictionary<string, object>  map = new Dictionary<string, object>();          
+            Dictionary<string, object>  map = new Dictionary<string, object>();
+            mUserDefineInputItems = userDefinePanel.DataSource;
             mUserDefineInputItems.ForEach(udef => {
                 if (map.ContainsKey(udef.Name))
                     map[udef.Name] = udef.DataValue;
@@ -180,60 +243,49 @@ namespace Finance.Account.UI
                     {
                         LogError("GetCurrentUserDefineKey failed!");
                         return;
-                    }                   
-                    
+                    }
+
                     var priceItem = udefList.FirstOrDefault(item => matched(item, f2, "price"));
                     var qtyItem = udefList.FirstOrDefault(item => matched(item, f2, "qty"));
                     var amountItem = udefList.FirstOrDefault(item => matched(item, f2, "amount"));
 
-                    if (priceItem == null || qtyItem == null || amountItem == null)
-                    {
-                        LogError("get price item or qty item or amount item is null!");
-                        return;
-                    }
-                    if (priceItem.DataValue == null || qtyItem.DataValue == null || amountItem.DataValue == null)
-                    {
-                        LogDebug("get price or qty is null!");
-                        return;
-                    }
+                    decimal price = 0; decimal qty = 0; decimal amount = 0;
+                    if (priceItem != null)
+                        decimal.TryParse(priceItem.DataValue.ToString(), out price);
+                    if (qtyItem != null)
+                        decimal.TryParse(qtyItem.DataValue.ToString(), out qty);
+                    if (amountItem != null)
+                        decimal.TryParse(amountItem.DataValue.ToString(), out amount);
 
-                    decimal price = 0; decimal qty = 0;decimal amount = 0;
-                    if (decimal.TryParse(priceItem.DataValue.ToString(), out price)
-                        && decimal.TryParse(qtyItem.DataValue.ToString(), out qty)
-                        && decimal.TryParse(amountItem.DataValue.ToString(), out amount))
+                    if (f1 == "amount")
                     {
-                        if (f1 == "amount")
+                        if (qty != 0)
                         {
-                            if (qty != 0)
-                            {
-                                price = decimal.Round(amount / qty,2);
-                                var priceInput = userDefinePanel.FindInputByName(priceItem.Name);
-                                if (priceInput != null)
-                                    priceInput.DataValue = price;
-                            }
-                            else if (price != 0)
-                            {
-                                qty = decimal.Round(amount / price,2);
-                                var qtyInput = userDefinePanel.FindInputByName(qtyItem.Name);
-                                if (qtyInput != null)
-                                    qtyInput.DataValue = qty;
-                            }
+                            price = decimal.Round(amount / qty, 2);
+                            var priceInput = userDefinePanel.FindInputByName(priceItem.Name);
+                            if (priceInput != null)
+                                priceInput.DataValue = price;
                         }
-                        else
+                        else if (price != 0)
                         {
-                            amount = decimal.Round(price * qty,2);
+                            qty = decimal.Round(amount / price, 2);
+                            var qtyInput = userDefinePanel.FindInputByName(qtyItem.Name);
+                            if (qtyInput != null)
+                                qtyInput.DataValue = qty;
+                        }
+                    }
+                    else
+                    {
+                        amount = decimal.Round(price * qty, 2);
+                        if (amountItem != null)
+                        {
                             var amountInput = userDefinePanel.FindInputByName(amountItem.Name);
                             if (amountInput != null)
                                 amountInput.DataValue = amount;
                         }
-                        
-                        CalcTotal(f2, amount);
                     }
-                    else
-                    {
-                        LogError("try parse price or qty or amount failed ! qty:{0},price:{1},amount:{2}.",
-                            qtyItem.DataValue, priceItem.DataValue, amountItem.DataValue);
-                    }
+
+                    CalcTotal(f2, amount);
                 }
             }
             catch (Exception ex)

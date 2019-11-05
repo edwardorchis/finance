@@ -51,6 +51,11 @@ namespace Finance.Account.Data.Executer
             Execute(new MenuTableSaveRequest { Content = menu});
         }
 
+        public void DeleteMenuItem(MenuTableMap menu)
+        {
+            Execute(new MenuTableDeleteRequest { Content = menu });
+        }
+
         public List<AccessRight> GetAccessRight(long id)
         {
             var rsp = Execute(new AccessRightRequest { id = id });
@@ -62,6 +67,6 @@ namespace Finance.Account.Data.Executer
             Execute(new AccessRightSaveRequest { Content = lst });
         }
 
-
+       
     }
 }

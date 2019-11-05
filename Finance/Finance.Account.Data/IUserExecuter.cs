@@ -22,5 +22,7 @@ namespace Finance.Account.Data
         void Enable(long id);
 
         long Save(long id,string userName,string password);
+
+        void ChangePassword(string oldpwd, string newpwd);
     }
 }

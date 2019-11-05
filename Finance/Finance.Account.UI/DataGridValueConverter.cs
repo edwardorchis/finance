@@ -84,4 +84,29 @@ namespace Finance.Account.UI
             throw new NotImplementedException();
         }
     }
+
+    internal class AccountItemGrpConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return "";
+            var lst = DataFactory.Instance.GetAuxiliaryExecuter().List(SDK.AuxiliaryType.Invalid);
+            if (lst != null)
+            {
+                lst = lst.FindAll(a => a.groupId == (int)SDK.AuxiliaryGroup.AccountItems);
+                var aux = lst.FirstOrDefault(a => a.no == value.ToString());
+                if (aux != null)
+                    return aux.name;
+            }
+            
+            return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

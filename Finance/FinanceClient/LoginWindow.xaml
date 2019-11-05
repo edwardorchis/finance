@@ -429,7 +429,7 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                     </EventTrigger>
                 </CheckBox.Triggers>
             </CheckBox>
-            <Button Height="33" Width="181"  Margin="10,230,0,0" Name="btnLogin" Click="Login_Click">
+            <Button Height="33" Width="181"  IsDefault="true"  Margin="10,230,0,0" Name="btnLogin" Click="Login_Click">
                 <TextBlock FontSize="18" FontFamily="Consolas;Microsoft YaHei" Foreground="Blue" Text="登    录" />
             </Button>
             <TextBlock HorizontalAlignment="Left" Margin="310,25,0,0" Name="textBlock1" Text="注册账号" MouseDown="tbkRegistration_MouseDown" Visibility="Hidden">

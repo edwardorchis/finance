@@ -1,4 +1,5 @@
 ﻿using Finance.Account.Controls;
+using Finance.Account.Controls.Commons;
 using Finance.Account.Data;
 using Finance.Account.SDK;
 using Newtonsoft.Json;
@@ -30,8 +31,7 @@ namespace Finance.Account.UI
         {
             InitializeComponent();
         }
-
-
+        public Controls.Commons.AuxiliaryGroup AuxGrp { set; get; }
 
         private void btn_Click(object sender, RoutedEventArgs e)
         {
@@ -88,6 +88,7 @@ namespace Finance.Account.UI
 
         void Save()
         {
+            ItemSource.groupId = (int)AuxGrp;
             DataFactory.Instance.GetAuxiliaryExecuter().Save(ItemSource);
             Window_Loaded(this, null);
             AfterSaveEvent?.Invoke();

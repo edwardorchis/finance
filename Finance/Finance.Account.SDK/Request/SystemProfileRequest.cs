@@ -50,6 +50,13 @@ namespace Finance.Account.SDK.Request
         public MenuTableMap Content { set; get; }
     }
 
+    public class MenuTableDeleteRequest : IFinanceRequest<FinanceResponse>
+    {
+        public string Method => "/systemprofile/deletemenu";
+
+        public MenuTableMap Content { set; get; }
+    }
+
     public class AccessRightRequest : IFinanceRequest<AccessRightResponse>
     {
         public string Method => "/systemprofile/accessright";

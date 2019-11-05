@@ -58,4 +58,15 @@ namespace Finance.Account.SDK.Request
 
         public int IsDeleted { set; get; }
     }
+
+    public class UserChangePasswordRequest : IFinanceRequest<FinanceResponse>
+    {
+        public string Method => "/user/changepassword";
+
+        public long Id { set; get; }
+
+        public string OldPwd{ set; get; }
+
+        public string NewPwd { set; get; }
+    }
 }

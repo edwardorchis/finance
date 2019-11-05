@@ -140,6 +140,40 @@ namespace Finance.Utils
             return dt;
         }
 
+        public static Dictionary<string, string> ToKeyValues(List<T> lst, string key, string value)
+        {
+            if (lst == null)
+                return null;
+            Type info = typeof(T);
+            var members = info.GetProperties();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            string k = "", v = "", str ="";
+            lst.ForEach(t =>
+            {
+                foreach (var mi in members)
+                {
+                    if (key == mi.Name || value == mi.Name)
+                    {                        
+                        var val = mi.GetValue(t, null);
+                        if (val == null)
+                            str = ""; 
+                        else
+                            str = val.ToString();
+                        if (key == mi.Name)
+                            k = str;
+                        else
+                            v = str;
+                    }                 
+                }
+                if (!dict.ContainsKey(k))
+                {
+                    dict[k] = v;
+                }
+                
+            });
+            return dict;
+        }
+
         public static bool HasProperty(string name)
         {
             Type info = typeof(T);

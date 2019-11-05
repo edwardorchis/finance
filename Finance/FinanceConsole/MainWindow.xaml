@@ -1,0 +1,27 @@
+﻿<Metro:MetroWindow x:Class="FinanceConsole.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinanceConsole"
+        xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas"
+        mc:Ignorable="d"
+        Title="Finance" Height="483" Width="752.2"
+        Loaded="Window_Loaded"  Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+
+
+    <Grid>
+        <Metro:MetroMenuTabControl x:Name="MainMenuTab" IconMode="False">
+            <Metro:MetroMenuTabItem Header="账套管理" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <local:AccoutManager Grid.Row="1" />
+                </Grid>
+            </Metro:MetroMenuTabItem>
+            <Metro:MetroMenuTabItem Header="用户管理" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <local:AccoutUser Grid.Row="1" />
+                </Grid>
+            </Metro:MetroMenuTabItem>
+        </Metro:MetroMenuTabControl>
+    </Grid>
+</Metro:MetroWindow>

@@ -12,22 +12,26 @@ namespace Finance.Account.Source
 {
     public class AccountCtlMain
     {
-        static Utils.ILogger logger = Logger.GetLogger(typeof(AccountCtlMain));
+        static Utils.ILogger logger()
+        {
+            return Logger.GetLogger(typeof(AccountCtlMain));
+        }
+
         public static void Init()
         {
             try
             {
                 var sql = Generator.GenerateSql(typeof(AccountCtlData));
                 DBHelper.DefaultInstance.ExecuteSql(sql);
-                logger.Info("Init finance db done ...");
-                logger.Info("Init demo ...");
+                logger().Info("Init finance db done ...");
+                logger().Info("Init demo ...");
                 InitData();
-                logger.Info("Init demo done ...");
-                logger.Info("Init AccountCtl data success.");
+                logger().Info("Init demo done ...");
+                logger().Info("Init AccountCtl data success.");
             }
             catch (FinanceException e)
             {
-                logger.Error(e.Message);
+                logger().Error(e.Message);
             }
            
            
@@ -139,14 +143,16 @@ end";
             if (idObj == null)
                 throw new FinanceException(FinanceResult.RECORD_NOT_EXIST, string.Format("账套[{0}]未加载", no));
 
-            if (string.IsNullOrEmpty(param))
-                SourceMain.Init((long)idObj);
-            else if (param.Trim() == "-k")
+            if (param.Trim() == "-k")
             {
                 var db = DBHelper.GetInstance(new Dictionary<string, object> { { "Tid", (long)idObj } });
                 db.ExecuteSql(@"delete from _VoucherEntryUdef; delete from _VoucherEntry; delete from _VoucherHeader;
 delete from _TaskResult;delete from _OperationLog;delete from _SerialNo where _key > 0;
 update _SystemProfile set _value = 0 where _category= 'Account' and _key = 'IsInited';");
+            }
+            else
+            {
+                SourceMain.Init((long)idObj);
             }
         }
 
@@ -154,7 +160,7 @@ update _SystemProfile set _value = 0 where _category= 'Account' and _key = 'IsIn
         {
             var lst = DataManager.GetInstance(null).Query<AccountCtl>(null);
             var str = EntityConvertor<AccountCtl>.PrintString(lst);
-            logger.Info(str);
+            logger().Info(str);
         }
 
         public static bool Verification(string no, string pwd)
@@ -226,7 +232,7 @@ VALUES({0},'{1}','{2}','{3}', GETDATE())", id, no, name, pwd));
                 }
             }
 
-            logger.Info(sb.ToString());
+            logger().Info(sb.ToString());
         }
     }
 }

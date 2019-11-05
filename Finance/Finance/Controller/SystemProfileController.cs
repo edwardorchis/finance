@@ -60,6 +60,12 @@ namespace Finance.Controller
             return CreateResponse(FinanceResult.SUCCESS);
         }
 
+        public FinanceResponse DeleteMenu(MenuTableDeleteRequest request)
+        {
+            service.DeleteMenu(request.Content);
+            return CreateResponse(FinanceResult.SUCCESS);
+        }
+
         public AccessRightResponse AccessRight(AccessRightRequest request)
         {
             var rsp = service.GetAccessRightList(request.id);

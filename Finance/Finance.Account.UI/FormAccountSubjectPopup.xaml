@@ -34,6 +34,12 @@
                 <ComboBox x:Name="cmbDirection"  Height="23" Canvas.Left="152" Canvas.Top="146" Width="209" 
                           DisplayMemberPath="name" SelectedValuePath="id" 
                           SelectedValue="{Binding xDirection, ElementName=thisForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsReadOnly="True"/>
+                <Label Content="辅助核算" Height="24" Canvas.Left="51" Canvas.Top="187" Width="69"/>
+                <ComboBox x:Name="cmbActItemGrp" Height="23" Canvas.Left="152" Canvas.Top="188" Width="209" 
+                          DisplayMemberPath="name" SelectedValuePath="no" 
+                          SelectedValue="{Binding xActItemGrp, ElementName=thisForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsReadOnly="True"/>
+                <Label Content="数量核算" Height="24" Canvas.Left="51" Canvas.Top="227" Width="69"/>
+                <TextBox Height="24" Canvas.Left="152" TextWrapping="Wrap" Text="{Binding xActUint, ElementName=thisForm, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="227" Width="209" VerticalContentAlignment="Center"/>
 
                 <xctk:CheckListBox x:Name="chkListBox" Height="181" Canvas.Left="438" Canvas.Top="31" Width="203" DisplayMemberPath="display" SelectedMemberPath="isSelected" BorderThickness="0"/>
 

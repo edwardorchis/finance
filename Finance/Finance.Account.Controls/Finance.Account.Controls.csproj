@@ -158,5 +158,11 @@
   <ItemGroup>
     <None Include="Resources\notepad-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Finance.Utils\Finance.Utils.csproj">
+      <Project>{927c43ec-e776-4337-951b-803ad5867499}</Project>
+      <Name>Finance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,45 +9,11 @@
     x:Class="Finance.Account.UI.FormCashflowSheet"
              mc:Ignorable="d" Loaded="FinanceForm_Loaded">
     <f:FinanceForm.Resources>
-        <local:HideZeroConverter x:Key="HideZeroConverter"/>
-        <Style TargetType="{x:Type DataGrid}">
-            <!--拖动改变单元格大小-->
-            <Setter Property="CanUserResizeColumns" Value="True"/>
-            <!--网格线颜色-->
-            <Setter Property="HorizontalGridLinesBrush" Value="LightBlue"/>
-            <Setter Property="VerticalGridLinesBrush" Value="LightBlue"/>
-        </Style>
-        <!--标题栏样式-->
-        <Style TargetType="{x:Type DataGridColumnHeader}" >
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Background" Value="lightBlue" />
-            <Setter Property="Height" Value="30"/>
-        </Style>
-
-        <!--行样式触发-->
-        <Style TargetType="{x:Type DataGridRowHeader}">
-            <Setter Property="Width" Value="0" />
-        </Style>
-        <!--背景色改变必须先设置cellStyle 因为cellStyle会覆盖rowStyle样式-->
-        <Style x:Key="totalRowStyle" TargetType="{x:Type DataGridRow}">
-            <Setter Property="Background" Value="LightYellow"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <!--<Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="BorderBrush" Value="Red" />
-                    <Setter Property="BorderThickness" Value="1" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightGray"/>
-                </Trigger>
-            </Style.Triggers>-->
-        </Style>
-        <!--单元格样式触发-->
-        <!--<Style x:Key="DataGridCellAlignRight" TargetType="{x:Type DataGridCell}">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-        </Style>-->
-        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </f:FinanceForm.Resources>
     <Grid>
         <Grid.RowDefinitions>

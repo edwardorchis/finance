@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- 应该在此定义资源字典条目。-->
+    <Storyboard x:Key="sbCloud" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetName="cloud"
+                             Storyboard.TargetProperty="X"
+                             From="0" To="280"
+                             BeginTime="00:00:00"
+                             Duration="00:00:10">
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetName="cloud"
+                             Storyboard.TargetProperty="Y"
+                             From="0" To="30"
+                             BeginTime="00:00:00"
+                             Duration="00:00:10">
+        </DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="sbClour" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetName="moveClour"
+                             Storyboard.TargetProperty="X"
+                             From="0" To="-50"
+                             BeginTime="00:00:00"
+                             Duration="00:00:01"
+                             AutoReverse="False">
+
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetName="moveClour2"
+                             Storyboard.TargetProperty="X"
+                             From="0" To="50"
+                             BeginTime="00:00:00"
+                             Duration="00:00:01"
+                             AutoReverse="False">
+        </DoubleAnimation>
+    </Storyboard>
+</ResourceDictionary>

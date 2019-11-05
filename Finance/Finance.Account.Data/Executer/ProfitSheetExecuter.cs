@@ -10,9 +10,9 @@ namespace Finance.Account.Data.Executer
 {
     public class ProfitSheetExecuter : DataExecuter, IProfitSheetExecuter
     {
-        public Dictionary<string, string> Calc(Dictionary<string, string> template)
+        public Dictionary<string, string> Calc(IDictionary<string, object> filter, Dictionary<string, string> template)
         {
-            var rsp = Execute(new ProfitSheetCalcRequest { template = template });
+            var rsp = Execute(new ProfitSheetCalcRequest { template = template,filter = filter });
             return rsp.Content;
         }
 
