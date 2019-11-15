@@ -152,7 +152,6 @@ namespace Finance.Account.UI
 
         private void InitActItem()
         {
-
             // 辅助核算
             if ((mAccountSubjectObj.flag & 1) != 0)
             {
@@ -165,7 +164,11 @@ namespace Finance.Account.UI
                     if (!dict.ContainsKey(aux.id.ToString()))
                         dict[aux.id.ToString()] = aux.no + "|" + aux.name;
                 });
-
+                if (DataSource != null)
+                {
+                    if (DataSource.ContainsKey("actItemGrp"))
+                        val = DataSource["actItemGrp"];
+                }
                 var lbl = AuxiliaryList.FindByNo(Controls.Commons.AuxiliaryType.Invalid, actItemGrp.ToString()).name;
                 mUserDefineInputItems.Insert(0, new UserDefineInputItem
                 {
@@ -182,13 +185,34 @@ namespace Finance.Account.UI
             // 辅助数量
             if ((mAccountSubjectObj.flag & 2) != 0)
             {
-                object val = 0;
+                decimal price = 0M;
+                decimal qty = 0M;
+                if (DataSource != null)
+                {
+                    if (DataSource.ContainsKey("act_price"))
+                        decimal.TryParse(DataSource["act_price"].ToString(), out price);
+                }
+               
+                if (DataSource != null)
+                {
+                    if (DataSource.ContainsKey("act_qty"))
+                        decimal.TryParse(DataSource["act_qty"].ToString(), out qty);
+                }
+                mUserDefineInputItems.Insert(0, new UserDefineInputItem
+                {
+                    Label = "金额",
+                    DataType = typeof(decimal),
+                    Name = "act_amoout",
+                    DataValue = price * qty,
+                    TabIndex = 0,
+                    TagLabel = "amount|act"
+                });
                 mUserDefineInputItems.Insert(0, new UserDefineInputItem
                 {
                     Label = "单价",
                     DataType = typeof(decimal),
                     Name = "act_price",
-                    DataValue = val,
+                    DataValue = price,
                     TabIndex = 0,
                     TagLabel = "price|act",
                 });
@@ -197,12 +221,12 @@ namespace Finance.Account.UI
                     Label = "数量",
                     DataType = typeof(decimal),
                     Name = "act_qty",
-                    DataValue = val,
+                    DataValue = qty,
                     TabIndex = 0,
                     TagLabel = "qty|act",
                     Unit = mAccountSubjectObj.actUint
                 });
-            }
+             }
         }
 
         Dictionary<string, object> RecordUserDefineInputDataValue()

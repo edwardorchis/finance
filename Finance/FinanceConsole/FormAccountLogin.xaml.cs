@@ -65,7 +65,10 @@ namespace FinanceConsole
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            if (255 == CommondHandler.Test())
+            {
+                CommondHandler.Process("init");
+            }
         }
 
     }

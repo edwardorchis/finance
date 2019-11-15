@@ -17,6 +17,19 @@ namespace Finance.Account.Source
             return Logger.GetLogger(typeof(AccountCtlMain));
         }
 
+        public static int Test()
+        {
+            try
+            {
+                DBHelper.DefaultInstance.ExecuteSql("select 1 from _AccountCtl");
+                return 0;
+            }
+            catch
+            {
+            }
+            return 255;
+        }
+
         public static void Init()
         {
             try
@@ -33,8 +46,6 @@ namespace Finance.Account.Source
             {
                 logger().Error(e.Message);
             }
-           
-           
         }
   
         public static void InitData()

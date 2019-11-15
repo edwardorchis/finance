@@ -91,4 +91,15 @@ namespace Finance.Account.SDK.Request
     {
         public string Method => "/voucher/dotest";
     }
+
+
+    public class VoucherPrintRequest : IdRequest, IFinanceRequest<VoucherPrintResponse>
+    {
+        public string FileName { set; get; }
+        public string Method
+        {
+            get { return "/voucher/print"; }
+        }
+
+    }
 }

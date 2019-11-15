@@ -110,6 +110,11 @@ namespace Finance.Utils
             TimeSpan span = (value - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
             return (int)span.TotalSeconds;
         }
+
+        public static string GetUUID()
+        {
+            return System.Guid.NewGuid().ToString("N");
+        }
     }
 
 

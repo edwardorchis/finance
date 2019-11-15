@@ -13,6 +13,7 @@ using Finance.UI;
 using Finance.Account.Data.Model;
 using System.Linq;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace Finance.Account.UI
 {
@@ -129,7 +130,9 @@ namespace Finance.Account.UI
                     case "next":
                         LoadVoucher(mid, LINKED.NEXT);
                         break;
-            
+                    case "print":
+                        PrintVocher();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -137,6 +140,20 @@ namespace Finance.Account.UI
                 Console.WriteLine(ex.ToString());
                 FinanceMessageBox.Error(ex.Message);
             }
+        }
+
+        void PrintVocher()
+        {
+            string fileName = ".Cache\\voucher.xlsx";
+            FileHelper.CheckPath(".Cache");
+            DataFactory.Instance.GetVoucherExecuter().Print(fileName, mid);
+            Process pro = new Process();
+            pro.StartInfo.FileName = fileName;//文件路径
+            pro.StartInfo.CreateNoWindow = true;
+            //pro.StartInfo.UseShellExecute = false;
+            pro.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            pro.StartInfo.Verb = "Print";
+            pro.Start();
         }
 
         void New()
@@ -536,7 +553,7 @@ namespace Finance.Account.UI
                     TabIndex = 0,
                     TagLabel = "qty|act",
                     Unit = accountSubjectObj.actUint
-                });
+                });                
             }
         }
 

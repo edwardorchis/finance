@@ -14,6 +14,12 @@ namespace FinanceConsole
         {
             return Logger.GetLogger(typeof(CommondHandler));
         }
+
+        public static int Test()
+        {
+            return AccountCtlMain.Test();
+        }
+
         public static int Process(string commondString)
         {
             int iRet = 0;

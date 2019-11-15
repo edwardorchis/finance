@@ -181,7 +181,10 @@ namespace Finance.Account.Controls
         {
             var dict = JsonConverter.JsonDeserialize<Dictionary<string, string>>(TagLabel.Substring(5));
             xCombBox.ItemsSource = dict;
-            xCombBox.SelectedValue = Convert.ToString(mValue);           
+            xCombBox.SelectedValue = Convert.ToString(mValue);
+            xCombBox.GotFocus += new RoutedEventHandler((sender, e) => {
+                (sender as ComboBox).IsDropDownOpen = true;
+            });
             xCombBox.KeyDown += new KeyEventHandler((sender, e) => {
                 if (e.Key == Key.Enter)
                 {

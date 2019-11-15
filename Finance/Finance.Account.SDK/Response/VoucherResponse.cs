@@ -15,4 +15,9 @@ namespace Finance.Account.SDK.Response
     {
         public List<Voucher> Content { set; get; }
     }
+
+    public class VoucherPrintResponse : FinanceResponse
+    {
+        public string Content { set; get; }
+    }
 }

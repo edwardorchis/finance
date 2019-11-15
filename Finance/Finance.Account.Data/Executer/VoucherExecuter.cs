@@ -7,6 +7,7 @@ using Finance.Account.Data.Model;
 using Finance.Account.SDK;
 using Finance.Account.SDK.Request;
 using Finance.Account.SDK.Response;
+using Finance.Utils;
 using Newtonsoft.Json;
 
 namespace Finance.Account.Data.Executer
@@ -73,5 +74,11 @@ namespace Finance.Account.Data.Executer
                 Execute(new VoucherDoTestRequest());
             }).Start();
         }
+
+        public string Print(string fileName, long id)
+        {
+            return DownloadFile(fileName, new VoucherPrintRequest { id = id , FileName = fileName});
+        }
+
     }
 }

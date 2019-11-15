@@ -7,6 +7,12 @@ using Finance.Account.Service;
 using System.Threading;
 using System.Collections.Generic;
 using System.Web.Http.Controllers;
+using System.IO;
+using System.Web;
+using Finance.Account.Source;
+using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace Finance.Controller
 {
@@ -142,6 +148,30 @@ namespace Finance.Controller
                 i++;
             }
             return CreateResponse(FinanceResult.SUCCESS);
+        }
+
+
+        public HttpResponseMessage Print(VoucherPrintRequest request)
+        {
+            PrintTemplateInfo tmpInfo = new PrintTemplateInfo();
+            tmpInfo.name = "凭证打印模板_v1.xlsx";
+            tmpInfo.procName = "sp_voucher_print_v1";
+            tmpInfo.id = request.id;
+            PrintAssemble printAssemble = new PrintAssemble(tmpInfo, service);            
+            string filePath = printAssemble.Package();
+
+            var stream = new FileStream(filePath, FileMode.Open);
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(stream);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.ms-excel");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = request.FileName
+            };
+
+            //System.IO.File.Delete(filePath);
+
+            return response;
         }
 
     }

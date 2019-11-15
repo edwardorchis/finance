@@ -3,6 +3,7 @@ using Finance.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace Finance.Account.Service
@@ -323,6 +324,11 @@ namespace Finance.Account.Service
         public void UnPost(long id)
         {
             ChangeStatus(id, VoucherStatus.Posted, VoucherStatus.Checked, null);
+        }
+
+        public DataSet RunDataSetProc(string procName, SqlParameter[] prams = null)
+        {
+            return DBHelper.GetInstance(mContext).RunDataSetProc(procName, prams);
         }
 
         /// <summary>

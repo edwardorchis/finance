@@ -96,6 +96,48 @@ namespace Finance.Utils
             var files = Directory.GetFiles(path, searchPattern);
             return new List<string>(files);
         }
-        
+
+        public static void FileExpiry(string path, string searchPattern, long expirySeconds)
+        {
+            var lst = GetFilesName(path, searchPattern);
+            lst.ForEach(f=> {
+                FileInfo fi = new FileInfo(f);
+                TimeSpan ts = DateTime.Now - fi.LastWriteTime;               
+                if (ts.TotalSeconds >= expirySeconds)
+                {
+                    fi.Delete();
+                }
+            });
+        }
+
+        public static bool FileExist(string fileName)
+        {
+            return System.IO.File.Exists(fileName);
+        }
+
+
+        public static void CheckPath(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        public static bool CopyFile(string srcFileName, string destFileName)
+        {
+            if (FileExist(srcFileName))
+            {
+                CheckPath(destFileName.Substring(0, destFileName.LastIndexOf('\\')));
+                File.Copy(srcFileName, destFileName, true);
+                return true;
+            }
+            return false;
+        }
+
+        public static string FileSuffix(string fileName)
+        {
+            return Path.GetExtension(fileName);
+        }
     }
 }

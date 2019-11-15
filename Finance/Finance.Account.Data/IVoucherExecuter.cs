@@ -21,6 +21,7 @@ namespace Finance.Account.Data
         void UnCancel(long id);
         void Post(long id);
         void UnPost(long id);
+        string Print(string fileName, long id);
 
         void DoTest();
     }

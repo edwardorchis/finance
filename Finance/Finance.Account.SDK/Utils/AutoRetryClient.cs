@@ -202,7 +202,7 @@ namespace Finance.Account.SDK.Utils
             content = json.ToString();
             var url = RootPath + request.Method + string.Format("?ver={0}&appkey={1}&sign={2}", Ver, Appkey, SignRequest(content));
 
-            result = HttpDownloadFile(url, content,fileName);
+            result = HttpDownloadFile(url, content, fileName);
 
             return result;
         }
@@ -217,7 +217,7 @@ namespace Finance.Account.SDK.Utils
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "POST";
             request.ContentType = "application/json";
-            request.Timeout = 2000;//2s
+            request.Timeout = 1000 * 60 * 2;//2s
 
             byte[] data = Encoding.UTF8.GetBytes(content);
             request.ContentLength = data.Length;
