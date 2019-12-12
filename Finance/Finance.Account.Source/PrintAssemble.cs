@@ -211,6 +211,7 @@ namespace Finance.Account.Source
                     cellValue = cellValue.Replace(kv.Key, kv.Value);
                 }
                 cell.SetCellValue(cellValue);
+                cell.CellStyle.FillBackgroundColor = NPOI.HSSF.Util.HSSFColor.Red.Index;
             }
         }
 
@@ -305,6 +306,7 @@ namespace Finance.Account.Source
             for (int j = fromRowIndex; j < toRowIndex + 1; j++)
             {
                 row = sheet.CreateRow(insertRowIndex + j);
+                
                 srcRow = sheet.GetRow(j);
                 if (srcRow != null)
                     CopyRow(wb, srcRow, row, true);

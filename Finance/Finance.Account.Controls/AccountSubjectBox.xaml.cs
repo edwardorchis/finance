@@ -15,6 +15,7 @@ namespace Finance.Account.Controls
     public partial class AccountSubjectBox : TextBox
     {
         public DataChangedEventHandler DataChangedEvent;
+        public DisplayHookEventHandler DisplayHookEvent;
         public AccountSubjectBox()
         {
             InitializeComponent();
@@ -39,8 +40,18 @@ namespace Finance.Account.Controls
         {
             set
             {
-                Value=AccountSubjectList.Find(value);
-                SetValue(TextProperty, Value.FullName);
+                Value = AccountSubjectList.Find(value);
+                if (DisplayHookEvent != null)
+                {
+                    var args = new DisplayHookArgs();
+                    args.Value = Value;
+                    DisplayHookEvent.Invoke(this, args);
+                    SetValue(TextProperty, args.Text);
+                }
+                else
+                {
+                    SetValue(TextProperty, Value.FullName);
+                }
                 SetValue(IdProperty, value);
             }
             get {
@@ -82,9 +93,11 @@ namespace Finance.Account.Controls
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
             if (base.IsReadOnly)
-                return;
-            FillAccountSubject();
+                return;            
             base.Background = Consts.WHITE_BRUSH;
+            var txt = GetValue(TextProperty).ToString();
+            var obj = AccountSubjectList.FindByNo(txt.Trim());
+            Value = obj;
             if (Id != oldId)
             {
                 DataChangedEvent?.Invoke(this, 
@@ -92,7 +105,18 @@ namespace Finance.Account.Controls
                         OldValue = oldId,
                         NewValue = Id
                     });
-            }                
+            }           
+            if (DisplayHookEvent != null)
+            {
+                var args = new DisplayHookArgs();
+                args.Value = obj;
+                DisplayHookEvent.Invoke(this, args);
+                SetValue(TextProperty, args.Text);
+            }
+            else
+            {
+                SetValue(TextProperty, obj.FullName);
+            }
         }
 
         private void OnSelected(SelectedEventArgs e)
@@ -123,15 +147,6 @@ namespace Finance.Account.Controls
                 base.Text = "";
                 e.Handled = true;
             }
-        }
-
-
-        void FillAccountSubject()
-        {
-            var txt = GetValue(TextProperty).ToString();
-            var obj = AccountSubjectList.FindByNo(txt.Trim());
-            Value = obj;
-            SetValue(TextProperty, obj.FullName);          
         }
 
     }

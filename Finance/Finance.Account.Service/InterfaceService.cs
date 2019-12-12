@@ -73,9 +73,12 @@ namespace Finance.Account.Service
 
             var dtUdefenties = ds.Tables[1];
             var lstUdefenties = new Dictionary<string, Dictionary<string, Dictionary<string, object>>>();
+            Auxiliary auxfilter = new Auxiliary();
+            var lstAuxiliary = DataManager.GetInstance(mContext).Query(auxfilter);
             foreach (DataRow dr in dtUdefenties.Rows)
             {
                 var map = EntityConvertor<Object>.ToMap(dr);
+                GenerateActItemGrp(taskId, ref map, ref lstAuxiliary);
                 var linkNo = map["linkNo"].ToString();
                 if (lstUdefenties.ContainsKey(linkNo))
                 {
@@ -98,6 +101,39 @@ namespace Finance.Account.Service
             {
                 GenerateVoucher(taskId, lstHeader, lstEntries, lstUdefenties);
             }
+        }
+
+        // [LinkNo, [uniqueKey, [k, v]]]
+        bool GenerateActItemGrp(string taskId, ref Dictionary<string, object> filedMap, ref List<Auxiliary> lst)
+        {
+            if (!filedMap.ContainsKey("item_type") || !filedMap.ContainsKey("item_no") || !filedMap.ContainsKey("item_name"))
+                return false ;
+            var itemType = filedMap["item_type"].ToString();
+            var typeItem = lst.FirstOrDefault(item=>item.type == 0 && item.name == itemType);
+            if (typeItem == null) {
+                logger.Error("invalid item type : {0}.", itemType);
+                return false;
+            }
+
+            var itemNo = filedMap["item_no"].ToString();
+            var auxItem = lst.FirstOrDefault(item => item.type.ToString() == typeItem.no && item.no == itemNo);
+            if (auxItem == null)
+            {
+                auxItem = new Auxiliary
+                {
+                    id = SerialNoService.GetInstance(mContext).Get(SerialNoKey.System),
+                    type = long.Parse(typeItem.no),
+                    no = itemNo,
+                    name = filedMap["item_name"].ToString(),
+                    groupId = (int)AuxiliaryGroup.AccountItems
+                };
+                DataManager.GetInstance(mContext).Insert(auxItem);
+                SerialNoService.GetInstance(mContext).Update(SerialNoKey.System);
+            }
+            if (filedMap.ContainsKey("actItemGrp"))
+                filedMap.Remove("actItemGrp");
+            filedMap["actItemGrp"] = auxItem.id;             
+            return true;
         }
 
         bool GenerateAccoutSubject(string taskId,List<string> lstAccountSubjectNo)

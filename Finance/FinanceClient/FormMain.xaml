@@ -25,11 +25,11 @@
         </Metro:MetroTitleMenu>
     </Metro:MetroWindow.Menu>
     <Grid>
-        <Metro:MetroMenuTabControl x:Name="MainMenuTab" IconMode="True">
-            <Metro:MetroMenuTabItem Header="财务管理" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+        <Metro:MetroMenuTabControl x:Name="MainMenuTab" IconMode="False">
+            <Metro:MetroMenuTabItem Header="凭证管理" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="160" Width="Auto" />
+                        <ColumnDefinition MinWidth="100" Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Metro:MetroScrollViewer>
@@ -44,10 +44,28 @@
                     </Metro:MetroTabControl>
                 </Grid>
             </Metro:MetroMenuTabItem>
+            <Metro:MetroMenuTabItem Header="财务报表" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="100" Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Metro:MetroScrollViewer>
+                        <Border BorderBrush="#19000000" BorderThickness="0,0,1,0">
+                            <StackPanel x:Name="list_report">
+
+                            </StackPanel>
+                        </Border>
+                    </Metro:MetroScrollViewer>
+                    <Metro:MetroTabControl x:Name="tab_report" Grid.Column="1"  >
+
+                    </Metro:MetroTabControl>
+                </Grid>
+            </Metro:MetroMenuTabItem>
             <Metro:MetroMenuTabItem Header="基础设置" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="160" Width="Auto" />
+                        <ColumnDefinition MinWidth="100" Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Metro:MetroScrollViewer>
@@ -59,6 +77,24 @@
                     </Metro:MetroScrollViewer>
                     <Metro:MetroTabControl x:Name="tab_base_setting" Grid.Column="1" >
                         
+                    </Metro:MetroTabControl>
+                </Grid>
+            </Metro:MetroMenuTabItem>
+            <Metro:MetroMenuTabItem Header="其他功能" Icon="Resources/icon.png" IconMove="Resources/iconMove.png">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="100" Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Metro:MetroScrollViewer>
+                        <Border BorderBrush="#19000000" BorderThickness="0,0,1,0">
+                            <StackPanel x:Name="list_other">
+
+                            </StackPanel>
+                        </Border>
+                    </Metro:MetroScrollViewer>
+                    <Metro:MetroTabControl x:Name="tab_other" Grid.Column="1" >
+
                     </Metro:MetroTabControl>
                 </Grid>
             </Metro:MetroMenuTabItem>

@@ -28,6 +28,7 @@ namespace Finance.Account.Controls
         public event CellKeyDownEventHandler CellKeyDownEvent;
         public event BeginLayoutEventHandler BeginLayoutEvent;
         public event EndLayoutEventHandler EndLayoutEvent;
+        public event DisplayHookEventHandler DisplayHookEvent;
 
         protected void OnRowChangeEvent(Control sender,string oldKey,string newKey) {
             if (RowChangeEvent == null)
@@ -217,6 +218,10 @@ namespace Finance.Account.Controls
                 Grid.SetColumn(txtContent, 1);
 
                 AccountSubjectBox txtAccountSubject = new AccountSubjectBox();
+                txtAccountSubject.DisplayHookEvent += (sender, e) => {
+                    e.Key = item.UniqueKey;
+                    DisplayHookEvent?.Invoke(sender, e);
+                };
                 txtAccountSubject.Name = "txtAccountSubject_" + index;
                 txtAccountSubject.BorderBrush = Consts.BLACK_BRUSH;
                 txtAccountSubject.BorderThickness = new Thickness(0, 0, 1, 1);                
@@ -239,6 +244,7 @@ namespace Finance.Account.Controls
                         return;
                     CellKeyDownEvent?.Invoke(sender, e);
                 };
+               
                 txtAccountSubject.TabIndex = this.TabIndex + index * 4 + 1;
                 grid.RegisterName("txtAccountSubject_" + index, txtAccountSubject);
                 grid.Children.Add(txtAccountSubject);

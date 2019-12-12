@@ -6,6 +6,13 @@
          x:ClassModifier="internal"
          WindowStyle="None" ResizeMode="NoResize" Height="283.76" Width="504.411" 
         WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown" Loaded="Window_Loaded"  Topmost="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Border BorderThickness="1,1,1,1" BorderBrush="Black">
         <StackPanel>
             <Canvas Height="30" Background="AliceBlue" MouseDown="Canvas_MouseDown">

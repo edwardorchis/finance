@@ -99,6 +99,11 @@ namespace Finance.Utils
 
         public static void FileExpiry(string path, string searchPattern, long expirySeconds)
         {
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
             var lst = GetFilesName(path, searchPattern);
             lst.ForEach(f=> {
                 FileInfo fi = new FileInfo(f);

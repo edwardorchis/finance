@@ -27,7 +27,7 @@ namespace Finance.Account.UI
         public AfterSaveEventHandler AfterSaveEvent;
 
         string _origionUserName = "";
-        string _origionPassword = "******";
+        string _origionPassword = "123456";
         public FormUserPopup()
         {
             InitializeComponent();
@@ -90,9 +90,11 @@ namespace Finance.Account.UI
         }
 
         void Save()
-        {
+        {            
             UserId = DataFactory.Instance.GetUserExecuter().Save(UserId, UserName,Password);
             AfterSaveEvent?.Invoke();
+            _origionUserName = UserName;
+            _origionPassword = Password;
         }
 
         bool NeedSave()
@@ -132,7 +134,7 @@ namespace Finance.Account.UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            txtPwd.Password = "******";
+            txtPwd.Password = "123456";
             _origionUserName = UserName;
         }
 

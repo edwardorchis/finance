@@ -88,8 +88,12 @@ namespace Finance.Account.UI
             if (isShow)
                 return;
             isShow = true;
-            mUserList = DataFactory.Instance.GetUserExecuter().List();
-            mUserList.Remove(mUserList.FirstOrDefault(u => u.Name == "admin"));
+            var userList = DataFactory.Instance.GetUserExecuter().List();
+            mUserList.Clear();
+            userList.ForEach(u=> {
+                if (u.Name != "admin")
+                    mUserList.Add(u);
+            });
             listView.ItemsSource = mUserList;
             if (mUserList.Count > 0)
             {

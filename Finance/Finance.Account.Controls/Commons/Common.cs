@@ -32,6 +32,7 @@ namespace Finance.Account.Controls.Commons
         public delegate void DataChangedEventHandler(object sender, DataChangedArgs e);
         public delegate void RowChangeEventHandler(object sender, RowChangeEventArgs e);
         public delegate void CellKeyDownEventHandler(object sender, KeyEventArgs e);
+        public delegate void DisplayHookEventHandler(object sender, DisplayHookArgs e);
         public delegate void MessageEventHandler(MessageLevel level, string msg);
         public delegate void BeginLayoutEventHandler();
         public delegate void EndLayoutEventHandler();
@@ -130,6 +131,13 @@ namespace Finance.Account.Controls.Commons
         public object OldValue { set; get; }
         public object NewValue { set; get; }
         public bool Cancel { set; get; }
+    }
+
+    public class DisplayHookArgs
+    {
+        public string Key { set; get; }
+        public object Value { set; get; }
+        public string Text { set; get; }
     }
 
     public enum MessageLevel

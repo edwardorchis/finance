@@ -6,6 +6,13 @@
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Finance.Account.UI"
         Loaded="UserControl_Loaded">
+    <f:FinanceForm.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Default.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </f:FinanceForm.Resources>
     <StackPanel>
         <WrapPanel x:Name="toolbar" Height="50">
             <Button x:Name="new" Content="新增" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60"  Click="btn_Click"/>
@@ -20,6 +27,7 @@
             <Button x:Name="previous"  Content="上一张" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60"   Click="btn_Click"/>
             <Button x:Name="next"  Content="下一张" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60"   Click="btn_Click"/>
             <Button x:Name="print"  Content="打印" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60"   Click="btn_Click"/>
+            <Button x:Name="calloff"  Content="取消" Height="50" Canvas.Left="1026" Canvas.Top="349" Width="60"   Click="btn_Click"/>
         </WrapPanel>
         <ScrollViewer x:Name="scrollViewer" BorderBrush="Black" BorderThickness="1,0,0,0">
             <Grid x:Name="canvas" Width="1200">

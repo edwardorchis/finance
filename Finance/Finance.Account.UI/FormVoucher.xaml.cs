@@ -58,6 +58,20 @@ namespace Finance.Account.UI
                     }
                 }
             };
+            voucherGrid.DisplayHookEvent += (sender, e) =>
+            {
+                var accountSubjectObj = e.Value as AccountSubjectObj;
+                if ((accountSubjectObj.flag & 1) != 0)
+                {
+                    string str = getActItemText(e.Key, ref accountSubjectObj);
+                    if (!string.IsNullOrWhiteSpace(str))
+                    {
+                        e.Text = accountSubjectObj.FullName + "_" + str;
+                        return;
+                    }                    
+                }
+                e.Text = accountSubjectObj.FullName;
+            };
 
             voucherGrid.MessageEvent += (level, msg) =>
             {
@@ -132,6 +146,12 @@ namespace Finance.Account.UI
                         break;
                     case "print":
                         PrintVocher();
+                        break;
+                    case "calloff":
+                        if (mid == 0)
+                            New();
+                        else
+                            LoadVoucher(mid);
                         break;
                 }
             }
@@ -306,6 +326,7 @@ namespace Finance.Account.UI
             List<VoucherGridItem> items = new List<VoucherGridItem>();
             v.entries.ForEach(entry=> {
                 var item = new VoucherGridItem();
+                item.UniqueKey = entry.uniqueKey;
                 item.AccountSubjectId = entry.accountSubjectId;
                 item.Content = entry.explanation;
                 if (entry.direction == 1)
@@ -315,8 +336,7 @@ namespace Finance.Account.UI
                 else
                 {
                     item.CreditAmount = entry.amount;
-                }
-                item.UniqueKey = entry.uniqueKey;                
+                }                
                 items.Add(item);
             });
             voucherGrid.DataSource = items;
@@ -486,6 +506,32 @@ namespace Finance.Account.UI
             userDefinePanel.DataSource = userDefineInputItems;
         }
 
+        string getActItemText(string UniqueKey, ref AccountSubjectObj accountSubjectObj)
+        {
+            if (!mUserDefineDataSource.ContainsKey(UniqueKey))
+                return "";
+            var udefDataDictionary = mUserDefineDataSource[UniqueKey];
+            int val = 0;
+            if (udefDataDictionary != null)
+            {
+                if (udefDataDictionary.ContainsKey("actItemGrp"))
+                {
+                    var objval = udefDataDictionary["actItemGrp"];
+                    if (objval != null)
+                        int.TryParse(objval.ToString(), out val);
+                }
+
+            }
+            int actItemGrp = 0;
+            int.TryParse(accountSubjectObj.actItemGrp, out actItemGrp);
+            var lst = AuxiliaryList.Get(actItemGrp);
+            var obj = lst.FirstOrDefault(aux => aux.id == val);
+            var str = "";
+            if (obj != null)
+                str = obj.name.ToString();
+            return str;
+        }
+
         private void LoadActItem(string UniqueKey, ref AccountSubjectObj accountSubjectObj, ref List<UserDefineInputItem> userDefineInputItems)
         {
             var udefDataDictionary = mUserDefineDataSource[UniqueKey];
@@ -493,24 +539,7 @@ namespace Finance.Account.UI
             // 辅助核算
             if ((accountSubjectObj.flag & 1) != 0)
             {
-                int val = 0;
-                if (udefDataDictionary != null)
-                {
-                    if (udefDataDictionary.ContainsKey("actItemGrp"))
-                    {
-                        var objval = udefDataDictionary["actItemGrp"];
-                        if (objval != null)
-                            int.TryParse(objval.ToString(), out val);
-                    }
-                        
-                }
-                int actItemGrp = 0;
-                int.TryParse(accountSubjectObj.actItemGrp, out actItemGrp);
-                var lst = AuxiliaryList.Get(actItemGrp);
-                var obj = lst.FirstOrDefault(aux=>aux.id == val);
-                var str = "";
-                if (obj != null)
-                    str = obj.name.ToString();
+                string str = getActItemText(UniqueKey, ref accountSubjectObj);
                 userDefineInputItems.Insert(0 ,new UserDefineInputItem
                 {
                     Label = AuxiliaryList.FindByNo(Controls.Commons.AuxiliaryType.Invalid, accountSubjectObj.actItemGrp).name,
