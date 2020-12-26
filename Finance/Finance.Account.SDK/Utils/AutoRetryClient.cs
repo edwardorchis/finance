@@ -186,8 +186,6 @@ namespace Finance.Account.SDK.Utils
             return result.ToString();
         }
 
-
-
         public string DownloadFile<T>(string fileName,IFinanceRequest<T> request) where T : FinanceResponse
         {
             string result = "";
@@ -242,6 +240,68 @@ namespace Finance.Account.SDK.Utils
             stream.Close();
             responseStream.Close();
             return path;
+        }
+
+        public string UploadFile<T>(string fileName, IFinanceUploadFileRequest<T> request) where T : FinanceResponse
+        {
+            string result = "";
+            var url = RootPath + request.Method + string.Format("?ver={0}&appkey={1}&name={2}&token={3}", Ver, Appkey, request.Name, Token);
+            result = HttpUploadFile(url, fileName);
+            return result;
+        }
+
+        string HttpUploadFile(string url, string path)
+        {
+            // 根据uri创建HttpWebRequest对象
+            HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(new Uri(url));
+            httpReq.Method = "POST";
+
+            //对发送的数据不使用缓存
+            httpReq.AllowWriteStreamBuffering = false;
+
+            //设置获得响应的超时时间（半小时）
+            httpReq.Timeout = 300000;
+            //httpReq.Timeout = 5000;
+            // httpReq.ReadWriteTimeout = 150000;
+            httpReq.KeepAlive = true;
+            httpReq.ProtocolVersion = HttpVersion.Version11;
+
+            httpReq.ContentType = "application/json";
+            httpReq.SendChunked = true;
+            //在将 AllowWriteStreamBuffering 设置为 false 的情况下执行写操作时，必须将 ContentLength 设置为非负数，或者将 SendChunked 设置为 true。
+
+            // 要上传的文件
+            FileStream oFileStream = new FileStream(path.ToString(), FileMode.Open, FileAccess.Read);
+            BinaryReader oBinaryReader = new BinaryReader(oFileStream);
+            //每次上传4k
+            int bufferLength = 1024 * 1024;
+            byte[] buffer = new byte[bufferLength];
+
+            //已上传的字节数
+            long offset = 0;
+
+            //开始上传时间
+            int size = oBinaryReader.Read(buffer, 0, bufferLength);
+            Stream postStream = httpReq.GetRequestStream();
+
+            while (size > 0)
+            {
+                postStream.Write(buffer, 0, size);
+                offset += size;
+                size = oBinaryReader.Read(buffer, 0, bufferLength);
+            }
+            postStream.Flush();
+            postStream.Close();
+
+            //获取服务器端的响应
+            WebResponse webRespon = httpReq.GetResponse();
+            Stream s = webRespon.GetResponseStream();
+            StreamReader sr = new StreamReader(s);
+            //读取服务器端返回的消息
+            string sReturnString = sr.ReadLine();
+            s.Close();
+            sr.Close();
+            return sReturnString;
         }
     }
 }

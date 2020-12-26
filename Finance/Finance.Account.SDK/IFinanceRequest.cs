@@ -9,4 +9,13 @@ namespace Finance.Account.SDK
         /// </summary>
         string Method { get; }
     }
+
+    public interface IFinanceUploadFileRequest<T> where T : FinanceResponse
+    {
+        /// <summary>
+        /// 方法名
+        /// </summary>
+        string Method { get; }
+        string Name { get;  }
+    }
 }

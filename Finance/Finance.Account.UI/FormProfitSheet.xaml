@@ -24,7 +24,8 @@
             <Button x:Name="query" Content="查询" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
             <Button x:Name="formula" Content="公式/数据" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
             <Button x:Name="refresh" Content="刷新" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
-            <!--<Button x:Name="export" Content="导出" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>-->
+            <Button x:Name="exportformula" Content="导出公式" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
+            <Button x:Name="importformula" Content="导入公式" Height="50" Canvas.Left="1026" Canvas.Top="49" Width="60" Click="btn_Click"/>
         </WrapPanel>
         <Canvas Grid.Row="1" Background="AliceBlue">
             <TextBlock Text="利润表" FontSize="18" Canvas.Left="0" Canvas.Top="7"/>

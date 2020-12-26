@@ -16,11 +16,16 @@ namespace Finance.Account.Source.DTL
         {
             mTid = tid;
         }
+        private string _fileName = Generator.getSourcePath() + "BaseData\\科目.xlsx";
+
+        public void SetFileName(string fileName)
+        {
+            _fileName = fileName;
+        }
         public string GetDTLFileName()
         {
-            return Generator.getSourcePath() + "BaseData\\科目.xls";
+            return _fileName;
         }
-
         void IImportHandler.ActionAfterCommit()
         {
            

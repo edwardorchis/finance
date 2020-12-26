@@ -16,11 +16,16 @@ namespace Finance.Account.Source.DTL
         {
             mTid = tid;
         }
+        private string _fileName = Generator.getSourcePath() + "BaseData\\利润表.xlsx";
+
+        public void SetFileName(string fileName)
+        {
+            _fileName = fileName;
+        }
         public string GetDTLFileName()
         {
-            return Generator.getSourcePath() + "BaseData\\利润表.xlsx";
+            return _fileName;
         }
-
 
         void IImportHandler.ActionAfterCommit()
         {
@@ -29,19 +34,20 @@ namespace Finance.Account.Source.DTL
 
         void IImportHandler.ActionBeforeCommit(dynamic tran)
         {
-            
+            var db = DBHelper.GetInstance(new Dictionary<string, object> { { "Tid", mTid } });
+            db.ExecuteSql(tran, "delete from _ExcelTemplate where _name = '利润表'");
         }
 
         void IImportHandler.Deconde(ref DataSet ds)
         {
-            DataTable dtDetail = null;           
-            foreach (DataTable dt in ds.Tables)
-            {
-                if (dt.TableName == "利润表")
-                {
-                    dtDetail = dt;
-                }
-            }
+            DataTable dtDetail = ds.Tables[0];          
+            //foreach (DataTable dt in ds.Tables)
+            //{
+            //    if (dt.TableName == "利润表")
+            //    {
+            //        dtDetail = dt;
+            //    }
+            //}
             DataColumn col = new DataColumn("_name", typeof(string));
             dtDetail.Columns.Add(col);
             dtDetail.Columns["_name"].SetOrdinal(0);            

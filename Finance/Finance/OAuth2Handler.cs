@@ -27,12 +27,44 @@ namespace Finance
         static List<string> NoAuthMethod = new List<string> {
             "/user/login", "/accountctl/list"
         };
+        static List<string> UploadFileMethod = new List<string> {
+            "/template/upload"
+        };
 
+        private static void DecodeQueryPara(HttpRequestMessage request)
+        {
+            var query = request.GetQueryNameValuePairs();
+            string token = "";
+            foreach (var kv in query)
+            {
+                if (kv.Key == "token")
+                {
+                    token = kv.Value;
+                    break;
+                }
+            }
+            string[] user = OAuth2Handler.DecryptToken(token).Split('|');
+            var userId = user[0];
+            var userName = user[1];
+            var tid = user[2];
+            request.Properties.Add("UserId", userId);
+            request.Properties.Add("UserName", userName);
+            request.Properties.Add("Tid", tid);
+        }
 
         ILogger logger = Logger.GetLogger(typeof(OAuth2Handler));
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             string method = request.RequestUri.LocalPath;
+            if (UploadFileMethod.Contains(method))
+            {
+                DecodeQueryPara(request);
+                return await base.SendAsync(request, cancellationToken).ContinueWith(
+                (task) =>
+                {
+                    return task.Result;
+                });
+            }
             var content = request.Content.ReadAsStringAsync().Result;
             var query = request.GetQueryNameValuePairs();
             try

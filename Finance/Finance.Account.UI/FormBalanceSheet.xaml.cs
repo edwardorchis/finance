@@ -4,9 +4,12 @@ using Finance.Account.SDK;
 using Finance.Account.UI.Model;
 using Finance.UI;
 using Finance.Utils;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,10 +45,7 @@ namespace Finance.Account.UI
                             SheetModel = SheetModel;
                         };
                         frmFilter.Show();
-                        break;
-                    case "export":
-
-                        break;
+                        break;                    
                     case "refresh":
                         SheetModel = SheetModel;
                         break;
@@ -55,8 +55,44 @@ namespace Finance.Account.UI
                         else
                             SheetModel = SheetModel.FORMULA;
                         break;
+                    case "exportformula":
+                        SaveFileDialog sflg = new SaveFileDialog();
+                        sflg.Filter = "Excel(*.xls)|*.xls|Excel(*.xlsx)|*.xlsx";
+                        sflg.FileName = "资产负债表";
+                        var bRnt = sflg.ShowDialog();
+                        if (bRnt == null || bRnt == false)
+                        {
+                            return;
+                        }
+                        ExcelExportor exportor = new ExcelExportor(new BalanceSheetExportHandler());
+                        var dt = EntityConvertor<ExcelTemplateItem>.ToDataTable(m_lstTemplate);
+
+                        MemoryStream ms = new MemoryStream();
+                        string flg = FileHelper.FileSuffix(sflg.FileName);
+                        exportor.Export(ms, dt, flg);
+                        using (FileStream fs = new FileStream(sflg.FileName, FileMode.Create, FileAccess.Write))
+                        {
+                            byte[] data = ms.ToArray();
+                            fs.Write(data, 0, data.Length);
+                            fs.Flush();
+                        }
+                        ms.Close();
+                        ms.Dispose();
+                        FileHelper.ExplorePath(sflg.FileName.Substring(0, sflg.FileName.LastIndexOf("\\")));
+                        break;
+                    case "importformula":
+                        OpenFileDialog ofd = new OpenFileDialog();
+                        ofd.Filter = "Excel(*.xls)|*.xls|Excel(*.xlsx)|*.xlsx";
+                        ofd.Title = "选择文件";
+                        ofd.RestoreDirectory = true;
+                        if (ofd.ShowDialog() == true)
+                        {
+                            DataFactory.Instance.GetTemplateExecuter().UploadTemplate("BalanceSheet", ofd.FileName);
+                            FinanceMessageBox.Info("导入成功");
+                        }
+                        break;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -176,6 +212,19 @@ namespace Finance.Account.UI
 
  
     }
-
+    class BalanceSheetExportHandler : IExportHandler
+    {
+        public void Encode(ref DataTable data)
+        {
+            data.Columns["_a"].Caption = "资产";
+            data.Columns["_b"].Caption = "行次";
+            data.Columns["_c"].Caption = "期末余额";
+            data.Columns["_d"].Caption = "年初余额";
+            data.Columns["_e"].Caption = "负债和股东权益";
+            data.Columns["_f"].Caption = "行次";
+            data.Columns["_g"].Caption = "期末余额";
+            data.Columns["_h"].Caption = "年初余额";
+        }
+    }
 
 }

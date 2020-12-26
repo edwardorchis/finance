@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -143,6 +144,28 @@ namespace Finance.Utils
         public static string FileSuffix(string fileName)
         {
             return Path.GetExtension(fileName);
+        }
+        /// <summary>
+        /// 浏览文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void ExploreFile(string filePath)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = "explorer";
+            //打开资源管理器
+            proc.StartInfo.Arguments = @"/select," + filePath;
+            //选中"notepad.exe"这个程序,即记事本
+            proc.Start();
+        }
+
+        /// <summary>
+        /// 浏览文件夹
+        /// </summary>
+        /// <param name="path"></param>
+        public static void ExplorePath(string path)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", path);
         }
     }
 }

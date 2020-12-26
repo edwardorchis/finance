@@ -42,5 +42,10 @@ namespace Finance.Account.Data.Executer
         {
             Execute(new CarriedForwardTemplateSaveRequest { Content = list });
         }
+
+        public string UploadTemplate(string name, string fileName)
+        {
+            return UploadFile(fileName, new TemplateUploadRequest { name = name });
+        }
     }
 }

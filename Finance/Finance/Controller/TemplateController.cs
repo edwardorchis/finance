@@ -2,10 +2,13 @@
 using Finance.Account.SDK.Request;
 using Finance.Account.SDK.Response;
 using Finance.Account.Service;
+using Finance.Account.Source.DTL;
 using Finance.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -15,9 +18,11 @@ namespace Finance.Controller
 {
     public class TemplateController : FinanceController
     {
+        string Tid = "0";
         TemplateSevice service = null;       
         protected override void Initialize(HttpControllerContext controllerContext)
         {
+            Tid = controllerContext.Request.Properties["Tid"].ToString();
             service = TemplateSevice.GetInstance(controllerContext.Request.Properties);
             base.Initialize(controllerContext);
         }
@@ -68,6 +73,57 @@ namespace Finance.Controller
                 throw new FinanceException(FinanceResult.NULL);
             service.SaveCarriedForwardTemplate(request.Content);
             return CreateResponse(FinanceResult.SUCCESS);
+        }
+        [HttpPost]
+        public FinanceResponse Upload(HttpRequestMessage request)
+        {
+            try
+            {
+                string relativePath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                string path = Path.GetFullPath(relativePath + ".Cache/") + SerialNoService.GetUUID() + ".xls";
+                FileStream fs = new FileStream(path, FileMode.Append);
+                BinaryWriter w = new BinaryWriter(fs);
+                fs.Position = fs.Length;
+                request.Content.CopyToAsync(fs).Wait();
+                w.Close();
+                fs.Close();
+
+                var query = request.GetQueryNameValuePairs();
+                string name = "";
+                foreach (var kv in query)
+                {
+                    if (kv.Key == "name")
+                    {
+                        name = kv.Value;
+                        break;
+                    }
+                }
+
+                IImportHandler dtl = null;
+                switch(name)
+                {
+                    case "BalanceSheet":
+                        dtl = new BalanceSheetDTL();
+                        break;
+                    case "ProfitSheet":
+                        dtl = new ProfitSheetDTL();
+                        break;
+                }
+                if (dtl == null)
+                {
+                    return CreateResponse(FinanceResult.SYSTEM_ERROR);
+                }
+
+                dtl.SetFileName(path);
+                ExcelImportor importor = new ExcelImportor(long.Parse(Tid), dtl);
+                importor.Import();
+
+                return CreateResponse(FinanceResult.SUCCESS);
+            }
+            catch
+            {
+                return CreateResponse(FinanceResult.SYSTEM_ERROR);
+            }
         }
     }
 }

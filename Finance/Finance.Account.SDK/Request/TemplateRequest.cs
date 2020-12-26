@@ -45,4 +45,11 @@ namespace Finance.Account.SDK.Request
 
         public List<CarriedForwardTemplate> Content { set; get; }
     }
+
+    public class TemplateUploadRequest : IFinanceUploadFileRequest<FinanceResponse>
+    {
+        public string Method => "template/upload";
+        public string name { set; get; }
+        public string Name => name;
+    }
 }

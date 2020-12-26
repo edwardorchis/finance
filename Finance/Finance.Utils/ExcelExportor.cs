@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -39,14 +41,32 @@ namespace Finance.Utils
 
             // 添加表头
             NPOI.SS.UserModel.IRow row = sheet.CreateRow(0);
+            
+            ICellStyle cellStyle = book.CreateCellStyle();
+            var font = book.CreateFont();
+            font.FontHeightInPoints = 14;
+            font.IsBold = true;
+            cellStyle.SetFont(font);
             int index = 0;
-            foreach (DataColumn item in dt.Columns)
-            {
-                NPOI.SS.UserModel.ICell cell = row.CreateCell(index);
-                cell.SetCellType(NPOI.SS.UserModel.CellType.String);
-                cell.SetCellValue(item.Caption);
-                index++;
-            }
+            //string caption = m_Handler.GetCaption();
+            //if (string.IsNullOrEmpty(caption))
+            //{
+                foreach (DataColumn item in dt.Columns)
+                {
+                    NPOI.SS.UserModel.ICell cell = row.CreateCell(index);
+                    cell.SetCellType(NPOI.SS.UserModel.CellType.String);
+                    cell.CellStyle = cellStyle;
+                    cell.SetCellValue(item.Caption);
+                    index++;
+                }
+            //}
+            //else
+            //{
+            //    NPOI.SS.UserModel.ICell cell = row.CreateCell(index);
+            //    cell.SetCellType(NPOI.SS.UserModel.CellType.String);
+            //    cell.CellStyle = cellStyle;
+            //    cell.SetCellValue(caption);
+            //}            
 
             // 添加数据
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -61,6 +81,12 @@ namespace Finance.Utils
                     index++;
                 }
             }
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                sheet.AutoSizeColumn(i);
+            }
+
             //// 写入 
             //MemoryStream ms = new MemoryStream();
             book.Write(ms);

@@ -17,5 +17,6 @@ namespace Finance.Account.Data
 
         List<CarriedForwardTemplate> ListCarriedForwardTemplate(long id);
         void SaveCarriedForwardTemplate(List<CarriedForwardTemplate> list);
+        string UploadTemplate(string name, string fileName);
     }
 }

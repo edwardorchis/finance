@@ -32,6 +32,8 @@ namespace Finance.Utils
         /// </summary>
         /// <returns></returns>
         void ActionAfterCommit();
+
+        void SetFileName(string fileName);
     }
  
     public enum DTLMode

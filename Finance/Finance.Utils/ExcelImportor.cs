@@ -43,6 +43,7 @@ namespace Finance.Utils
             dynamic tran = db.BeginTransaction();
             try
             {
+                m_DTL.ActionBeforeCommit(tran);
                 foreach (DataTable dt in ds.Tables)
                 {
                     var tableName ="_" + dt.TableName;
@@ -54,8 +55,7 @@ namespace Finance.Utils
                     {
                         m_logger.Debug("don't exist table named " + tableName);
                     }
-                }
-                m_DTL.ActionBeforeCommit(tran);
+                }                
                 db.CommitTransaction(tran);
                 m_DTL.ActionAfterCommit();
             }
