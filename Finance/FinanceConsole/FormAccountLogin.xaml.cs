@@ -67,7 +67,8 @@ namespace FinanceConsole
         {
             if (255 == CommondHandler.Test())
             {
-                CommondHandler.Process("init");
+                CommondHandler.Process("init -f");
+                CommondHandler.Process("act.init finance_demo -f");
             }
         }
 
