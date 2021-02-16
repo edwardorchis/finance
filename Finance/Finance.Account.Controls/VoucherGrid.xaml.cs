@@ -114,6 +114,10 @@ namespace Finance.Account.Controls
 
         public void AppendRow()
         {
+            if (IsReadOnly) {
+                LogDebug("is readonly");
+                return;
+            }
             LogDebug("enter AppendRow");
             HoldDataSource();
             if (CurrentRowIndex >= 0)
@@ -137,6 +141,11 @@ namespace Finance.Account.Controls
 
         public void InsertRow(int index)
         {
+            if (IsReadOnly)
+            {
+                LogDebug("is readonly");
+                return;
+            }
             LogDebug("enter InsertRow");
             if (index >= 0)
             {
@@ -153,6 +162,11 @@ namespace Finance.Account.Controls
 
         public void DeleteRow(int index)
         {
+            if (IsReadOnly)
+            {
+                LogDebug("is readonly");
+                return;
+            }
             LogDebug("enter DeleteRow");
             if (index >=0)
             {

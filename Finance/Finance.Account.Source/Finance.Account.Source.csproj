@@ -149,7 +149,7 @@
     <None Include="BaseData\现金流量表.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="BaseData\科目.xls">
+    <None Include="BaseData\科目.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="BaseData\系统参数.xlsx">

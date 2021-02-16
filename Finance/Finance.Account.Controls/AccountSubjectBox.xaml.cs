@@ -28,6 +28,8 @@ namespace Finance.Account.Controls
 
         private void AccountSubjectBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (base.IsReadOnly)
+                return;
             AccountSubjectPopup popupForm = new AccountSubjectPopup();
             popupForm.SelectedEvent += OnSelected;
             popupForm.ShowDialog();
