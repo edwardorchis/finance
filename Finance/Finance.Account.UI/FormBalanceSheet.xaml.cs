@@ -110,7 +110,7 @@ namespace Finance.Account.UI
                 if (_sheetModel == SheetModel.DATA)
                 {
                     Calc();
-                    comment.Text = string.Format("{0} 年度 {1} 期间 到   {0} 年度 {1} 期间",
+                    comment.Text = string.Format("{0} 年度 {1} 期间 到   {2} 年度 {3} 期间",
                         m_filter["beginYear"], m_filter["beginPeriod"], m_filter["endYear"], m_filter["endPeriod"]);
                 }
                 else if (_sheetModel == SheetModel.FORMULA)

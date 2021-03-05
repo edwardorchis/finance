@@ -12,6 +12,10 @@ create table _CarriedForwardTemplate
 
 go
 
+insert into _SerialNo (_key, _ex, _number) values (0, 1, 29)
+
+go
+
 delete from _Auxiliary where _type = 5;
 delete from _CarriedForwardTemplate;
 -- 默认结转方式
