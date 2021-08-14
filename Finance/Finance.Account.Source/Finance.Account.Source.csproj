@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountCtlMain.cs" />
+    <Compile Include="CommondHandler.cs" />
     <Compile Include="DTL\CashflowSheetDTL.cs" />
     <Compile Include="DTL\ProfitSheetDTL.cs" />
     <Compile Include="DTL\BalanceSheetDTL.cs" />

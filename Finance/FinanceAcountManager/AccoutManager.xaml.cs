@@ -16,13 +16,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinanceConsole
+namespace FinanceAcountManager
 {
     /// <summary>
     /// AccoutManager.xaml 的交互逻辑
     /// </summary>
     public partial class AccoutManager : UserControl
     {
+        static ILogger logger()
+        {
+            return Logger.GetLogger(typeof(AccoutManager));
+        }
         public AccoutManager()
         {
             InitializeComponent();

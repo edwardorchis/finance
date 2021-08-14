@@ -1,5 +1,4 @@
-﻿using Finance.Account.Source;
-using Finance.Utils;
+﻿using Finance.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -7,14 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static Finance.UI.FinanceDelegateEventHandler;
 
-namespace FinanceConsole
+namespace FinanceAcountManager
 {
     public partial class FormAccountLogin : Window
     {
         public FormAccountLogin()
         {
-            var defaultConnectionString = ConfigHelper.XmlReadConnectionString("Finance.exe.config", "default");
-            DBHelper.DefaultInstance = new DBHelper(defaultConnectionString);
             InitializeComponent();
         }
 
@@ -26,8 +23,8 @@ namespace FinanceConsole
                 switch (txt)
                 {
                     case "okLogin":                       
-                        var bSuc = AccountCtlMain.Verification(xLoginNo, txtBoxLoginPwd1.Password);
-                        if (!bSuc)
+                        var ret = CommondHandler.Process("Verification " + xLoginNo + " " + CryptInfoHelper.GetEncrypt(txtBoxLoginPwd1.Password));
+                        if (ret != 0)
                         {
                             MessageBox.Show("密码错误");
                             return;
@@ -65,11 +62,7 @@ namespace FinanceConsole
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (255 == CommondHandler.Test())
-            {
-                CommondHandler.Process("init -f");
-                CommondHandler.Process("act.init finance_demo -f");
-            }
+
         }
 
     }

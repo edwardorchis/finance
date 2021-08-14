@@ -334,6 +334,12 @@ namespace FinanceClient
                     FormUserChangePasswordPopup frm = new FormUserChangePasswordPopup();
                     frm.ShowDialog();
                     break;
+                case "new":
+                    Process process = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo("FinanceAcountManager.exe");
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    break;
             }
            
         }

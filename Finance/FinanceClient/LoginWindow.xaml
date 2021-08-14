@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="/FinanceClient;Component/Resources/Styles/Storyboard.xaml" />
                 <ResourceDictionary Source="/FinanceClient;Component/Resources/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CollectionViewSource x:Key="ListUserInfoViewSource" />           
+            <CollectionViewSource x:Key="ListUserInfoViewSource" />
 
             <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
                 <Setter Property="Template">
@@ -353,11 +353,11 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                 </Border.Effect>
                 <Image Name="QQhead" Height="80" Width="80" />
             </Border>
-           <ComboBox x:Name="cmb1" IsEditable="True"  DisplayMemberPath="UserName" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+            <ComboBox x:Name="cmb1" IsEditable="True"  DisplayMemberPath="UserName" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                      ItemsSource="{Binding Source={StaticResource ListUserInfoViewSource}}" FontSize="15" Height="25" HorizontalAlignment="Left"  
                      Margin="116,99,0,147" VerticalAlignment="Center" Width="180"  TextBoxBase.TextChanged="cmb1_TextChanged" 
                      Style="{StaticResource UserComboBoxStyle}">
-               
+
             </ComboBox>
             <PasswordBox local:PasswordBoxBindingHelper.IsPasswordBindingEnabled="True"  local:PasswordBoxBindingHelper.BindedPassword="{Binding Path=UserPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="15" Height="25" HorizontalAlignment="Left" Margin="116,129,0,117" Name="passwordBox1"  VerticalAlignment="Center" Width="180" />
             <CheckBox  Content="记住密码" IsThreeState="False" HorizontalAlignment="Left" Margin="115,135,0,0" Name="checkBox1" VerticalAlignment="Center" >
@@ -466,8 +466,11 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                 </Image.RenderTransform>
             </Image>
             <ComboBox x:Name="cmbTid" IsEditable="True" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding Tid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Height="25" HorizontalAlignment="Left"  Margin="116,159,0,87" VerticalAlignment="Center" Width="180" >
-              
+
             </ComboBox>
+            <Button  IsDefault="true"  Margin="310,159,10,87" Name="btnNew" Click="New_Click">
+                <TextBlock FontSize="11" FontFamily="Consolas;Microsoft YaHei" Foreground="Blue" Text="新建账套" />
+            </Button>
         </Grid>
         <Grid x:Name="LoadGrid" Visibility="Collapsed" IsVisibleChanged="HandleVisibleChanged">
             <Grid.Background>

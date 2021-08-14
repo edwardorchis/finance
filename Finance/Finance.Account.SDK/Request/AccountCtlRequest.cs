@@ -11,4 +11,10 @@ namespace Finance.Account.SDK.Request
     {
         public string Method => "/accountctl/list";
     }
+
+    public class AccountCtlManageRequest : IFinanceRequest<FinanceResponse>
+    {
+        public string Method => "/accountctl/manage";
+        public string Params { set; get; }
+    }
 }

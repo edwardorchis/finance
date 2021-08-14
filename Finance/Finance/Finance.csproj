@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B30BE7C3-5BE3-463E-B232-D08FC545C5EE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Finance</RootNamespace>
     <AssemblyName>Finance</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -38,6 +38,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
@@ -101,7 +104,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Controller\AccountBalanceController.cs" />
     <Compile Include="Controller\AccountCtlController.cs" />
     <Compile Include="Controller\AccountSubjectController.cs" />
@@ -118,6 +120,9 @@
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Controller\VoucherController.cs" />
     <Compile Include="FinanceController.cs" />
+    <Compile Include="FrmServerManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MessageHandler .cs" />
     <Compile Include="OAuth2Handler.cs" />
     <Compile Include="Program.cs" />
@@ -166,6 +171,14 @@
       <Project>{927c43ec-e776-4337-951b-803ad5867499}</Project>
       <Name>Finance.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\tabIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

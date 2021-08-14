@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinanceConsole
+namespace FinanceAcountManager
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -35,7 +35,7 @@ namespace FinanceConsole
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Title = ConfigurationManager.AppSettings["copyright"];
+            this.Title = ConfigHelper.XmlReadAppSetting("FinanceClient.exe.config", "copyright");
         }
 
         private void Window_Closing(object sender, EventArgs e)

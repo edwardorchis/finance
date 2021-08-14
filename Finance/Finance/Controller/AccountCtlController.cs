@@ -1,6 +1,8 @@
 ﻿using Finance.Account.SDK;
+using Finance.Account.SDK.Request;
 using Finance.Account.SDK.Response;
 using Finance.Account.Service;
+using Finance.Account.Source;
 using Finance.Utils;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,21 @@ namespace Finance.Controller
             var dt = DBHelper.DefaultInstance.ExecuteDt("select _id, _no, _name from _AccountCtl order by _id");
             var lst = EntityConvertor<SampleItem>.ToList(dt);
             return new SampleItemListResponse { Content = lst};
+        }
+        public FinanceResponse Manage(AccountCtlManageRequest request)
+        {
+            Logger.RestLogger();
+            string rsp = "";
+            Logger.HookLogger((LogLevel level, string message) => {
+                if (LogLevel.LevInfo != level)
+                {
+                    return;
+                }
+                rsp += message;               
+            });     
+            int ret = CommondHandler.Process(request.Params);
+            Logger.RestLogger();
+            return new FinanceResponse { Result = ret, ErrMsg = rsp}; 
         }
     }
 }

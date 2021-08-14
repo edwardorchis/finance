@@ -4,6 +4,7 @@ using Finance.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -205,6 +206,7 @@ namespace FinanceClient
                         UserPwd = this.passwordBox1.Password.Trim(),
                         Tid = (long)this.cmbTid.SelectedValue
                     };
+                    var accountName = cmbTid.Text;
                     if (!(bool)this.checkBox1.IsChecked)
                     {
                         userInfo.UserPwd = "";
@@ -220,7 +222,7 @@ namespace FinanceClient
                     //关闭登陆界面
                     this.Close();
                     //this.DialogResult = true;
-                    mainWindow.Title = string.Format("Finance - [{0}]", cmbTid.Text);
+                    mainWindow.Title = string.Format("Finance - [{0}]", accountName);
                     //显示主窗体
                     mainWindow.Show();
                     break;
@@ -328,7 +330,21 @@ namespace FinanceClient
                 }
             }));
         }
+        private void New_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process process = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo("FinanceAcountManager.exe");
+                process.StartInfo = startInfo;
+                process.Start();
+                Close();
+            }
+            catch (Exception)
+            {
 
+            }
+        }
         /// <summary>
         /// 登录事件
         /// </summary>

@@ -14,6 +14,7 @@
     <Metro:MetroWindow.Menu>
         <Metro:MetroTitleMenu>            
             <Metro:MetroTitleMenuItem Header="系统" Icon="Resources/titleMuenIcon.png">
+                <Metro:MetroMenuItem x:Name="new"  Header="账套管理" Click="menu_Click"/>
                 <Metro:MetroMenuItem x:Name="help"  Header="帮助" Click="menu_Click"/>
                 <Metro:MetroMenuItem x:Name="changePassword"  Header="修改密码" Click="menu_Click"/>
                 <Metro:MetroMenuItem Header="主题颜色"  >

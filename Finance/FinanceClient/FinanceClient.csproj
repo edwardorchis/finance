@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Arthas">
       <HintPath>..\packages\Arthas\Arthas.dll</HintPath>
@@ -86,10 +89,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Home.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -97,9 +96,6 @@
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Styles\Brushes.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -220,8 +216,17 @@
     <Resource Include="Resources\editIcon.png" />
     <Resource Include="Resources\icon.png" />
     <Resource Include="Resources\iconMove.png" />
+    <Resource Include="Resources\tabIcon1.png" />
+    <Resource Include="Resources\titleMuenIcon1.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\tabIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\titleMuenIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

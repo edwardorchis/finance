@@ -5,12 +5,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static Finance.UI.FinanceDelegateEventHandler;
 
-namespace FinanceConsole
+namespace FinanceAcountManager
 {
-    public partial class FormAccountManagerPopup : Window
+    public partial class FormAccountUserPopup : Window
     {
         public FinanceMsgEventHandler FinanceMsgEvent;
-        public FormAccountManagerPopup()
+        public FormAccountUserPopup()
         {
             InitializeComponent();
         }
@@ -22,15 +22,17 @@ namespace FinanceConsole
                 var txt = (sender as Button).Name;
                 switch (txt)
                 {
-                    case "okAcct":
+                    case "ok":
                         Dictionary<string, string> paras = new Dictionary<string, string>();
-                        paras["no"] = xAcctNo;
-                        paras["name"] = xAcctName;
+                        paras["no"] = xNo;
+                        paras["name"] = xName;
+                        paras["pwd1"] = txtBoxPwd1.Password;
+                        paras["pwd2"] = txtBoxPwd2.Password;
                         FinanceMsgEvent?.Invoke(0, paras);
                         Close();
                         break;
-                    case "closeAcct":
-                    case "cancelAcct":                        
+                    case "close":
+                    case "cancel":                        
                         Close();
                         break;
                 }
@@ -46,23 +48,22 @@ namespace FinanceConsole
             this.DragMove();
         }
 
-        public string xAcctNo
+        public string xNo
         {
-            get { return (string)GetValue(xAcctNoProperty); }
-            set { SetValue(xAcctNoProperty, value); }
+            get { return (string)GetValue(xNoProperty); }
+            set { SetValue(xNoProperty, value); }
         }
-        static readonly DependencyProperty xAcctNoProperty =
-            DependencyProperty.Register("xAcctNo", typeof(string), typeof(FormAccountManagerPopup), new PropertyMetadata(""));
+        static readonly DependencyProperty xNoProperty =
+            DependencyProperty.Register("xNo", typeof(string), typeof(FormAccountManagerPopup), new PropertyMetadata(""));
 
-        public string xAcctName
+        public string xName
         {
-            get { return (string)GetValue(xAcctNameProperty); }
-            set { SetValue(xAcctNameProperty, value); }
+            get { return (string)GetValue(xNameProperty); }
+            set { SetValue(xNameProperty, value); }
         }
 
-        static readonly DependencyProperty xAcctNameProperty =
-            DependencyProperty.Register("xAcctName", typeof(string), typeof(FormAccountManagerPopup), new PropertyMetadata(""));
-
+        static readonly DependencyProperty xNameProperty =
+            DependencyProperty.Register("xName", typeof(string), typeof(FormAccountManagerPopup), new PropertyMetadata(""));
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

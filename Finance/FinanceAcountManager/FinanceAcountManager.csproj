@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{10A24166-EC67-4D39-9873-58E3D4A18688}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>FinanceConsole</RootNamespace>
-    <AssemblyName>FinanceConsole</AssemblyName>
+    <RootNamespace>FinanceAcountManager</RootNamespace>
+    <AssemblyName>FinanceAcountManager</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\server\</OutputPath>
+    <OutputPath>..\bin\client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\release\server\</OutputPath>
+    <OutputPath>..\release\client\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,6 +36,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Arthas">
@@ -83,13 +86,12 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Finance.Account.Source\Finance.Account.Source.csproj">
-      <Project>{e908027d-8d41-4b61-b30a-cfd064a640b0}</Project>
-      <Name>Finance.Account.Source</Name>
+    <ProjectReference Include="..\Finance.Account.SDK\Finance.Account.SDK.csproj">
+      <Project>{198228EF-8952-4D60-8A79-4714377EE1F6}</Project>
+      <Name>Finance.Account.SDK</Name>
     </ProjectReference>
     <ProjectReference Include="..\Finance.UI\Finance.UI.csproj">
       <Project>{9d39d70e-a188-496c-8d98-fd0320950ba0}</Project>
@@ -99,9 +101,6 @@
       <Project>{927c43ec-e776-4337-951b-803ad5867499}</Project>
       <Name>Finance.Utils</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -232,6 +231,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\titleMuenIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

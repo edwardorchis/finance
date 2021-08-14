@@ -50,13 +50,13 @@ namespace Finance.Account.Source
   
         public static void InitData()
         {    
-            CreateDB("demo");
+            CreateDB("finance_demo");
 
             var defaultConnectString = ConfigHelper.XmlReadConnectionString("Finance.exe.config", "default");
 
-            var demoConnectString = BuildConnectString("demo");
+            var demoConnectString = BuildConnectString("finance_demo");
 
-            DataManager.GetInstance(null).Insert(new AccountCtl { connstr= demoConnectString, id = 0, no = "demo", name = "演示账套", createTime = DateTime.Now});
+            DataManager.GetInstance(null).Insert(new AccountCtl { connstr= demoConnectString, id = 0, no = "finance_demo", name = "演示账套", createTime = DateTime.Now});
             DataManager.GetInstance(null).Insert(new AccountUser { id = 0, no = "admin", name = "管理员", pwd = "E10ADC3949BA59ABBE56E057F20F883E", lastLoginTime = DateTime.Now });
 
             SourceMain.Init(0);

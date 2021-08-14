@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinanceConsole
+namespace FinanceAcountManager
 {
     /// <summary>
     /// AccoutManager.xaml 的交互逻辑

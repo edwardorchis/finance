@@ -25,7 +25,7 @@ namespace Finance
         static string ResourceServerPrivateKey = "<RSAKeyValue><Modulus>4+59zObnTWbqDk4ULzjVbBg2gMZMC4+i8cUj0nEXD622WZyyzDv1kAy4U0KOs5+iCocXGDq0nKG2ovfHk/AGo36Pm4Ij+aq0qQyMr1wvArSiStBHtGl3WNaid1QkT/87tEIg4dNRAPhUlxF6APwTFnNGp/xOLhAo1rTVnjCS4PE=</Modulus><Exponent>AQAB</Exponent><P>77C1lSG09A5GKAHULA/wewJHoAkhVH2zY7ujEeX/7P29UdQWZUDxjJqSDZbqP+rQQLrzFF01GhcxVdql7gfBTw==</P><Q>83DzpsqgQ3LggKq5i7hdzYUegD8uWNicMA9c5GL+rAXpUce/sh87KO9vbCOwOw4N4sbWXlrbaUCLcVGr+uwpvw==</Q><DP>QacWZa3g4cSTJNwzYIpRJXBfbA90KK9xlozLwthL/H8X/zTnmX5ra0bfYIeIzE8mEcTjVh2dsPLPWaPVNVi8cw==</DP><DQ>dmqgKqbv1D9iE1R4kw1om5tAXfPd0Jv1Ra+DaRj6dqUdfIlkpvloJp5pnbmydNd+S6ybBCTAC++4pLOsq48LMw==</DQ><InverseQ>3vc7yC45UFDkQ4XtgaXJYniCYUJIIyloGGWIWDE0EwJeb7Ux82mgs+M8Yeb+9Tz5rwlhk4Sj6rpROSq03xb+Ew==</InverseQ><D>H9caBbyfxSVCPvtTQIF89tuvCXAqAVdwWLvEVEpuAUev+Ha2V2ds11GfkinzC06acUQLytuwjUzd2YgpfhYCpyKySiza6wMYx/cxwSFZI40SeK3JTIYnS0bmGIuo7ocL/4MMbOY1L0GhUSJgn24bfpBOHRQ1Py2DrE6R3tEGeK0=</D></RSAKeyValue>";
         static string ResourceServerPublicKey = "<RSAKeyValue><Modulus>4+59zObnTWbqDk4ULzjVbBg2gMZMC4+i8cUj0nEXD622WZyyzDv1kAy4U0KOs5+iCocXGDq0nKG2ovfHk/AGo36Pm4Ij+aq0qQyMr1wvArSiStBHtGl3WNaid1QkT/87tEIg4dNRAPhUlxF6APwTFnNGp/xOLhAo1rTVnjCS4PE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
         static List<string> NoAuthMethod = new List<string> {
-            "/user/login", "/accountctl/list"
+            "/user/login", "/accountctl/list", "/accountctl/manage"
         };
         static List<string> UploadFileMethod = new List<string> {
             "/template/upload"

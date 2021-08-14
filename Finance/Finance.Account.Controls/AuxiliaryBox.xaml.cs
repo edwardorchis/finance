@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Keyboard = Finance.Account.Controls.Commons.Keyboard;
-using static Finance.Account.Controls.Commons.Consts;
 
 namespace Finance.Account.Controls
 {
@@ -20,13 +19,11 @@ namespace Finance.Account.Controls
             base.KeyDown += OnKeyDown;
             base.MouseDoubleClick += box_MouseDoubleClick;
             base.LostFocus += OnLostFocus;
-            base.GotFocus += OnGotFocus;            
+            base.GotFocus += OnGotFocus;
         }
 
         private void box_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (base.IsReadOnly)
-                return;
             AuxiliaryPopup popupForm = new AuxiliaryPopup(AuxiliaryType.AccountContent);
             popupForm.SelectedEvent += OnSelected;
             popupForm.ShowDialog();
@@ -36,7 +33,7 @@ namespace Finance.Account.Controls
             if (base.IsReadOnly)
                 return;            
             base.Background = Consts.HIGHLIGHT_BRUSH;
-            LogDebug("AuxiliaryBox.OnGotFocus");
+           
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)
@@ -48,8 +45,7 @@ namespace Finance.Account.Controls
             if (obj != null)
                 base.Text = string.IsNullOrEmpty(obj.name) ? txt:obj.name ;         
             base.Background = Consts.WHITE_BRUSH;
-            LogDebug("AuxiliaryBox.OnLostFocus");
-
+            
         }
         private void OnSelected(AuxiliaryObj obj)
         {

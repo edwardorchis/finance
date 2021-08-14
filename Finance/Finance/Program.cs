@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Threading;
 
 namespace Finance
 {
@@ -19,33 +20,40 @@ namespace Finance
         [STAThread]
         static void Main()
         {
-            //ConsoleHelper.hideConsole();
-            var baseAddress = ConfigurationManager.AppSettings["server_url"];    
-            Console.WriteLine("Startup:" + baseAddress);
-            // Start OWIN host 
-            using (WebApp.Start<Startup>(url: baseAddress))
-            {
-                Console.WriteLine("Finance is running...");
-                while (true)
+            Thread thread2 = new Thread(() => {
+                var baseAddress = ConfigurationManager.AppSettings["server_url"];
+                Console.WriteLine("Startup:" + baseAddress);
+                // Start OWIN host 
+                using (WebApp.Start<Startup>(url: baseAddress))
                 {
-                    Console.Write("$ ");
-                    string commond = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(commond))
+                    Console.WriteLine("Finance is running...");
+                    //ConsoleHelper.hideConsole();
+                    while (true)
                     {
-                        switch (commond)
+                        Console.Write("$ ");
+                        string commond = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(commond))
                         {
-                            case "init":                                
-                                AccountCtlMain.Init();
-                                break;
-                            case "clear":
-                                Console.Clear();
-                                break;
-                            case "exit":
-                                return;
+                            switch (commond)
+                            {
+                                case "init":
+                                    AccountCtlMain.Init();
+                                    break;
+                                case "clear":
+                                    Console.Clear();
+                                    break;
+                                case "exit":
+                                    return;
+                            }
                         }
                     }
                 }
-            }
+            });
+            thread2.Start();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new FrmServerManager());
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Finance.Account.Source;
-using Finance.Utils;
+﻿using Finance.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinanceConsole
+namespace Finance.Account.Source
 {
     public class CommondHandler
     {
@@ -59,8 +58,7 @@ namespace FinanceConsole
             {
                 case "init":
                     logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
-                    var sure = Console.ReadLine();
-                    if (sure == "yes" || ContainsOpt(args, "-f"))
+                    if (ContainsOpt(args, "-f"))
                         AccountCtlMain.Init();
                     break;
                 case "act.print":
@@ -75,15 +73,13 @@ namespace FinanceConsole
                 case "act.unload":
                     var parm1 = GetParm(args, 1);
                     logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
-                    var yes = Console.ReadLine();
-                    if (yes == "yes" || ContainsOpt(args, "-f"))
+                    if (ContainsOpt(args, "-f"))
                         AccountCtlMain.UnloadAccount(parm1);
                     break;
                 case "act.init":
                     var parm2 = GetParm(args, 1);
                     logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
-                    var yes1 = Console.ReadLine();
-                    if (yes1 == "yes" || ContainsOpt(args, "-f"))
+                    if (ContainsOpt(args, "-f"))
                     {
                         if (ContainsOpt(args, "-k"))
                         {                            
@@ -102,14 +98,24 @@ namespace FinanceConsole
                 case "usr.delete":
                     var duserName = GetParm(args, 1);
                     logger().Warn("This is a dangerous command. Are you sure you want to execute it?(yes/no)");
-                    var yes2 = Console.ReadLine();
-                    if (yes2 == "yes" || ContainsOpt(args, "-f"))
+                    if (ContainsOpt(args, "-f"))
                     {
                         AccountCtlMain.DeleteUser(duserName);
                     }                    
                     break;
                 case "usr.print":
                     AccountCtlMain.UserPrint();
+                    break;
+                case "Verification":
+                    if (!AccountCtlMain.Verification(GetParm(args, 1), CryptInfoHelper.GetDecrypte(GetParm(args, 2))))
+                    {
+                        return -5;
+                    }
+                    if (255 == CommondHandler.Test())
+                    {
+                        CommondHandler.Process("init -f");
+                        CommondHandler.Process("act.init finance_demo -f");
+                    }
                     break;
                 default:
                     logger().Debug(string.Format("Don't has this command [{0}].", cmd));

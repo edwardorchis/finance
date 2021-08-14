@@ -93,5 +93,15 @@ namespace Finance.Utils
             XmlElement el = node as XmlElement;
             return el.GetAttribute("connectionString");
         }
+
+        public static string XmlReadAppSetting(string file, string key)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(file);
+            XmlNode root = xDoc.SelectSingleNode("configuration");
+            XmlNode node = root.SelectSingleNode("appSettings/add[@key='" + key + "']");
+            XmlElement el = node as XmlElement;
+            return el.GetAttribute("value");
+        }
     }
 }
