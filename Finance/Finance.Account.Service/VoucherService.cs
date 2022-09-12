@@ -500,7 +500,7 @@ namespace Finance.Account.Service
                 int.TryParse(filter["periodEnd"].ToString(), out period);
                 if (year > 0 && period > 0)
                 {
-                    var tmp = string.Format(" _date <= '{0}'", new DateTime(year, period + 1, 1).AddDays(-1).ToString("yyyy-MM-dd"));
+                    var tmp = string.Format(" _date <= '{0}'", new DateTime(year, period, 1).AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd"));
                     if (result == "")
                         result = tmp;
                     else
