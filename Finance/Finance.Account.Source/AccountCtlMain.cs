@@ -21,8 +21,10 @@ namespace Finance.Account.Source
         {
             try
             {
-                DBHelper.DefaultInstance.ExecuteSql("select 1 from _AccountCtl");
-                return 0;
+                if (DBHelper.DefaultInstance.Exist("select 1 from sysobjects where id = object_id('_AccountCtl') and OBJECTPROPERTY(id, N'IsUserTable') = 1"))
+                {
+                    return 0;
+                }                
             }
             catch
             {
@@ -52,7 +54,7 @@ namespace Finance.Account.Source
         {    
             CreateDB("finance_demo");
 
-            var defaultConnectString = ConfigHelper.XmlReadConnectionString("Finance.exe.config", "default");
+            var defaultConnectString = ConfigHelper.Instance.XmlReadConnectionString("default");
 
             var demoConnectString = BuildConnectString("finance_demo");
 
@@ -64,7 +66,7 @@ namespace Finance.Account.Source
 
         public static string BuildConnectString(string dbname)
         {
-            var defaultConnectString = ConfigHelper.XmlReadConnectionString("Finance.exe.config", "default");
+            var defaultConnectString = ConfigHelper.Instance.XmlReadConnectionString("default");
             var tmp = defaultConnectString.Split(';');
             int i = 0;
             for (; i < tmp.Length; i++)

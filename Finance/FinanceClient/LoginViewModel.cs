@@ -21,7 +21,7 @@ namespace FinanceClient
 
         public LoginViewModel()
         {
-           
+            ConfigHelper.Instance.Path = AppDomain.CurrentDomain.BaseDirectory + "/FinanceClient.exe.config";
         }
 
         #endregion

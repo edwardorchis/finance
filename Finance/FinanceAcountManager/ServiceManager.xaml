@@ -1,0 +1,38 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinanceAcountManager"
+             xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas" 
+             x:Class="FinanceAcountManager.ServiceManager"
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style x:Key="lblHeader" TargetType="{x:Type Label}">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+        <Style TargetType="{x:Type Metro:MetroButton}">
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Canvas Grid.Row="0" Grid.ColumnSpan="4" >
+        <Metro:MetroButton x:Name="start" Grid.Column="2" Grid.Row="0" Content="开始服务" Click="Btn_Click"
+                            Height="31" Margin="0" Canvas.Top="13" Width="89" Canvas.Left="16"/>
+        <Metro:MetroButton x:Name="stop" Grid.Column="2" Grid.Row="0" Content="停止服务"  Click="Btn_Click"
+                            Height="31" Margin="0" Width="89" Canvas.Left="110" Canvas.Top="13"/>
+        <TextBlock Text="欢迎使用" Name="actManagerLoggerView" Canvas.Left="2" Canvas.Top="49" />
+    </Canvas>
+   
+</UserControl>

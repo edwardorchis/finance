@@ -67,7 +67,7 @@ namespace FinanceAcountManager
 
         protected override string Secret => SECRET;
 
-        protected override string RootPath => ConfigHelper.XmlReadAppSetting("FinanceClient.exe.config", "service_url"); 
+        protected override string RootPath => ConfigHelper.Instance.XmlReadAppSetting("service_url"); 
 
         static Finance.Account.SDK.Utils.ILogger logger = new AcountManagerLogger();
 

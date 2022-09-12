@@ -51,6 +51,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +65,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormServiceManager.xaml.cs">
+      <DependentUpon>FormServiceManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceHelper.cs" />
+    <Compile Include="ServiceManager.xaml.cs">
+      <DependentUpon>ServiceManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AccoutUser.xaml.cs">
       <DependentUpon>AccoutUser.xaml</DependentUpon>
     </Compile>
@@ -93,6 +101,10 @@
       <Project>{198228EF-8952-4D60-8A79-4714377EE1F6}</Project>
       <Name>Finance.Account.SDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Finance.Account.Source\Finance.Account.Source.csproj">
+      <Project>{e908027d-8d41-4b61-b30a-cfd064a640b0}</Project>
+      <Name>Finance.Account.Source</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Finance.UI\Finance.UI.csproj">
       <Project>{9d39d70e-a188-496c-8d98-fd0320950ba0}</Project>
       <Name>Finance.UI</Name>
@@ -109,6 +121,14 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="FormServiceManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ServiceManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AccoutUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

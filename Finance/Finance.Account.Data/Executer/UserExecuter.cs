@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Finance.Account.Data.Model;
-using Finance.Account.SDK;
 using Finance.Account.SDK.Request;
 using Finance.Account.SDK.Response;
 using Finance.Account.SDK.Utils;
 using Finance.Utils;
-using Newtonsoft.Json;
 
 namespace Finance.Account.Data.Executer
 {

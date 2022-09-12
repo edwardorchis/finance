@@ -1,7 +1,9 @@
 ﻿using Finance.Account.SDK;
 using Finance.Account.SDK.Utils;
+using Finance.Utils;
 using System;
 using System.Configuration;
+using ILogger = Finance.Account.SDK.Utils.ILogger;
 
 namespace Finance.Account.Data
 {
@@ -34,7 +36,7 @@ namespace Finance.Account.Data
 
         protected override string Secret => SECRET;
 
-        protected override string RootPath => ConfigurationManager.AppSettings["service_url"];
+        protected override string RootPath => ConfigHelper.Instance.XmlReadAppSetting("service_url");
 
         static ILogger logger = new ClientLogger();
 

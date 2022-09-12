@@ -28,14 +28,16 @@ namespace FinanceAcountManager
     {
         public MainWindow()
         {
-            InitializeComponent();
-
+            InitializeComponent();     
         }
        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Title = ConfigHelper.XmlReadAppSetting("FinanceClient.exe.config", "copyright");
+            this.Title = ConfigHelper.Instance.XmlReadAppSetting("copyright");
+            if (ServiceHelper.CheckServicePath()) {
+                menuServiceManager.Visibility = Visibility;
+            }
         }
 
         private void Window_Closing(object sender, EventArgs e)

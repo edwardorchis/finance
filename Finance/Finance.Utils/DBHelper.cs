@@ -17,7 +17,7 @@ namespace Finance.Utils
             get
             {
                 if (!_instanceList.ContainsKey(-1))
-                    _instanceList.Add(-1, new DBHelper(ConfigHelper.GetConnectionValue("default")));
+                    _instanceList.Add(-1, new DBHelper(ConfigHelper.Instance.XmlReadConnectionString("default")));
                 return _instanceList[-1];
             }
             set

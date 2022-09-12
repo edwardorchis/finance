@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Finance.Account.Data.Model;
 using Finance.Account.SDK;
 using Finance.Account.SDK.Request;
-using Finance.Account.SDK.Response;
-using Finance.Utils;
-using Newtonsoft.Json;
 
 namespace Finance.Account.Data.Executer
 {

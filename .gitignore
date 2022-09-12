@@ -1,6 +1,11 @@
 Finance/*/obj/
 Finance/bin/
+Finance/*/bin/
 Finance/.vs/
+Finance/release/
 /Finance/Finance.UI/bin/Debug
 /Finance/release/client/AthenFile/XML
 /Finance/Finance.UI/bin/Release
+release/release 2.0.1.5/release
+setup/*/build
+setup/*/dist

@@ -22,6 +22,11 @@
                     <local:AccoutUser Grid.Row="1" />
                 </Grid>
             </Metro:MetroMenuTabItem>
+            <Metro:MetroMenuTabItem Header="服务管理" x:Name="menuServiceManager" Icon="Resources/icon.png" IconMove="Resources/iconMove.png" Visibility="Hidden">
+                <Grid>
+                    <local:ServiceManager Grid.Row="1" />
+                </Grid>
+            </Metro:MetroMenuTabItem>
         </Metro:MetroMenuTabControl>
     </Grid>
 </Metro:MetroWindow>

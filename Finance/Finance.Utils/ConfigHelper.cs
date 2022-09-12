@@ -10,6 +10,36 @@ namespace Finance.Utils
 {
     public class ConfigHelper
     {
+        private static readonly ConfigHelper inst = new ConfigHelper();
+
+        static ConfigHelper() { }
+        private ConfigHelper() { }
+        public static ConfigHelper Instance {  get { return inst; } }
+
+        public string Path { set { file = value; } }
+    
+        private string file = AppDomain.CurrentDomain.BaseDirectory + "/Finance.exe.config";
+        public string XmlReadConnectionString(string name)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(file);
+            XmlNode root = xDoc.SelectSingleNode("configuration");
+            XmlNode node = root.SelectSingleNode("connectionStrings/add[@name='"+ name  + "']");
+            XmlElement el = node as XmlElement;
+            return el.GetAttribute("connectionString");
+        }
+
+        public string XmlReadAppSetting(string key)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(file);
+            XmlNode root = xDoc.SelectSingleNode("configuration");
+            XmlNode node = root.SelectSingleNode("appSettings/add[@key='" + key + "']");
+            XmlElement el = node as XmlElement;
+            return el.GetAttribute("value");
+        }
+
+
         /// <summary>
         /// 修改AppSettings中配置
         /// </summary>
@@ -45,54 +75,7 @@ namespace Finance.Utils
             else
                 return string.Empty;
         }
-        /// <summary>
-        /// 获取连接节点值
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static string GetConnectionValue(string key)
-        {
-            if (ConfigurationManager.ConnectionStrings[key] != null)
-                return ConfigurationManager.ConnectionStrings[key].ConnectionString;
-            return string.Empty;
-        }
-
-        public static void UpdateConnectionStringsConfig(string key, string conString)
-        {
-            bool isModified = false;    //记录该连接串是否已经存在 
-            if (ConfigurationManager.ConnectionStrings[key] != null)
-            {
-                isModified = true;
-            }
-            //新建一个连接字符串实例 
-            ConnectionStringSettings mySettings = new ConnectionStringSettings(key, conString);
-
-            // 打开可执行的配置文件*.exe.config 
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            // 如果连接串已存在，首先删除它 
-            if (isModified)
-            {
-                config.ConnectionStrings.ConnectionStrings.Remove(key);
-            }
-            // 将新的连接串添加到配置文件中. 
-            config.ConnectionStrings.ConnectionStrings.Add(mySettings);
-            // 保存对配置文件所作的更改 
-            config.Save(ConfigurationSaveMode.Modified);
-            // 强制重新载入配置文件的ConnectionStrings配置节  
-            ConfigurationManager.RefreshSection("connectionStrings");
-        }
-
-
-        public static string XmlReadConnectionString(string file, string name)
-        {
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(file);
-            XmlNode root = xDoc.SelectSingleNode("configuration");
-            XmlNode node = root.SelectSingleNode("connectionStrings/add[@name='"+ name  + "']");
-            XmlElement el = node as XmlElement;
-            return el.GetAttribute("connectionString");
-        }
+      
 
         public static string XmlReadAppSetting(string file, string key)
         {
