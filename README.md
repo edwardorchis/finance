@@ -10,7 +10,7 @@
 WPF的客户端+自宿主.Net Web API
 
 #### 软件截图
-![输入图片说明](screenshot/input_vocher.jpg)
+![输入图片说明](https://gitee.com/orchis/finance/raw/master/screenshot/input_vocher.jpg)
 
 
 #### 我们在凭证录入的时候可以使用这些快捷键增加效率：
