@@ -52,6 +52,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -129,10 +130,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Styles\Storyboard.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Styles\TabControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,35 +195,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\bg.png" />
-    <Resource Include="Resources\Images\btn_close_down.png" />
-    <Resource Include="Resources\Images\btn_close_highlight.png" />
-    <Resource Include="Resources\Images\btn_close_normal.png" />
-    <Resource Include="Resources\Images\btn_mini_down.png" />
-    <Resource Include="Resources\Images\btn_mini_highlight.png" />
-    <Resource Include="Resources\Images\btn_mini_normal.png" />
-    <Resource Include="Resources\Images\checked.png" />
-    <Resource Include="Resources\Images\checked_close.png" />
-    <Resource Include="Resources\Images\checked_ed.png" />
-    <Resource Include="Resources\Images\cloud.png" />
-    <Resource Include="Resources\Images\登陆彩条.png" />
-    <Resource Include="Resources\Images\移动彩条.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\editIcon.png" />
     <Resource Include="Resources\icon.png" />
     <Resource Include="Resources\iconMove.png" />
-    <Resource Include="Resources\tabIcon1.png" />
     <Resource Include="Resources\titleMuenIcon1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\tabIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\titleMuenIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
+    <Resource Include="Resources\tabIcon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -264,8 +264,8 @@ namespace FinanceClient
                 if (_viewmodel == null)
                 {
                     //界面中浮云移动动画
-                    Storyboard sbd = Resources["sbCloud"] as Storyboard;
-                    sbd.Begin();
+                    //Storyboard sbd = Resources["sbCloud"] as Storyboard;
+                    //sbd.Begin();
 
                     _viewmodel = new LoginViewModel();
                     this.DataContext = _viewmodel;
@@ -340,9 +340,9 @@ namespace FinanceClient
                 process.Start();
                 Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
         }
         /// <summary>

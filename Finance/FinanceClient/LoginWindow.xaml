@@ -3,243 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:FinanceClient"
+        xmlns:Metro="clr-namespace:Arthas.Controls.Metro;assembly=Arthas"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
-        Title="LoginWindow" Width="400" Height="300" Style="{DynamicResource NoResize_Window}">
+        Title="LoginWindow" Width="400" Height="300" WindowStyle="None" ResizeMode="NoResize" Style="{DynamicResource NoResize_Window}">
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/FinanceClient;Component/Resources/Styles/CheckBoxStyle.xaml" />
-                <ResourceDictionary Source="/FinanceClient;Component/Resources/Styles/Storyboard.xaml" />
-                <ResourceDictionary Source="/FinanceClient;Component/Resources/Styles/Buttons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="ListUserInfoViewSource" />
-
-            <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid>
-                                <Border x:Name="normal" 
-                               Width="39" Height="20"
-                               RenderTransformOrigin="0.5,0.5" CornerRadius="0,15,0,0" >
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="/FinanceClient;component/Resources/Images/btn_close_normal.png" />
-                                    </Border.Background>
-                                    <Border.RenderTransform>
-                                        <TransformGroup>
-                                            <!--  在 二维 x-y 坐标系内缩放对象  -->
-                                            <ScaleTransform />
-                                            <!--  表示一种二维扭曲。  -->
-                                            <SkewTransform />
-                                            <!--  在 二维 x-y 坐标系内围绕指定点按照顺时针方向旋转对象。  -->
-                                            <RotateTransform />
-                                            <!--  在 二维 x-y 坐标系中平移（移动）对象。  -->
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Border.RenderTransform>
-                                </Border>
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content=""
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <Border x:Name="highlight"  Width="{Binding Width, ElementName=normal}" Height="{Binding Height, ElementName=normal}" Opacity="0"
-                                     RenderTransformOrigin="{Binding RenderTransformOrigin, ElementName=normal}"  CornerRadius="{Binding CornerRadius, ElementName=normal}" >
-                                    <Border.Background>
-                                        <ImageBrush Stretch="Fill" ImageSource="/FinanceClient;component/Resources/Images/btn_close_highlight.png" />
-                                    </Border.Background>
-                                    <Border.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Border.RenderTransform>
-                                </Border>
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              RecognizesAccessKey="True"
-                                              Content=""
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <Border x:Name="down" CornerRadius="{Binding CornerRadius, ElementName=normal}"
-                                Width="{Binding Width, ElementName=normal}" 
-                                Height="{Binding Height, ElementName=normal}" Opacity="0"
-                                RenderTransformOrigin="{Binding RenderTransformOrigin, ElementName=normal}">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="/FinanceClient;component/Resources/Images/btn_close_down.png" />
-                                    </Border.Background>
-                                    <Border.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Border.RenderTransform>
-                                </Border>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsFocused" Value="True" />
-                                <Trigger Property="IsDefaulted" Value="True" />
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="highlight" Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="down" Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="normal" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="highlight" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="down" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False" />
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="ButtonMin" TargetType="{x:Type Button}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid>
-                                <Image x:Name="mini_normal"
-                                   Width="28"
-                                   Height="20"
-                                   RenderTransformOrigin="0.5,0.5"
-                                   Source="/FinanceClient;component/Resources/Images/btn_mini_normal.png"
-                                   Stretch="Fill">
-                                    <Image.RenderTransform>
-                                        <TransformGroup>
-                                            <!--  在 二维 x-y 坐标系内缩放对象  -->
-                                            <ScaleTransform />
-                                            <!--  表示一种二维扭曲。  -->
-                                            <SkewTransform />
-                                            <!--  在 二维 x-y 坐标系内围绕指定点按照顺时针方向旋转对象。  -->
-                                            <RotateTransform />
-                                            <!--  在 二维 x-y 坐标系中平移（移动）对象。  -->
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Image.RenderTransform>
-                                </Image>
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content=""
-                                              RecognizesAccessKey="True"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <Image x:Name="mini_highlight"
-                                   Width="28"
-                                   Height="20"
-                                   Opacity="0"
-                                   RenderTransformOrigin="0.5,0.5"
-                                   Source="/FinanceClient;component/Resources/Images/btn_mini_highlight.png"
-                                   Stretch="Fill">
-                                    <Image.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Image.RenderTransform>
-                                </Image>
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content=""
-                                              RecognizesAccessKey="True"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <Image x:Name="mini_down"
-                                   Width="28"
-                                   Height="20"
-                                   Opacity="0"
-                                   RenderTransformOrigin="0.5,0.5"
-                                   Source="/FinanceClient;component/Resources/Images/btn_mini_down.png"
-                                   Stretch="Fill">
-                                    <Image.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Image.RenderTransform>
-                                </Image>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsFocused" Value="True" />
-                                <Trigger Property="IsDefaulted" Value="True" />
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="mini_highlight" Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="mini_down" Property="Opacity" Value="1" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="mini_normal" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="mini_highlight" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter TargetName="mini_down" Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform />
-                                                <SkewTransform />
-                                                <RotateTransform />
-                                                <TranslateTransform />
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False" />
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <!--无边框窗体+特殊样式-->
             <Style x:Key="NoResize_Window" TargetType="{x:Type Window}">
                 <Setter Property="ShowInTaskbar" Value="False" />
@@ -252,43 +21,16 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Window}">
-                            <Grid Background="Transparent"  MouseDown="Window_MouseDown">
-                                <Border CornerRadius="10" Height="{TemplateBinding Height}" 
-                                    Width="{TemplateBinding Width}" >
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="/FinanceClient;component/Resources/Images/bg.png" />
-                                        <!--<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                            <GradientStop Color="#FF03036A" Offset="0" />
-                                            <GradientStop Color="#FF03036A" Offset="0.204" />
-                                            <GradientStop Color="#F203036A" Offset="0.415" />
-                                            <GradientStop Color="#1103031A" Offset="0.689" />
-                                            <GradientStop Color="#1103036A" Offset="1" />
-                                        </LinearGradientBrush>-->
-                                    </Border.Background>
-                                    <!--<Border.Effect>
-                                    <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="#FF898989"/>
-                                </Border.Effect>-->
+                            <Grid Background="White" MouseDown="Window_MouseDown">
+                                <Border Height="{TemplateBinding Height}" 
+                                    Width="{TemplateBinding Width}" BorderThickness="1,1,1,1" BorderBrush="Black">
                                 </Border>
-                                <!-- <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" RadiusX="10" RadiusY="10">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="10" ShadowDepth="5" Color="#FF898989" />
-                                </Rectangle.Effect>
-                            </Rectangle>-->
-                                <!--<TextBox Width="200" Height="20" Text="{TemplateBinding Self}" HorizontalAlignment="Left" VerticalAlignment="Top" />-->
-                                <Button x:Name="BtnClose" Margin="0,-1.5,-1,0" Style="{DynamicResource ButtonClose}"
-                              HorizontalAlignment="Right" VerticalAlignment="Top" Click="BtnClose_Click" />
-                                <Button x:Name="BtnMin"
-                    Margin="0,-1.5,38,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Style="{DynamicResource ButtonMin}" Click="BtnMin_Click" />
-                                <Grid Margin="0,29.33,0,0">
+                                <Grid>
                                     <Border Background="{TemplateBinding Background}"
-                              BorderBrush="{TemplateBinding BorderBrush}"  
-                              BorderThickness="{TemplateBinding BorderThickness}"
-                              Padding="{TemplateBinding Margin}"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              CornerRadius="10"  >
+                                          BorderBrush="{TemplateBinding BorderBrush}"  
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Padding="{TemplateBinding Margin}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                         <ContentPresenter />
                                     </Border>
                                 </Grid>
@@ -341,26 +83,20 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <Grid>
-            <Image Source="/FinanceClient;component/Resources/Images/cloud.png" Width="190" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0">
-                <Image.RenderTransform>
-                    <TranslateTransform x:Name="cloud"></TranslateTransform>
-                </Image.RenderTransform>
-            </Image>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,70,0,0">
-                <Border.Effect>
-                    <DropShadowEffect Opacity="0.7" ShadowDepth="10" Color="Red" />
-                </Border.Effect>
-                <Image Name="QQhead" Height="80" Width="80" />
-            </Border>
+        <Canvas>
+            <Rectangle Height="4" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="DarkRed"></Rectangle>
+            <Button Height="19" Width="21" Canvas.Right="5" BorderThickness="0,0,0,0" Background="White" Click="BtnClose_Click" Canvas.Top="4">
+                <Path Data="M50,25 L25,50 M25,25 50,50"  Stroke="Red" StrokeThickness="2" HorizontalAlignment="Right" Height="14" Stretch="Fill" Width="14.2"/>
+            </Button>
+            <Image Name="QQhead" Height="61" Width="65" Canvas.Left="175" Canvas.Top="25" Source="/FinanceClient;component/Resources/titleMuenIcon.png" HorizontalAlignment="Left" VerticalAlignment="Top" />
             <ComboBox x:Name="cmb1" IsEditable="True"  DisplayMemberPath="UserName" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                      ItemsSource="{Binding Source={StaticResource ListUserInfoViewSource}}" FontSize="15" Height="25" HorizontalAlignment="Left"  
-                     Margin="116,99,0,147" VerticalAlignment="Center" Width="180"  TextBoxBase.TextChanged="cmb1_TextChanged" 
+                     Margin="116,99,0,147" VerticalAlignment="Top" Width="180"  TextBoxBase.TextChanged="cmb1_TextChanged" 
                      Style="{StaticResource UserComboBoxStyle}">
 
             </ComboBox>
             <PasswordBox local:PasswordBoxBindingHelper.IsPasswordBindingEnabled="True"  local:PasswordBoxBindingHelper.BindedPassword="{Binding Path=UserPassword,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="15" Height="25" HorizontalAlignment="Left" Margin="116,129,0,117" Name="passwordBox1"  VerticalAlignment="Center" Width="180" />
-            <CheckBox  Content="记住密码" IsThreeState="False" HorizontalAlignment="Left" Margin="115,135,0,0" Name="checkBox1" VerticalAlignment="Center" >
+            <CheckBox  Content="记住密码" IsThreeState="False" HorizontalAlignment="Left" Name="checkBox1" VerticalAlignment="Top" Canvas.Left="116" Canvas.Top="195" >
                 <CheckBox.Triggers>
                     <EventTrigger RoutedEvent="CheckBox.Checked">
                         <BeginStoryboard>
@@ -401,7 +137,7 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                     </EventTrigger>
                 </CheckBox.Triggers>
             </CheckBox>
-            <CheckBox Content="自动登陆"  IsThreeState="False" HorizontalAlignment="Left" Margin="190,135,0,0" Name="checkBox2" VerticalAlignment="Center" >
+            <CheckBox Content="自动登陆"  IsThreeState="False" HorizontalAlignment="Left" Margin="228,195,0,0" Name="checkBox2" VerticalAlignment="Top" >
                 <CheckBox.Triggers>
                     <EventTrigger RoutedEvent="CheckBox.Checked">
                         <BeginStoryboard>
@@ -429,9 +165,9 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                     </EventTrigger>
                 </CheckBox.Triggers>
             </CheckBox>
-            <Button Height="33" Width="181"  IsDefault="true"  Margin="10,230,0,0" Name="btnLogin" Click="Login_Click">
-                <TextBlock FontSize="18" FontFamily="Consolas;Microsoft YaHei" Foreground="Blue" Text="登    录" />
-            </Button>
+            <Metro:MetroButton Height="33" Width="181"  IsDefault="true" Name="btnLogin" Click="Login_Click" Canvas.Left="116" Canvas.Top="238" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock FontSize="18" FontFamily="Consolas;Microsoft YaHei" Text="登    录" />
+            </Metro:MetroButton>
             <TextBlock HorizontalAlignment="Left" Margin="310,25,0,0" Name="textBlock1" Text="注册账号" MouseDown="tbkRegistration_MouseDown" Visibility="Hidden">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
@@ -455,23 +191,14 @@ x:Name="contentPresenter" Margin="{TemplateBinding Padding}"/>
                 </TextBlock.Style>
             </TextBlock>
             <TextBlock  Margin="310,85,0,0" Name="textBlock2" Text="忘记密码" Style="{Binding ElementName=textBlock1,Path=Style}" Visibility="Hidden"/>
-            <Image Source="/FinanceClient;Component/Resources/Images/移动彩条.png" Height="2" Width="273" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,190,00,0">
-                <Image.RenderTransform>
-                    <TranslateTransform x:Name="moveClour2"></TranslateTransform>
-                </Image.RenderTransform>
-            </Image>
-            <Image Source="/FinanceClient;Component/Resources/Images/移动彩条.png" Height="2" Width="273" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,190,0,0">
-                <Image.RenderTransform>
-                    <TranslateTransform x:Name="moveClour"></TranslateTransform>
-                </Image.RenderTransform>
-            </Image>
             <ComboBox x:Name="cmbTid" IsEditable="True" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding Tid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Height="25" HorizontalAlignment="Left"  Margin="116,159,0,87" VerticalAlignment="Center" Width="180" >
 
             </ComboBox>
-            <Button  IsDefault="true"  Margin="310,159,10,87" Name="btnNew" Click="New_Click">
-                <TextBlock FontSize="11" FontFamily="Consolas;Microsoft YaHei" Foreground="Blue" Text="新建账套" />
+            <Button Name="btnNew" Click="New_Click" VerticalAlignment="Top" Height="25" Canvas.Left="310" Canvas.Top="159" 
+                 Width="64" BorderThickness="0,0,0,0" Background="White" HorizontalAlignment="Center">
+                <TextBlock FontSize="12" Foreground="Blue" TextDecorations="Underline" Text="新建账套" />
             </Button>
-        </Grid>
+        </Canvas>
         <Grid x:Name="LoadGrid" Visibility="Collapsed" IsVisibleChanged="HandleVisibleChanged">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity="0.2"  />

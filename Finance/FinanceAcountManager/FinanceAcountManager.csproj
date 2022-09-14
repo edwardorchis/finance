@@ -153,50 +153,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Styles\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Buttons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\CheckBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\ComboBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Dictionary1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Expander.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\GroupBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Shared.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Storyboard.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TabControls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\Tabitem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\editIcon.png" />
@@ -206,45 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\iconMove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_close_down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_close_highlight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_close_normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_mini_down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_mini_highlight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\btn_mini_normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\checked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\checked_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\checked_ed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\cloud.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\登陆彩条.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\移动彩条.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\tabIcon.png" />
