@@ -20,13 +20,13 @@ namespace Finance.Account.SDK.Request
         }
     }
 
-    public class VoucherRequest : IdRequest,IFinanceRequest<VoucherResponse>
+    public class VoucherRequest : IFinanceRequest<VoucherResponse>
     {
         public string Method
         {
             get { return "/voucher/find"; }
         }
-
+        public long id { set; get; }
         public int Linked { set; get; }
     }
 

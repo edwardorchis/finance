@@ -50,8 +50,10 @@ namespace Finance.Account.Data.Executer
             UserRequest request = new UserRequest();
             request.UserName = userName;
             request.PassWord = CryptInfoHelper.GetEncrypt(password);
-            request.Tid = tid;
+            request.Tid = tid;            
+            Cookie["Tid"] = tid;
             var rsp = Execute(request);
+            DataFactory.Instance.GetCacheHashtable().Set(CacheHashkey.Tid, tid);
             DataFactory.Instance.GetCacheHashtable().Set(CacheHashkey.UserId, rsp.UserId);
             DataFactory.Instance.GetCacheHashtable().Set(CacheHashkey.UserName, rsp.UserName);
             DataFactory.Instance.GetCacheHashtable().Set(CacheHashkey.Token, rsp.Token);
@@ -64,10 +66,9 @@ namespace Finance.Account.Data.Executer
             var rsp = Execute(new HeartBeatRequest { LastTimeStamp = lastTimeStamp });
             lastTimeStamp = rsp.TimeStamp;
             List<long> taskList = rsp.TaskList;
-            taskList.ForEach(task=> {                
+            taskList.ForEach(task => {
                 var taskType = (HeartBeatTask)task;
-                switch (taskType)
-                {
+                switch (taskType) {
                     case HeartBeatTask.RefreshAccountSubjectTask:
                         DataFactory.Instance.GetCacheHashtable().Remove(CacheHashkey.AccountSubjectList);
                         break;
@@ -79,7 +80,7 @@ namespace Finance.Account.Data.Executer
                         break;
                 }
             });
-            
+
         }
 
         public void Disable(long id)

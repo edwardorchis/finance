@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FinanceAcountManager
 {
-    class CommondHandler: AutoRetryClient
+    class CommondHandler: InvokeProxy
     {        
         public static int Process(string commondString)
         {

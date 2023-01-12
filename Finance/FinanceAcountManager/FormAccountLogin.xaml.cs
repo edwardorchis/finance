@@ -62,14 +62,14 @@ namespace FinanceAcountManager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!ServiceHelper.CheckServicePath()) {
-                return;
-            }
-            if (ServiceHelper.Instance.ServiceStatus != "服务正在运行") {
-                FormServiceManager srvWindow = new FormServiceManager();
-                this.Close();
-                srvWindow.Show();
-            }
+            //if (!ServiceHelper.CheckServicePath()) {
+            //    return;
+            //}
+            //if (ServiceHelper.Instance.ServiceStatus != "服务正在运行") {
+            //    FormServiceManager srvWindow = new FormServiceManager();
+            //    this.Close();
+            //    srvWindow.Show();
+            //}
         }
 
     }

@@ -97,10 +97,16 @@
     <Compile Include="IFinanceRequest.cs" />
     <Compile Include="Utils\FinanceApiException.cs" />
     <Compile Include="Utils\ILogger.cs" />
+    <Compile Include="Utils\InvokeProxy.cs" />
     <Compile Include="Voucher.cs" />
     <Compile Include="VoucherEntry.cs" />
     <Compile Include="VoucherHeader.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Finance.Utils\Finance.Utils.csproj">
+      <Project>{927C43EC-E776-4337-951B-803AD5867499}</Project>
+      <Name>Finance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

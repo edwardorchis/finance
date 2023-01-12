@@ -81,7 +81,7 @@ namespace Finance.Controller
             return CreateResponse(FinanceResult.SUCCESS);
         }
 
-        public UserListResponse List(UserListRequest request)
+        public UserListResponse List()
         {
             var lst = service.List();
 

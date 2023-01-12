@@ -10,17 +10,17 @@ namespace Finance.Account.SDK.Utils
     {
         public void Error(string message)
         {
-            //throw new NotImplementedException();
+            Console.WriteLine(message);
         }
 
         public void Info(string message)
         {
-            //throw new NotImplementedException();
+            Console.WriteLine(message);
         }
 
         public void Warn(string message)
         {
-            //throw new NotImplementedException();
+            Console.WriteLine(message);
         }
     }
 }

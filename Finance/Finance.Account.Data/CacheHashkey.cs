@@ -2,13 +2,14 @@
 {
     public enum CacheHashkey
     {
-        Invalid = 0,
+        Tid = 0,
         UserId,
         UserName,
         Token,
         AccountSubjectList,
         AccountGroupList,
         UserList,
-        AuxiliaryList
+        AuxiliaryList,
+        Invalid
     }
 }

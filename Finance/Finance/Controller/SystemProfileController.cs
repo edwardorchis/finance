@@ -42,13 +42,13 @@ namespace Finance.Controller
         }
 
 
-        public FinanceResponse MenuTables(MenuTablesRequest request)
+        public FinanceResponse MenuTables()
         {
             var rsp = service.MenuTables();
             return new MenuTablesResponse { Content = rsp };
         }
 
-        public FinanceResponse AllMenuTables(AllMenuTablesRequest request)
+        public FinanceResponse AllMenuTables()
         {
             var rsp = service.AllMenuTables();
             return new MenuTablesResponse { Content = rsp };

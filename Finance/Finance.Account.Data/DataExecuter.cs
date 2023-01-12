@@ -2,12 +2,15 @@
 using Finance.Account.SDK.Utils;
 using Finance.Utils;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
+using System.Security.Cryptography;
 using ILogger = Finance.Account.SDK.Utils.ILogger;
 
 namespace Finance.Account.Data
 {
-    public class DataExecuter: AutoRetryClient
+    public class DataExecuter: InvokeProxy
     {
         const string APPKEY = "FinanceClient";
         const string VER = "1.0";
@@ -43,25 +46,34 @@ namespace Finance.Account.Data
         public DataExecuter()
         {
             SetLoger(logger);
+            try {
+                Cookie["Tid"] = DataFactory.Instance.GetCacheHashtable().Get(CacheHashkey.Tid);
+                Cookie["UserId"] = DataFactory.Instance.GetCacheHashtable().Get(CacheHashkey.UserId);
+                Cookie["UserName"] = DataFactory.Instance.GetCacheHashtable().Get(CacheHashkey.UserName);
+            }
+            catch { 
+            
+            }
         }
-
+        Dictionary<string, object> _cookie = new Dictionary<string, object>();
+        protected override IDictionary<string, object> Cookie => _cookie;
     }
 
     public class ClientLogger : ILogger
     {
         public void Error(string message)
         {
-            //Console.WriteLine(message);
+            Console.WriteLine(message);
         }
 
         public void Info(string message)
         {
-            //Console.WriteLine(message);
+            Console.WriteLine(message);
         }
 
         public void Warn(string message)
         {
-            //Console.WriteLine(message);
+            Console.WriteLine(message);
         }
     }
 }
